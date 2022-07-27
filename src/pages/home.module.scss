@@ -1,0 +1,10 @@
+@use "src/styles/colors";
+
+.otherColor {
+  background-color: colors.$SBLACK;
+}
+
+.pageIntro {
+  padding: 4em 0;
+  margin: 0 200px;
+}

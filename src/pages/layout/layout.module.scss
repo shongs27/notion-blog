@@ -1,0 +1,18 @@
+@use "src/styles/colors";
+
+.container {
+  height: 100vh;
+
+  .main {
+    min-height: 100%;
+  }
+}
+
+.pageMain {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: 400px;
+  padding: 2em 0 0;
+  margin: 0 300px;
+}
