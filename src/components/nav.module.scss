@@ -1,0 +1,66 @@
+@use "src/styles/colors";
+
+.container {
+  position: sticky;
+  top: 0;
+  width: 100%;
+  height: 75px;
+  background-color: colors.$TEMPBLACK;
+  transition: transform 0.2s ease;
+
+  .nav {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    .title {
+      width: 300px;
+
+      span {
+        font-size: 1.4em;
+        vertical-align: bottom;
+        margin-left: 5px;
+      }
+    }
+
+    .search {
+      form {
+        position: relative;
+        width: 400px;
+
+        svg {
+          position: absolute;
+          top: 10px;
+          left: 20px;
+          fill: colors.$GRAY;
+        }
+
+        input {
+          width: 85%;
+          height: 40px;
+          padding-left: 60px;
+          font-size: 0.8em;
+          color: colors.$BLACK;
+          background-color: #e2e8f0;
+          border: none;
+          border-radius: 5px;
+          outline: 5px solid colors.$BLACK;
+          outline-color: rgb(113, 128, 150);
+        }
+      }
+    }
+
+    .category {
+      display: flex;
+
+      li {
+        margin-right: 1em;
+      }
+    }
+  }
+}
+
+.transNav {
+  transform: translate3d(0, calc(-100% - 2px), 0);
+}

@@ -1,4 +1,4 @@
-import { Nav, FooterBar, MainDoor } from "@/components";
+import { Nav, FooterBar } from "@/components";
 
 import styles from "./layout.module.scss";
 
@@ -11,9 +11,7 @@ export default function Layout({ children }: LayoutProps) {
         <Nav />
       </header>
 
-      <main className={styles.main}>
-        <div className={styles.pageMain}>{children}</div>
-      </main>
+      <main className={styles.main}>{children}</main>
 
       <footer>
         <FooterBar />
