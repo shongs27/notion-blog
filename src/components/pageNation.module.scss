@@ -1,0 +1,49 @@
+@use "src/styles/colors";
+
+.pageNation {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 2.5px;
+  margin: 30px auto;
+
+  span,
+  button {
+    display: inline-block;
+    padding: 5px 10px;
+    margin: 4px;
+    font-size: 1rem;
+    font-weight: 500 !important;
+    line-height: 25px;
+    color: colors.$GRAY;
+    background: #e2e8f0;
+    border: none;
+    border-radius: 5px;
+  }
+
+  span {
+    color: colors.$WHITE;
+    background-color: colors.$PUPLE;
+  }
+
+  button {
+    cursor: pointer;
+    transition: all 0.3s;
+
+    &:hover {
+      color: colors.$WHITE;
+      background-color: colors.$PUPLE;
+    }
+
+    &[disabled] {
+      cursor: not-allowed;
+    }
+
+    &[aria-current] {
+      font-weight: bold;
+      color: colors.$WHITE;
+      cursor: revert;
+      background-color: colors.$PUPLE;
+    }
+  }
+}

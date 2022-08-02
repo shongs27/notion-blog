@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { setCurrentPage } from "@/stores/slice";
-// import PageNation from "./PageNation";
+import PageNation from "./PageNation";
 import { useRouter } from "next/router";
 import Link from "next/link";
 import Image from "next/image";
@@ -101,7 +101,7 @@ export default function PostsList() {
       </ul>
 
       <div className={styles.pageNationContainer}>
-        {/* <PageNation page={page} totalPage={totalPage} handlePage={handlePage} /> */}
+        <PageNation page={page} totalPage={totalPage} handlePage={handlePage} />
       </div>
     </div>
   );
