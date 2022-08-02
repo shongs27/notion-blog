@@ -1,0 +1,9 @@
+@use "src/styles/colors";
+
+.container {
+  height: 100vh;
+
+  .main {
+    min-height: 100%;
+  }
+}
