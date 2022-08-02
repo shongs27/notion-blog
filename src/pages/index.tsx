@@ -4,6 +4,7 @@ import Head from "next/head";
 import styles from "./home.module.scss";
 import { useRouter } from "next/router";
 import { MainDoor } from "@/components";
+import PostsList from "@/components/PostsList";
 
 const Home: NextPage = () => {
   const { pathname } = useRouter();
@@ -19,6 +20,7 @@ const Home: NextPage = () => {
       {pathname === "/" && (
         <div className={styles.pageIntro}>
           <MainDoor />
+          <PostsList />
         </div>
       )}
     </div>
