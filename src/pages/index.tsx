@@ -17,10 +17,8 @@ const Home: NextPage = () => {
       </Head>
 
       {pathname === "/" && (
-        <div className={styles.otherColor}>
-          <div className={styles.pageIntro}>
-            <MainDoor />
-          </div>
+        <div className={styles.pageIntro}>
+          <MainDoor />
         </div>
       )}
     </div>
