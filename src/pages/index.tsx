@@ -2,13 +2,10 @@ import type { NextPage } from "next";
 import Head from "next/head";
 
 import styles from "./home.module.scss";
-import { useRouter } from "next/router";
 import { MainDoor } from "@/components";
 import PostsList from "@/components/PostsList";
 
 const Home: NextPage = () => {
-  const { pathname } = useRouter();
-
   return (
     <div className={styles.container}>
       <Head>
@@ -17,12 +14,8 @@ const Home: NextPage = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      {pathname === "/" && (
-        <div className={styles.pageIntro}>
-          <MainDoor />
-          <PostsList />
-        </div>
-      )}
+      <MainDoor />
+      <PostsList />
     </div>
   );
 };

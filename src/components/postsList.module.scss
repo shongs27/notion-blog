@@ -2,7 +2,8 @@
 
 .tagPosts {
   min-height: 500px;
-  margin-bottom: 60px;
+  background-color: colors.$TEMPBLACK;
+  padding: 4em 12em;
 
   h1 {
     .title {
@@ -75,10 +76,10 @@
         transform: translateY(-15px);
       }
 
-      img {
-        width: 100%;
-        height: 200px;
-        padding: 10px;
+      .imagePosition {
+        display: flex;
+        justify-content: center;
+        margin: 10px;
       }
 
       h2 {

@@ -81,12 +81,15 @@ export default function PostsList() {
               <li key={id}>
                 <Link href={`/posts/${id}`}>
                   <>
-                    <Image
-                      src="http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg"
-                      alt="공사중"
-                      width={200}
-                      height={200}
-                    />
+                    <div className={styles.imagePosition}>
+                      <Image
+                        src="http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg"
+                        alt="공사중"
+                        width={200}
+                        height={200}
+                      />
+                    </div>
+
                     <h2>{title}</h2>
                     <p className={styles.postMeta}>
                       <span>{writer}</span>
