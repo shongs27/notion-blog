@@ -9,16 +9,15 @@ import styles from "./postsList.module.scss";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
 export default function PostsList() {
-  //   const params = useRouter().tag;
-  console.log(useRouter());
-  //   const tag = params ? params[0].toUpperCase() + params.slice(1) : "BLOG";
-  const tag = "Blog";
+  const { pathname } = useRouter();
+  const tag = pathname !== "/" ? pathname.slice(1) : "BLOG";
 
   const dispatch = useAppDispatch();
   const pagePosts = useAppSelector((state) => state.pagePosts);
   const pageTags = useAppSelector((state) => state.pageTags);
   const pageTotalTags = useAppSelector((state) => state.pageTotalTags);
 
+  //pagenation
   const page = useAppSelector((state) => state.currentPage);
   const PER_PAGE_COUNT = 6;
   const offset = (page - 1) * PER_PAGE_COUNT;

@@ -39,6 +39,7 @@ export default function PageNation({ page, totalPage, handlePage }) {
         .fill()
         .map((_, i) => (
           <button
+            key={i}
             type="button"
             data-page={i + 1}
             onClick={handleClick}
