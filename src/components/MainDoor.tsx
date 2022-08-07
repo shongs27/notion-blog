@@ -20,19 +20,21 @@ export default function MainDoor() {
         </button>
       </div>
 
-      <div className={styles.github}>
+      <div className={styles.githubImage}>
         <a
           href="https://github.com/shongs27"
           target="_blank"
           rel="noreferrer"
           title="깃허브"
         >
-          <Image
-            src="https://avatars.githubusercontent.com/u/55541745?v=4"
-            alt="릭앤모티 모티"
-            width={380}
-            height={380}
-          />
+          <div className={styles.imageWrapper}>
+            <Image
+              src="https://avatars.githubusercontent.com/u/55541745?v=4"
+              alt="릭앤모티 모티"
+              width={380}
+              height={380}
+            />
+          </div>
         </a>
       </div>
     </div>
