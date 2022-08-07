@@ -25,6 +25,7 @@ interface InitialPage {
 }
 
 const Home = ({ tags, posts }: InitialPage) => {
+  console.log(tags, posts);
   return (
     <div className={styles.container}>
       <Head>
@@ -40,20 +41,15 @@ const Home = ({ tags, posts }: InitialPage) => {
 
 export async function getStaticProps() {
   const notionDatabaseID = "68746bcb1cf943d18cc342bf51050af0";
-  await getPostsAndTags(notionDatabaseID);
-  // const { tags, posts } = await getPostsAndTags(notionDatabaseID);
+  const { tags, posts } = await getPostsAndTags(notionDatabaseID);
 
   // await generateSiteMap(posts);
 
-  // return {
-  //   props: {
-  //     tags,
-  //     posts,
-  //   },
-  // };
-
   return {
-    props: {},
+    props: {
+      tags,
+      posts,
+    },
   };
 }
 

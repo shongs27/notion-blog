@@ -102,8 +102,8 @@ export async function getPostsAndTags(postsDataId: string) {
       ]).then(([tag, name, description, thumbnail]) => ({
         postId: post.postId,
         tag: tag.multi_select,
-        name: name.results[0]?.title.plain_text,
-        description: description.results[0]?.rich_text.plain_text,
+        name: name.results[0].title.plain_text,
+        description: description.results[0]?.rich_text.plain_text || "",
         thumbnail,
         createdTime: post.createdTime,
       }))
