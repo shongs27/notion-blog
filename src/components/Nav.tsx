@@ -1,7 +1,7 @@
 import styles from "./nav.module.scss";
 import SearchIcon from "@/assets/search.svg";
 import { useAppSelector, useAppDispatch } from "@/hooks/redux";
-import { changeSearchInput } from "@/stores/slice";
+import { changeSearchInput, setClickedBlog } from "@/stores/slice";
 import { useEffect, useState } from "react";
 import cx from "classnames";
 import Link from "next/link";
@@ -21,6 +21,10 @@ export default function Nav() {
 
     alert("아직 검색을 위한 백엔드 서버가 미구현 입니다 (┬┬﹏┬┬)");
     dispatch(changeSearchInput(""));
+  }
+
+  function handleClick() {
+    dispatch(setClickedBlog(true));
   }
 
   //observeAPI로 바꿔보기
@@ -63,7 +67,7 @@ export default function Nav() {
 
         <ul className={styles.category}>
           <li>
-            <Link href="/blog">Blog</Link>
+            <button onClick={handleClick}>Blog</button>
           </li>
           <li>
             <a href="mortyGame/index.html" target="_blank">

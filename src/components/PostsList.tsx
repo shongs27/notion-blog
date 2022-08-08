@@ -18,7 +18,8 @@ export default function PostList({ posts, tags }) {
   const totalPage = Math.ceil(posts.length / PER_PAGE_COUNT);
 
   const handlePage = useCallback(
-    (move: string) => {
+    (move: string | undefined) => {
+      console.log("이준석", move, typeof move);
       if (move === "prev") {
         return setCurrentPage(currentPage - 1);
       }
@@ -27,7 +28,7 @@ export default function PostList({ posts, tags }) {
         return setCurrentPage(currentPage + 1);
       }
 
-      return setCurrentPage(currentPage);
+      return setCurrentPage(Number(move));
     },
     [currentPage]
   );

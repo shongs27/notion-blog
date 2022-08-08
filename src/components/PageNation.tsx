@@ -4,7 +4,7 @@ import styles from "./pageNation.module.scss";
 interface IpageNation {
   currentPage: number;
   totalPage: number;
-  handlePage: (page: number) => void;
+  handlePage: (move: string | undefined) => void;
 }
 
 export default memo(function PageNation({
@@ -19,7 +19,7 @@ export default memo(function PageNation({
       },
     } = e;
 
-    handlePage(Number(page));
+    handlePage(page);
   }
 
   return (
@@ -73,7 +73,7 @@ export default memo(function PageNation({
         onClick={handleClick}
         disabled={currentPage === totalPage}
       >
-        Last &gt; &gt;
+        Last &gt;&gt;
       </button>
     </div>
   );
