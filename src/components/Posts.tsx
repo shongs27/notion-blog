@@ -14,6 +14,7 @@ export default function Posts({ posts = [], offset, PER_PAGE_COUNT }: Iposts) {
   // pageTags === 각 카테고리 개수
   // pageTotaltags === 총 카테고리 개수
 
+  console.log(posts);
   if (!posts.length) {
     return (
       <div style={{ backgroundColor: "black", color: "white" }}>

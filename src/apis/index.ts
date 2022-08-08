@@ -97,10 +97,10 @@ export async function getPostsAndTags(postsDataId: string) {
         NotionClient.getDetail(post.postId, post.nameId),
         NotionClient.getDetail(post.postId, post.descriptionId),
         NotionClient.getDetail(post.postId, post.thumbnailId),
-      ]).then(([tag, name, description, thumbnail]) => ({
+      ]).then(([tags, name, description, thumbnail]) => ({
         postId: post.postId,
-        tag: tag.multi_select,
-        name: name.results[0].title.plain_text,
+        tags: tags.multi_select,
+        title: name.results[0].title.plain_text,
         description: description.results[0]?.rich_text.plain_text || "",
         thumbnail,
         createdTime: post.createdTime,
