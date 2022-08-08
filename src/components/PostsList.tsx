@@ -1,109 +1,59 @@
-import { useCallback } from "react";
-import { setCurrentPage } from "@/stores/slice";
-import PageNation from "./PageNation";
-import { useRouter } from "next/router";
-import Link from "next/link";
-import Image from "next/image";
-
-import styles from "./postsList.module.scss";
+import { useCallback, useState } from "react";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 
-export default function PostsList() {
-  const { pathname } = useRouter();
-  const tag = pathname !== "/" ? pathname.slice(1) : "BLOG";
+import styles from "./postsList.module.scss";
 
-  const dispatch = useAppDispatch();
-  const pagePosts = useAppSelector((state) => state.pagePosts);
-  const pageTags = useAppSelector((state) => state.pageTags);
-  const pageTotalTags = useAppSelector((state) => state.pageTotalTags);
+import Posts from "./Posts";
+import PageNation from "./PageNation";
+import Tags from "./Tags";
+
+export default function PostList({ posts, tags }) {
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const selectedTag = useAppSelector((state) => state.selectedTag);
 
   //pagenation
-  const page = useAppSelector((state) => state.currentPage);
   const PER_PAGE_COUNT = 6;
-  const offset = (page - 1) * PER_PAGE_COUNT;
-  const totalPage = Math.ceil(pagePosts.length / PER_PAGE_COUNT);
-
-  // function handlePage(currentPage) {
-  //   const pageType = {
-  //     prev: dispatch(setCurrentPage(page - 1)),
-  //     next: dispatch(setCurrentPage(page + 1)),
-  //   }
-
-  //   dispatch(pageType[currentPage] || setCurrentPage(Number(currentPage)))
-  // }
+  const offset = (currentPage - 1) * PER_PAGE_COUNT;
+  const totalPage = Math.ceil(posts.length / PER_PAGE_COUNT);
 
   const handlePage = useCallback(
-    (currentPage) => {
-      const pageType = {
-        prev: dispatch(setCurrentPage(page - 1)),
-        next: dispatch(setCurrentPage(page + 1)),
-      };
+    (move: string | undefined) => {
+      console.log("이준석", move, typeof move);
+      if (move === "prev") {
+        return setCurrentPage(currentPage - 1);
+      }
 
-      dispatch(pageType[currentPage] || setCurrentPage(Number(currentPage)));
+      if (move === "next") {
+        return setCurrentPage(currentPage + 1);
+      }
+
+      return setCurrentPage(Number(move));
     },
-    [dispatch, page]
+    [currentPage]
   );
 
-  if (!pagePosts.length) {
-    return <div>해당 포스팅이 없습니다</div>;
+  if (selectedTag !== "전체") {
+    posts = posts.filter((post) =>
+      post.tags.some((tag) => tag.name === selectedTag)
+    );
   }
 
   return (
     <div className={styles.tagPosts}>
       <h1>
-        <span className={styles.title}>{tag}</span>
-        <span className={styles.titleCount}>{pageTotalTags}</span>
+        <span className={styles.title}>{selectedTag}</span>
+        <span className={styles.titleCount}>{posts.length}</span>
       </h1>
-
-      {/* <p>{intro.intro}</p> */}
-      <ul className={styles.category}>
-        {pageTags.map(({ tag, count }) => (
-          <li key={tag}>
-            {/* <Link href={`/${tag}`}>{`${tag}(${count})`}</Link> */}
-            <Link
-              href={{
-                pathname: "/posts/[tag]",
-                query: { tag },
-              }}
-            >{`${tag}(${count})`}</Link>
-          </li>
-        ))}
-      </ul>
-
-      <ul className={styles.postList}>
-        {pagePosts
-          .slice(offset, offset + PER_PAGE_COUNT)
-          .map(({ id, title, writer, date, tags, contents }) => {
-            const slicedContents = `${contents.slice(0, 85)}...`;
-
-            return (
-              <li key={id}>
-                <Link href={`/posts/${id}`}>
-                  <>
-                    <div className={styles.imagePosition}>
-                      <Image
-                        src="http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg"
-                        alt="공사중"
-                        width={200}
-                        height={200}
-                      />
-                    </div>
-
-                    <h2>{title}</h2>
-                    <p className={styles.postMeta}>
-                      <span>{writer}</span>
-                      <span> | </span> <span>{date}</span>
-                    </p>
-                    <p className={styles.postContents}>{slicedContents}</p>
-                  </>
-                </Link>
-              </li>
-            );
-          })}
-      </ul>
+      <Tags tags={tags} />
+      <Posts posts={posts} offset={offset} PER_PAGE_COUNT={PER_PAGE_COUNT} />
 
       <div className={styles.pageNationContainer}>
-        <PageNation page={page} totalPage={totalPage} handlePage={handlePage} />
+        <PageNation
+          currentPage={currentPage}
+          totalPage={totalPage}
+          handlePage={handlePage}
+        />
       </div>
     </div>
   );

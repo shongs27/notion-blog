@@ -38,7 +38,7 @@
       cursor: not-allowed;
     }
 
-    &[aria-current] {
+    &[aria-current~="page"] {
       font-weight: bold;
       color: colors.$WHITE;
       cursor: revert;

@@ -54,8 +54,8 @@ export async function getPostsAndTags(postsDataId: string) {
   // https://developers.notion.com/reference/post-database-query
 
   const [tagsDatabase, postsDatabase]: any = await Promise.all([
-    NotionClient.getDatabase(postsDataId),
-    NotionClient.getDatabaseItem({
+    NotionClient.retrieveDatabase(postsDataId),
+    NotionClient.queryDatabase({
       database_id: postsDataId,
       filter: {
         property: "Name",
@@ -71,8 +71,7 @@ export async function getPostsAndTags(postsDataId: string) {
       ],
     }),
   ]);
-  console.log("tagsDatabase", tagsDatabase);
-  console.log("postsDatabase", postsDatabase);
+
 
   // THINK-GYU
   // 복잡한 데이터 형태인 경우 api response 형태를 어떻게 mock 해야하는지??
@@ -99,10 +98,10 @@ export async function getPostsAndTags(postsDataId: string) {
         NotionClient.getDetail(post.postId, post.nameId),
         NotionClient.getDetail(post.postId, post.descriptionId),
         NotionClient.getDetail(post.postId, post.thumbnailId),
-      ]).then(([tag, name, description, thumbnail]) => ({
+      ]).then(([tags, name, description, thumbnail]) => ({
         postId: post.postId,
-        tag: tag.multi_select,
-        name: name.results[0].title.plain_text,
+        tags: tags.multi_select,
+        title: name.results[0].title.plain_text,
         description: description.results[0]?.rich_text.plain_text || "",
         thumbnail,
         createdTime: post.createdTime,
@@ -117,7 +116,7 @@ export async function getPostsAndTags(postsDataId: string) {
 }
 
 export async function getPosts(rootPostId: string) {
-  const postsDatabase = await NotionClient.getDatabaseItem({
+  const postsDatabase = await NotionClient.queryDatabase({
     database_id: rootPostId,
     sorts: [
       {
