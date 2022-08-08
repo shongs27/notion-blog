@@ -1,27 +1,38 @@
+import React, { memo } from "react";
 import styles from "./pageNation.module.scss";
 
-export default function PageNation({ page, totalPage, handlePage }) {
-  function handleClick(e) {
+interface IpageNation {
+  currentPage: number;
+  totalPage: number;
+  handlePage: (page: number) => void;
+}
+
+export default memo(function PageNation({
+  currentPage,
+  totalPage,
+  handlePage,
+}: IpageNation) {
+  function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     const {
       currentTarget: {
         dataset: { page },
       },
     } = e;
 
-    handlePage(page);
+    handlePage(Number(page));
   }
 
   return (
     <div className={styles.pageNation}>
       <span>
-        Page {page}/{totalPage}
+        Page {currentPage}/{totalPage}
       </span>
 
       <button
         type="button"
         data-page="1"
         onClick={handleClick}
-        disabled={page === 1}
+        disabled={currentPage === 1}
       >
         &lt;&lt; First
       </button>
@@ -30,30 +41,28 @@ export default function PageNation({ page, totalPage, handlePage }) {
         type="button"
         data-page="prev"
         onClick={handleClick}
-        disabled={page === 1}
+        disabled={currentPage === 1}
       >
         Prev
       </button>
 
-      {Array(totalPage)
-        .fill()
-        .map((_, i) => (
-          <button
-            key={i}
-            type="button"
-            data-page={i + 1}
-            onClick={handleClick}
-            aria-current={page === i + 1 ? "page" : null}
-          >
-            {i + 1}
-          </button>
-        ))}
+      {Array.from({ length: totalPage }).map((_, i) => (
+        <button
+          key={i}
+          type="button"
+          data-page={i + 1}
+          onClick={handleClick}
+          aria-current={currentPage === i + 1 ? "page" : false}
+        >
+          {i + 1}
+        </button>
+      ))}
 
       <button
         type="button"
         data-page="next"
         onClick={handleClick}
-        disabled={page === totalPage}
+        disabled={currentPage === totalPage}
       >
         Next
       </button>
@@ -62,10 +71,10 @@ export default function PageNation({ page, totalPage, handlePage }) {
         type="button"
         data-page={totalPage}
         onClick={handleClick}
-        disabled={page === totalPage}
+        disabled={currentPage === totalPage}
       >
         Last &gt; &gt;
       </button>
     </div>
   );
-}
+});

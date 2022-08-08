@@ -3,7 +3,7 @@ import Head from "next/head";
 import styles from "./home.module.scss";
 import { MainDoor } from "@/components";
 import PostsList from "@/components/PostsList";
-import { getPostsAndTags, getTest } from "@/apis";
+import { getPostsAndTags } from "@/apis";
 
 type Tag = {
   id: string;
@@ -25,7 +25,6 @@ interface InitialPage {
 }
 
 const Home = ({ tags, posts }: InitialPage) => {
-  console.log(tags, posts);
   return (
     <div className={styles.container}>
       <Head>
@@ -34,7 +33,7 @@ const Home = ({ tags, posts }: InitialPage) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <MainDoor />
-      <PostsList />
+      <PostsList tags={tags} posts={posts} />
     </div>
   );
 };

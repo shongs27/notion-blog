@@ -1,0 +1,30 @@
+@use "src/styles/colors";
+
+.category {
+  display: flex;
+  padding-top: 15px;
+  padding-bottom: 50px;
+
+  li {
+    height: 35px;
+    padding: 2px 15px;
+    margin-right: 15px;
+    color: colors.$BLACK;
+    word-break: keep-all;
+    cursor: pointer;
+    background-color: rgb(226, 232, 240);
+    border: none;
+    border-radius: 3px;
+    transition: 0.2s ease-out;
+
+    a {
+      width: 100%;
+      height: 100%;
+    }
+
+    &:hover {
+      color: colors.$WHITE;
+      background-color: colors.$PUPLE;
+    }
+  }
+}
