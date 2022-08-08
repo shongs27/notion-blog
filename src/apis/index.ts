@@ -72,6 +72,7 @@ export async function getPostsAndTags(postsDataId: string) {
     }),
   ]);
 
+
   // THINK-GYU
   // 복잡한 데이터 형태인 경우 api response 형태를 어떻게 mock 해야하는지??
 

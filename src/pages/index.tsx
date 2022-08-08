@@ -6,6 +6,7 @@ import PostsList from "@/components/PostsList";
 import { getPostsAndTags } from "@/apis";
 import { useAppSelector } from "@/hooks/redux";
 
+
 type Tag = {
   id: string;
   name: string;

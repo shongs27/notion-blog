@@ -12,7 +12,9 @@ type WithAuth<P> = P & {
   auth?: string;
 };
 
+
 export const retrieveDatabase = async (databaseId: string) => {
+
   const database = await notion.databases.retrieve({
     database_id: databaseId,
   });
@@ -21,6 +23,7 @@ export const retrieveDatabase = async (databaseId: string) => {
 };
 
 export const queryDatabase = async (queryData: QueryDatabaseParameters) => {
+
   const database = await notion.databases.query(queryData);
 
   return database;
