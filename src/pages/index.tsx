@@ -5,29 +5,11 @@ import { MainDoor } from "@/components";
 import PostsList from "@/components/PostsList";
 import { getPostsAndTags } from "@/apis";
 import { useAppSelector } from "@/hooks/redux";
-
-
-type Tag = {
-  id: string;
-  name: string;
-  color?: string;
-};
-
-type Post = {
-  id: string;
-  title: string;
-  description: string;
-  tags: Tag[];
-  createdTime: string;
-};
-
-interface InitialPage {
-  tags: Tag[];
-  posts: Post[];
-}
+import { InitialPage } from "../types";
 
 const Home = ({ tags, posts }: InitialPage) => {
   const clickedBlog = useAppSelector((state) => state.clickedBlog);
+
   return (
     <div className={styles.container}>
       <Head>

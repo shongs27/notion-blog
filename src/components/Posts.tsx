@@ -42,9 +42,9 @@ export default function Posts({ posts = [] }) {
       <ul className={styles.postList}>
         {posts
           .slice(offset, offset + PER_PAGE_COUNT)
-          .map(({ id, name, tags, description, createdTime }: any) => (
-            <li key={id}>
-              <Link href={`/posts/${id}`}>
+          .map(({ postId, title, tags, description, createdTime }) => (
+            <li key={postId}>
+              <Link href={`/posts/${postId}`}>
                 <>
                   <div className={styles.imagePosition}>
                     <Image
@@ -55,13 +55,13 @@ export default function Posts({ posts = [] }) {
                     />
                   </div>
 
-                  <h2>{name}</h2>
+                  <h2>{title}</h2>
                   <p className={styles.postMeta}>
                     <span> 홍원배 </span>
                     <span> | </span> <span>{createdTime}</span>
                     <span>
-                      {tags.map(({ name }, i: number) => (
-                        <span key={`${name}-${i}`}>{name}</span>
+                      {tags.map(({ name }) => (
+                        <span key={name}>{name}</span>
                       ))}
                     </span>
                   </p>
