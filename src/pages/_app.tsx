@@ -4,6 +4,9 @@ import Layout from "./layout";
 import { Provider } from "react-redux";
 import store from "@/stores/store";
 
+// core styles shared by all of react-notion-x (required)
+import "react-notion-x/src/styles.css";
+
 function MyApp({ Component, pageProps }: AppProps) {
   return (
     <Provider store={store}>

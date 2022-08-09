@@ -44,8 +44,13 @@ export default function Posts({ posts = [] }) {
           .slice(offset, offset + PER_PAGE_COUNT)
           .map(({ postId, title, tags, description, createdTime }) => (
             <li key={postId}>
-              <Link href={`/posts/${postId}`}>
-                <>
+              <Link
+                href={{
+                  pathname: `/posts/[id]`,
+                  query: { id: postId },
+                }}
+              >
+                <a>
                   <div className={styles.imagePosition}>
                     <Image
                       src="http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg"
@@ -70,7 +75,7 @@ export default function Posts({ posts = [] }) {
                       ? `${description.slice(0, 85)}...`
                       : description}
                   </p>
-                </>
+                </a>
               </Link>
             </li>
           ))}
