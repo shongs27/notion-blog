@@ -1,6 +1,6 @@
 import { useAppSelector } from "@/hooks/redux";
 
-import styles from "./postsList.module.scss";
+import styles from "./postList.module.scss";
 
 import Posts from "./Posts";
 import Tags from "./Tags";

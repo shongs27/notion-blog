@@ -141,16 +141,47 @@ export async function getPostsPath(rootPostId: string) {
 }
 
 export async function getDetailPost(postId: string) {
-  // const [recordMap, postPage]: any = await Promise.all([
-  //   NotionAPI.getPage(postId),
-  //   NotionClient.getPage(postId),
-  // ]);
+  const [recordMap, post]: any = await Promise.all([
+    NotionAPI.getPage(postId),
+    NotionClient.getPage(postId),
+  ]);
 
-  const recordMap = await NotionAPI.getPage(
-    "be813c5f-369e-4572-ae03-9403df3631f5"
-  );
+  const parsedPost = {
+    postId: post.id,
+    orderId: post.properties.Order.id,
+    tagId: post.properties.Tags.id,
+    nameId: post.properties.Name.id,
+    descriptionId: post.properties.Description.id,
+    thumbnailId: post.properties.Thumbnail.id,
+    createdTime: new Date(post.created_time).toLocaleDateString(),
+  };
+
+  const [
+    orderDetail,
+    tagDetail,
+    nameDetail,
+    descriptionDetail,
+    thumbnailDetail,
+  ] = await Promise.all([
+    NotionClient.getDetail(postId, parsedPost.orderId),
+    NotionClient.getDetail(postId, parsedPost.tagId),
+    NotionClient.getDetail(postId, parsedPost.nameId),
+    NotionClient.getDetail(postId, parsedPost.descriptionId),
+    NotionClient.getDetail(postId, parsedPost.thumbnailId),
+  ]);
+
+  const resultPost = {
+    postId: parsedPost.postId,
+    order: orderDetail.number,
+    tags: tagDetail.multi_select,
+    title: nameDetail.results[0].title.plain_text,
+    description: descriptionDetail.results[0]?.rich_text.plain_text || "",
+    thumbnail: thumbnailDetail,
+    createdTime: parsedPost.createdTime,
+  };
 
   return {
     recordMap,
+    resultPost,
   };
 }

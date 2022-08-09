@@ -2,13 +2,21 @@ import Head from "next/head";
 
 import styles from "./home.module.scss";
 import { MainDoor } from "@/components";
-import PostsList from "@/components/PostsList";
+import PostList from "@/components/PostList";
 import { getPostsAndTags } from "@/apis";
-import { useAppSelector } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { InitialPage } from "../types";
+import { useEffect } from "react";
+import { setPostsIDs } from "@/stores/slice";
 
 const Home = ({ tags, posts }: InitialPage) => {
   const clickedBlog = useAppSelector((state) => state.clickedBlog);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    const postsIDs = posts.map(({ postId }) => postId).reverse();
+    dispatch(setPostsIDs(postsIDs));
+  }, [dispatch, posts]);
 
   return (
     <div className={styles.container}>
@@ -18,7 +26,7 @@ const Home = ({ tags, posts }: InitialPage) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {!clickedBlog && <MainDoor />}
-      <PostsList tags={tags} posts={posts} />
+      <PostList tags={tags} posts={posts} />
     </div>
   );
 };

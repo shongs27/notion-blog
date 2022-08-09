@@ -5,19 +5,32 @@ import Link from "next/link";
 import Image from "next/image";
 
 import styles from "./[id].module.scss";
+import PostNav from "@/components/PostNav";
 
-export default function Post({ recordMap }) {
+import dynamic from "next/dynamic";
+const Code = dynamic(() =>
+  import("react-notion-x/build/third-party/code").then(async (m: any) => {
+    // additional prism syntaxes
+    await Promise.all([import("prismjs/components/prism-bash.min.js")]);
+    return m.Code;
+  })
+);
+
+export default function Post({ recordMap, post }) {
   return (
     <div className={styles.container}>
+      <h1>{post.title}</h1>
       <NotionRenderer
         recordMap={recordMap}
-        fullPage={false}
-        darkMode={false}
+        // fullPage={true}
+        // darkMode={true}
         components={{
+          Code,
           nextImage: Image,
           nextLink: Link,
         }}
       />
+      <PostNav post={post} />
     </div>
   );
 }
@@ -34,10 +47,12 @@ export async function getStaticPaths() {
 }
 
 export async function getStaticProps({ params }) {
-  const { recordMap } = await getDetailPost(params.id);
+  const { recordMap, resultPost: post } = await getDetailPost(params.id);
+
   return {
     props: {
       recordMap,
+      post,
     },
   };
 }
