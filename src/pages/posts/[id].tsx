@@ -39,7 +39,7 @@ export default function Post({ recordMap, post }) {
 }
 
 export async function getStaticPaths() {
-  const notionDatabaseID = "68746bcb1cf943d18cc342bf51050af0";
+  const notionDatabaseID = process.env.NOTION_DATABASE || "";
   const posts = await getPostsPath(notionDatabaseID);
 
   const paths = posts.map((post) => ({

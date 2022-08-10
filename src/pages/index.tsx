@@ -1,6 +1,5 @@
 import Head from "next/head";
 
-import styles from "./index.module.scss";
 import { MainDoor } from "@/components";
 import PostList from "@/components/PostList";
 import { getPostsAndTags } from "@/apis";
@@ -32,7 +31,7 @@ const Home = ({ tags, posts }: InitialPage) => {
 };
 
 export async function getStaticProps() {
-  const notionDatabaseID = "68746bcb1cf943d18cc342bf51050af0";
+  const notionDatabaseID = process.env.NOTION_DATABASE || "";
   const { tags, posts } = await getPostsAndTags(notionDatabaseID);
 
   // await generateSiteMap(posts);
