@@ -46,7 +46,7 @@ export default function Nav() {
       <div className={styles.nav}>
         <div className={styles.title}>
           <Link href="/">
-            <div>
+            <a>
               <Image
                 src="/favicon.ico"
                 alt="hongs blog"
@@ -54,7 +54,7 @@ export default function Nav() {
                 height={40}
               />
               <span>ongs Blog</span>
-            </div>
+            </a>
           </Link>
         </div>
 

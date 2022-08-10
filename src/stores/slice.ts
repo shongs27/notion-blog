@@ -21,6 +21,7 @@ interface IpagePosts {
 }
 
 interface IinitialState {
+  postsIDs: string[];
   clickedBlog: boolean;
   selectedTag: string;
   currentPage: number;
@@ -32,7 +33,6 @@ interface IinitialState {
   pageTags: IpageTags[];
   pagePosts: IpagePosts[];
   posts: [];
-  postsID: string[];
 }
 
 const initialState = {
@@ -44,6 +44,7 @@ const initialState = {
     message: "",
   },
   search: "",
+  postsIDs: [""],
 } as IinitialState;
 
 const reducers = {
@@ -80,6 +81,14 @@ const reducers = {
     ...state,
     clickedBlog,
   }),
+
+  setPostsIDs: (
+    state: IinitialState,
+    { payload: postsIDs }: PayloadAction<string[]>
+  ) => ({
+    ...state,
+    postsIDs,
+  }),
 };
 
 const { actions, reducer } = createSlice({
@@ -88,7 +97,12 @@ const { actions, reducer } = createSlice({
   reducers,
 });
 
-export const { changeSearchInput, changeContactForm, setTag, setClickedBlog } =
-  actions;
+export const {
+  changeSearchInput,
+  changeContactForm,
+  setTag,
+  setClickedBlog,
+  setPostsIDs,
+} = actions;
 
 export default reducer;

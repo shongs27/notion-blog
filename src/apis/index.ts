@@ -1,7 +1,5 @@
 import * as NotionClient from "./notion-client";
 import NotionAPI from "./notion-api";
-import { DefaultDeserializer } from "v8";
-import { resolve } from "path";
 
 export type MultiSelectType = {
   type: "multi_select";
@@ -30,26 +28,6 @@ export type Post = {
   createdTime: string;
 };
 
-export async function getDetailPost(postId: string) {
-  const [recordMap, postPage]: any = await Promise.all([
-    NotionAPI.getPage(postId),
-    NotionClient.getPage(postId),
-  ]);
-
-  const post: Post = {
-    id: postPage.id,
-    title: postPage.properties.title.title[0]["plain_text"],
-    tags: postPage.properties.tags["multi_select"],
-    description: postPage.properties.description["rich_text"][0]["plain_text"],
-    createdTime: new Date(postPage.created_time).toLocaleDateString(),
-  };
-
-  return {
-    recordMap,
-    post,
-  };
-}
-
 export async function getPostsAndTags(postsDataId: string) {
   // https://developers.notion.com/reference/post-database-query
 
@@ -71,7 +49,6 @@ export async function getPostsAndTags(postsDataId: string) {
       ],
     }),
   ]);
-
 
   // THINK-GYU
   // 복잡한 데이터 형태인 경우 api response 형태를 어떻게 mock 해야하는지??
@@ -115,31 +92,96 @@ export async function getPostsAndTags(postsDataId: string) {
   };
 }
 
-export async function getPosts(rootPostId: string) {
+export async function getPostsPath(rootPostId: string) {
   const postsDatabase = await NotionClient.queryDatabase({
     database_id: rootPostId,
+    filter: {
+      property: "Name",
+      title: {
+        is_not_empty: true,
+      },
+    },
     sorts: [
       {
-        timestamp: "created_time",
+        property: "Order",
         direction: "descending",
       },
     ],
   });
 
   // parse posts
-  const posts = postsDatabase.results //
-    .filter(
-      (value: any) =>
-        value.properties.title.title.length &&
-        value.properties.description["rich_text"].length
-    ) // 게시물이 있는 경우
-    .map((value: any) => ({
-      id: value.id,
-      title: value.properties.title.title[0]["plain_text"],
-      tags: value.properties.tags["multi_select"],
-      description: value.properties.description["rich_text"][0]["plain_text"],
-      createdTime: new Date(value.created_time).toLocaleDateString(),
-    }));
+  const postsIDs = postsDatabase.results.map((post) => ({
+    postId: post.id,
+    tagId: post.properties.Tags.id,
+    nameId: post.properties.Name.id,
+    descriptionId: post.properties.Description.id,
+    thumbnailId: post.properties.Thumbnail.id,
+    createdTime: new Date(post.created_time).toLocaleDateString(),
+  }));
+
+  const posts = await Promise.all(
+    postsIDs.map((post) =>
+      Promise.all([
+        NotionClient.getDetail(post.postId, post.tagId),
+        NotionClient.getDetail(post.postId, post.nameId),
+        NotionClient.getDetail(post.postId, post.descriptionId),
+        NotionClient.getDetail(post.postId, post.thumbnailId),
+      ]).then(([tags, name, description, thumbnail]) => ({
+        postId: post.postId,
+        tags: tags.multi_select,
+        title: name.results[0].title.plain_text,
+        description: description.results[0]?.rich_text.plain_text || "",
+        thumbnail,
+        createdTime: post.createdTime,
+      }))
+    )
+  );
 
   return posts;
+}
+
+export async function getDetailPost(postId: string) {
+  const [recordMap, post]: any = await Promise.all([
+    NotionAPI.getPage(postId),
+    NotionClient.getPage(postId),
+  ]);
+
+  const parsedPost = {
+    postId: post.id,
+    orderId: post.properties.Order.id,
+    tagId: post.properties.Tags.id,
+    nameId: post.properties.Name.id,
+    descriptionId: post.properties.Description.id,
+    thumbnailId: post.properties.Thumbnail.id,
+    createdTime: new Date(post.created_time).toLocaleDateString(),
+  };
+
+  const [
+    orderDetail,
+    tagDetail,
+    nameDetail,
+    descriptionDetail,
+    thumbnailDetail,
+  ] = await Promise.all([
+    NotionClient.getDetail(postId, parsedPost.orderId),
+    NotionClient.getDetail(postId, parsedPost.tagId),
+    NotionClient.getDetail(postId, parsedPost.nameId),
+    NotionClient.getDetail(postId, parsedPost.descriptionId),
+    NotionClient.getDetail(postId, parsedPost.thumbnailId),
+  ]);
+
+  const resultPost = {
+    postId: parsedPost.postId,
+    order: orderDetail.number,
+    tags: tagDetail.multi_select,
+    title: nameDetail.results[0].title.plain_text,
+    description: descriptionDetail.results[0]?.rich_text.plain_text || "",
+    thumbnail: thumbnailDetail,
+    createdTime: parsedPost.createdTime,
+  };
+
+  return {
+    recordMap,
+    resultPost,
+  };
 }

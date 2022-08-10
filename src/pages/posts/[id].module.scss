@@ -1,0 +1,20 @@
+@use "src/styles/colors";
+
+.container {
+  background-color: colors.$BLACK;
+  min-height: 90vh;
+
+  .responsivePost {
+    margin: 0 auto;
+    padding: 50px 0;
+
+    @media only screen and (min-width: 360px) {
+      width: 706px;
+    }
+  }
+
+  main[class~="notion"] {
+    margin: 0;
+    padding: 0;
+  }
+}

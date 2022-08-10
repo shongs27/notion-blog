@@ -1,0 +1,60 @@
+@use "src/styles/colors";
+
+.notionFooter {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.tags {
+  display: flex;
+
+  span {
+    padding-top: 2px;
+  }
+
+  li {
+    margin-right: 5px;
+    margin-left: 15px;
+  }
+
+  button {
+    height: 100%;
+    padding: 0.2em 0.4em;
+    font-size: 0.8em;
+    font-weight: bold;
+    color: colors.$PUPLE;
+    cursor: pointer;
+    background-color: inherit;
+    border: 3px solid colors.$SWHITE;
+    border-radius: 10%;
+    transition: border 0.2s cubic-bezier(0.08, 0.52, 0.52, 1);
+
+    &:hover {
+      border: 3px solid colors.$PUPLE;
+    }
+  }
+}
+
+.navigation {
+  display: flex;
+
+  margin-top: 50px;
+
+  a {
+    flex: 1 50%;
+    max-width: 50%;
+    padding: 1em;
+    border: 1px solid colors.$SWHITE;
+    border-radius: 0.4em;
+    transition: border-color 0.2s cubic-bezier(0.08, 0.52, 0.52, 1);
+
+    &:hover {
+      border-color: colors.$PUPLE;
+    }
+  }
+
+  .nextLink {
+    margin-left: 1em;
+    text-align: right;
+  }
+}

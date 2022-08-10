@@ -1,0 +1,28 @@
+@use "src/styles/colors";
+
+.container {
+  background-color: colors.$TEMPBLACK;
+  padding: 4em 12em;
+
+  h1 {
+    .title {
+      margin-right: 15px;
+    }
+
+    .titleCount {
+      display: inline-block;
+      padding-right: 5px;
+      padding-left: 5px;
+      line-height: 1;
+      color: colors.$PUPLE;
+      background-color: colors.$WHITE;
+      box-shadow: 0 0 5px 0 rgba(0, 0, 0, 5%);
+      transition: 0.2s ease-out;
+
+      &:hover {
+        color: colors.$WHITE;
+        background-color: colors.$PUPLE;
+      }
+    }
+  }
+}
