@@ -42,7 +42,6 @@
 
   a {
     flex: 1 50%;
-    max-width: 50%;
     padding: 1em;
     border: 1px solid colors.$SWHITE;
     border-radius: 0.4em;
@@ -53,7 +52,7 @@
     }
   }
 
-  .nextLink {
+  a:nth-child(2) {
     margin-left: 1em;
     text-align: right;
   }

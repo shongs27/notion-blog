@@ -6,11 +6,14 @@ import { useEffect, useState } from "react";
 import cx from "classnames";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function Nav() {
   const [isScroll, setIsScroll] = useState(false);
   const dispatch = useAppDispatch();
   const search = useAppSelector((state) => state.search);
+
+  const router = useRouter();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     dispatch(changeSearchInput(e.currentTarget.value));
@@ -25,6 +28,7 @@ export default function Nav() {
 
   function handleClick() {
     dispatch(setClickedBlog(true));
+    router.push("/");
   }
 
   //observeAPI로 바꿔보기

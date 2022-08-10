@@ -56,6 +56,11 @@
 
       li {
         margin-right: 1em;
+
+        button {
+          all: unset;
+          cursor: pointer;
+        }
       }
     }
   }

@@ -37,12 +37,7 @@ export default function PostNav({ post }) {
         )}
 
         {postsIDs[post.order] && (
-          <Link
-            className={styles.nextLink}
-            href={`/posts/${postsIDs[post.order]}`}
-          >
-            다음 게시물
-          </Link>
+          <Link href={`/posts/${postsIDs[post.order]}`}>다음 게시물</Link>
         )}
       </div>
     </div>
