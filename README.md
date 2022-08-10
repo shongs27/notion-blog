@@ -3,12 +3,12 @@
 - env 설정
 - 토탈 태그 숫자 구하는 API
 
-1.
+2. 상세 페이지
 
-- 페이지네이션 기능 완성
-- slice 정리
+- share안눌러도 바로바로 조회할수 있게
+  1. 데이터베이스 share을 키든가
+  2. access user, token2 브라우저에서 구하기
+- 세부페이지 마크렌더링 글로벌 css
+  https://github.com/KIMSEUNGGYU/blog/blob/main/src/components/Post/style.ts
 
-2.
-
-- 페이지 상세 내역 렌더링
-
+3. seo

@@ -8,29 +8,32 @@ import styles from "./[id].module.scss";
 import PostNav from "@/components/PostNav";
 
 import dynamic from "next/dynamic";
+
 const Code = dynamic(() =>
-  import("react-notion-x/build/third-party/code").then(async (m: any) => {
-    // additional prism syntaxes
-    await Promise.all([import("prismjs/components/prism-bash.min.js")]);
-    return m.Code;
-  })
+  import("react-notion-x/build/third-party/code").then((m: any) => m.Code)
 );
 
 export default function Post({ recordMap, post }) {
   return (
     <div className={styles.container}>
-      <h1>{post.title}</h1>
-      <NotionRenderer
-        recordMap={recordMap}
-        // fullPage={true}
-        // darkMode={true}
-        components={{
-          Code,
-          nextImage: Image,
-          nextLink: Link,
-        }}
-      />
-      <PostNav post={post} />
+      <div className={styles.responsivePost}>
+        <div>
+          <h1>{post.title}</h1>
+          <p>{post.createdTime}</p>
+          <p>작성자 : 홍원배</p>
+        </div>
+
+        <NotionRenderer
+          recordMap={recordMap}
+          fullPage={false}
+          components={{
+            Code,
+            nextImage: Image,
+            nextLink: Link,
+          }}
+        />
+        <PostNav post={post} />
+      </div>
     </div>
   );
 }

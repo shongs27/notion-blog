@@ -15,7 +15,7 @@ export default function PostList({ posts, tags }) {
   }
 
   return (
-    <div className={styles.tagPosts}>
+    <div className={styles.container}>
       <h1>
         <span className={styles.title}>{selectedTag}</span>
         <span className={styles.titleCount}>{posts.length}</span>

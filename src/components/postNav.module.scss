@@ -1,13 +1,12 @@
 @use "src/styles/colors";
 
 .notionFooter {
-  width: 708px;
-  margin: 50px auto;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .tags {
   display: flex;
-  margin-bottom: 3em;
 
   span {
     padding-top: 2px;
@@ -38,6 +37,8 @@
 
 .navigation {
   display: flex;
+
+  margin-top: 50px;
 
   a {
     flex: 1 50%;
