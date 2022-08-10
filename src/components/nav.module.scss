@@ -8,6 +8,11 @@
   background-color: colors.$TEMPBLACK;
   transition: transform 0.2s ease;
 
+  button {
+    all: unset;
+    cursor: pointer;
+  }
+
   .nav {
     display: flex;
     justify-content: center;
@@ -56,11 +61,6 @@
 
       li {
         margin-right: 1em;
-
-        button {
-          all: unset;
-          cursor: pointer;
-        }
       }
     }
   }
