@@ -13,7 +13,6 @@ const Code = dynamic(() =>
 );
 
 export default function Post({ resume }) {
-  console.log("레주메", resume);
   return (
     <div className={styles.container}>
       <div className={styles.responsivePost}>
