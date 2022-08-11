@@ -1,10 +1,8 @@
 import { Client } from "@notionhq/client";
 import { QueryDatabaseParameters } from "@notionhq/client/build/src/api-endpoints";
 
-const auth = "secret_PwZKXrfMNIwSBh8wvoPYAwaFJCYuDVyICmysd45dIIt";
 const notion = new Client({
-  // auth: process.env.NOTION_TOKEN,
-  auth,
+  auth: process.env.NOTION_TOKEN,
 });
 
 //auth를 추가로 보내는 경우가 있으면 쓴다
@@ -12,9 +10,7 @@ type WithAuth<P> = P & {
   auth?: string;
 };
 
-
 export const retrieveDatabase = async (databaseId: string) => {
-
   const database = await notion.databases.retrieve({
     database_id: databaseId,
   });
@@ -23,7 +19,6 @@ export const retrieveDatabase = async (databaseId: string) => {
 };
 
 export const queryDatabase = async (queryData: QueryDatabaseParameters) => {
-
   const database = await notion.databases.query(queryData);
 
   return database;

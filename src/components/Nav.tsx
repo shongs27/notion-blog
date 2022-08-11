@@ -1,16 +1,19 @@
 import styles from "./nav.module.scss";
 import SearchIcon from "@/assets/search.svg";
 import { useAppSelector, useAppDispatch } from "@/hooks/redux";
-import { changeSearchInput, setClickedBlog } from "@/stores/slice";
+import { changeSearchInput, setIsMainDoor } from "@/stores/slice";
 import { useEffect, useState } from "react";
 import cx from "classnames";
 import Link from "next/link";
 import Image from "next/image";
+import { useRouter } from "next/router";
 
 export default function Nav() {
   const [isScroll, setIsScroll] = useState(false);
   const dispatch = useAppDispatch();
   const search = useAppSelector((state) => state.search);
+
+  const router = useRouter();
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     dispatch(changeSearchInput(e.currentTarget.value));
@@ -23,8 +26,9 @@ export default function Nav() {
     dispatch(changeSearchInput(""));
   }
 
-  function handleClick() {
-    dispatch(setClickedBlog(true));
+  function handleClick(isMainDoor: boolean) {
+    dispatch(setIsMainDoor(isMainDoor));
+    router.push("/");
   }
 
   //observeAPI로 바꿔보기
@@ -45,17 +49,10 @@ export default function Nav() {
     <div className={cx(styles.container, { [styles.transNav]: isScroll })}>
       <div className={styles.nav}>
         <div className={styles.title}>
-          <Link href="/">
-            <a>
-              <Image
-                src="/favicon.ico"
-                alt="hongs blog"
-                width={40}
-                height={40}
-              />
-              <span>ongs Blog</span>
-            </a>
-          </Link>
+          <button type="button" onClick={() => handleClick(true)}>
+            <Image src="/favicon.ico" alt="hongs blog" width={40} height={40} />
+            <span>ongs Blog</span>
+          </button>
         </div>
 
         <div className={styles.search}>
@@ -67,7 +64,9 @@ export default function Nav() {
 
         <ul className={styles.category}>
           <li>
-            <button onClick={handleClick}>Blog</button>
+            <button type="button" onClick={() => handleClick(false)}>
+              Blog
+            </button>
           </li>
           <li>
             <a href="mortyGame/index.html" target="_blank">

@@ -29,56 +29,52 @@ export default function Posts({ posts = [] }) {
     [currentPage]
   );
 
-  if (!posts.length) {
-    return (
-      <div style={{ backgroundColor: "black", color: "white" }}>
-        해당 포스팅이 없습니다
-      </div>
-    );
-  }
-
   return (
     <>
       <ul className={styles.postList}>
-        {posts
-          .slice(offset, offset + PER_PAGE_COUNT)
-          .map(({ postId, title, tags, description, createdTime }) => (
-            <li key={postId}>
-              <Link
-                href={{
-                  pathname: `/posts/[id]`,
-                  query: { id: postId },
-                }}
-              >
-                <a>
-                  <div className={styles.imagePosition}>
-                    <Image
-                      src="http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg"
-                      alt="공사중"
-                      width={200}
-                      height={200}
-                    />
-                  </div>
+        {posts.length ? (
+          posts
+            .slice(offset, offset + PER_PAGE_COUNT)
+            .map(({ postId, title, tags, description, createdTime }) => (
+              <li key={postId}>
+                <Link
+                  href={{
+                    pathname: `/posts/[id]`,
+                    query: { id: postId },
+                  }}
+                >
+                  <a>
+                    <div className={styles.imageWrapper}>
+                      <Image
+                        src="http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg"
+                        alt="공사중"
+                        width={150}
+                        height={120}
+                      />
+                    </div>
 
-                  <h2>{title}</h2>
-                  <p className={styles.postMeta}>
-                    <span> 홍원배 </span>
-                    <span> | </span> <span>{createdTime}</span>
-                    <span>
-                      {tags.map(({ name }) => (
-                        <span key={name}>{name}</span>
-                      ))}
-                    </span>
-                  </p>
-                  <p className={styles.postContents}>
-                    {description.length > 85
-                      ? `${description.slice(0, 85)}...`
-                      : description}
-                  </p>
-                </a>
-              </Link>
-            </li>
-          ))}
+                    <h2>{title}</h2>
+                    <p className={styles.postMeta}>
+                      <span> 홍원배 </span>
+                      <span> | </span> <span>{createdTime}</span>
+                      <span>
+                        {tags.map(({ name }) => (
+                          <span key={name}>{name}</span>
+                        ))}
+                      </span>
+                    </p>
+                    <p className={styles.postContents}>
+                      {description.length > 85
+                        ? `${description.slice(0, 85)}...`
+                        : description}
+                    </p>
+                  </a>
+                </Link>
+              </li>
+            ))
+        ) : (
+          <p>해당 포스팅이 없습니다</p>
+        )}
       </ul>
 
       <div className={styles.pageNationContainer}>

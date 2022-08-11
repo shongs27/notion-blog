@@ -22,7 +22,7 @@ interface IpagePosts {
 
 interface IinitialState {
   postsIDs: string[];
-  clickedBlog: boolean;
+  isMainDoor: boolean;
   selectedTag: string;
   currentPage: number;
   contactForm: IcontactForm;
@@ -36,7 +36,7 @@ interface IinitialState {
 }
 
 const initialState = {
-  clickedBlog: false,
+  isMainDoor: true,
   selectedTag: "전체",
   contactForm: {
     name: "",
@@ -74,12 +74,12 @@ const reducers = {
     selectedTag,
   }),
 
-  setClickedBlog: (
+  setIsMainDoor: (
     state: IinitialState,
-    { payload: clickedBlog }: PayloadAction<boolean>
+    { payload: isMainDoor }: PayloadAction<boolean>
   ) => ({
     ...state,
-    clickedBlog,
+    isMainDoor,
   }),
 
   setPostsIDs: (
@@ -101,7 +101,7 @@ export const {
   changeSearchInput,
   changeContactForm,
   setTag,
-  setClickedBlog,
+  setIsMainDoor,
   setPostsIDs,
 } = actions;
 

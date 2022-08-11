@@ -6,10 +6,10 @@
   grid-template-columns: repeat(3, minmax(100px, 1fr));
   row-gap: 1.2rem;
   column-gap: 1.2rem;
+  min-height: 600px;
 
   li {
-    // 반응형에서 값을 바꾸도록 하자
-    height: 400px;
+    height: 320px;
     background-color: colors.$WHITE;
     border: none;
     border-radius: 15px;
@@ -20,7 +20,7 @@
       transform: translateY(-15px);
     }
 
-    .imagePosition {
+    .imageWrapper {
       display: flex;
       justify-content: center;
       margin: 10px;

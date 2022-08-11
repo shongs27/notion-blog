@@ -53,9 +53,6 @@ export async function getPostsAndTags(postsDataId: string) {
   // THINK-GYU
   // 복잡한 데이터 형태인 경우 api response 형태를 어떻게 mock 해야하는지??
 
-  // parse Tags
-  // const tags = (tagsDatabase.properties.tags as MultiSelectType).multi_select
-  //   .options;
   const tags = tagsDatabase.properties.Tags.multi_select.options;
 
   // parse posts
@@ -184,4 +181,10 @@ export async function getDetailPost(postId: string) {
     recordMap,
     resultPost,
   };
+}
+
+export async function getResume(postId: string) {
+  const resume = await NotionAPI.getPage(postId);
+
+  return resume;
 }
