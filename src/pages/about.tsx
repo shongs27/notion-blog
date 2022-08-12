@@ -4,7 +4,7 @@ import { NotionRenderer } from "react-notion-x";
 import Link from "next/link";
 import Image from "next/image";
 
-import styles from "./about.module.scss";
+import styles from "./posts/post.module.scss";
 
 import dynamic from "next/dynamic";
 
@@ -13,13 +13,13 @@ const Code = dynamic(() =>
 );
 
 export default function Post({ resume }) {
-  console.log("레주메", resume);
   return (
     <div className={styles.container}>
       <div className={styles.responsivePost}>
         <NotionRenderer
           recordMap={resume}
           fullPage={false}
+          darkMode={true}
           components={{
             Code,
             nextImage: Image,
@@ -32,7 +32,7 @@ export default function Post({ resume }) {
 }
 
 export async function getStaticProps() {
-  const aboutId = "d32aca2407a045409e4e1df417678ecc";
+  const aboutId = process.env.NOTION_RESUME;
   const resume = await getResume(aboutId);
 
   return {

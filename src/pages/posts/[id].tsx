@@ -4,16 +4,23 @@ import { NotionRenderer } from "react-notion-x";
 import Link from "next/link";
 import Image from "next/image";
 
-import styles from "./[id].module.scss";
+import styles from "./post.module.scss";
 import PostNav from "@/components/PostNav";
 
 import dynamic from "next/dynamic";
+
+import { ExtendedRecordMap } from "notion-types";
+
+interface Ipost {
+  recordMap: ExtendedRecordMap;
+  post: any;
+}
 
 const Code = dynamic(() =>
   import("react-notion-x/build/third-party/code").then((m: any) => m.Code)
 );
 
-export default function Post({ recordMap, post }) {
+export default function Post({ recordMap, post }: Ipost) {
   return (
     <div className={styles.container}>
       <div className={styles.responsivePost}>
@@ -26,6 +33,7 @@ export default function Post({ recordMap, post }) {
         <NotionRenderer
           recordMap={recordMap}
           fullPage={false}
+          darkMode={true}
           components={{
             Code,
             nextImage: Image,
@@ -39,9 +47,9 @@ export default function Post({ recordMap, post }) {
 }
 
 export async function getStaticPaths() {
-  const notionDatabaseID = process.env.NOTION_DATABASE || "";
-  const posts = await getPostsPath(notionDatabaseID);
-
+  const notionDatabaseID = process.env.NOTION_POSTS_DATABASE;
+  const posts = await getPostsPath(notionDatabaseID!);
+  
   const paths = posts.map((post) => ({
     params: { id: post.postId },
   }));

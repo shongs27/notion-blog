@@ -53,6 +53,7 @@ export async function getPostsAndTags(postsDataId: string) {
   // THINK-GYU
   // 복잡한 데이터 형태인 경우 api response 형태를 어떻게 mock 해야하는지??
 
+  // parse tags
   const tags = tagsDatabase.properties.Tags.multi_select.options;
 
   // parse posts
@@ -62,6 +63,7 @@ export async function getPostsAndTags(postsDataId: string) {
     nameId: post.properties.Name.id,
     descriptionId: post.properties.Description.id,
     thumbnailId: post.properties.Thumbnail.id,
+    linkId: post.properties.Link?.id,
     createdTime: new Date(post.created_time).toLocaleDateString(),
   }));
 
@@ -72,12 +74,14 @@ export async function getPostsAndTags(postsDataId: string) {
         NotionClient.getDetail(post.postId, post.nameId),
         NotionClient.getDetail(post.postId, post.descriptionId),
         NotionClient.getDetail(post.postId, post.thumbnailId),
-      ]).then(([tags, name, description, thumbnail]) => ({
+        NotionClient.getDetail(post.postId, post.linkId),
+      ]).then(([tags, name, description, thumbnail, link]) => ({
         postId: post.postId,
         tags: tags.multi_select,
         title: name.results[0].title.plain_text,
         description: description.results[0]?.rich_text.plain_text || "",
         thumbnail,
+        link: link.results[0]?.rich_text.plain_text || "",
         createdTime: post.createdTime,
       }))
     )

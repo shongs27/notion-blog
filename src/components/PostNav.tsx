@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { setClickedBlog, setTag } from "@/stores/slice";
+import { setIsMainDoor, setTag } from "@/stores/slice";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import styles from "./postNav.module.scss";
@@ -12,7 +12,7 @@ export default function PostNav({ post }) {
   function handleClick(e) {
     const { tag } = e.currentTarget.dataset;
     dispatch(setTag(tag));
-    dispatch(setClickedBlog(true));
+    dispatch(setIsMainDoor(true));
     router.push("/");
   }
 
@@ -23,7 +23,12 @@ export default function PostNav({ post }) {
           <span>태그 :</span>
           {post.tags.map(({ id, name, color }) => (
             <li key={id}>
-              <button type="button" data-tag={name} onClick={handleClick}>
+              <button
+                type="button"
+                data-tag={name}
+                onClick={handleClick}
+                style={{ color }}
+              >
                 {name}
               </button>
             </li>

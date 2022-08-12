@@ -8,13 +8,18 @@
     margin: 0 auto;
     padding: 50px 0;
 
+    main[class~="notion"] {
+      margin: 0;
+      padding: 0;
+
+      ul,
+      li {
+        list-style: initial;
+      }
+    }
+
     @media only screen and (min-width: 360px) {
       width: 706px;
     }
-  }
-
-  main[class~="notion"] {
-    margin: 0;
-    padding: 0;
   }
 }

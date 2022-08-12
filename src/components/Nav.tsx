@@ -69,9 +69,7 @@ export default function Nav() {
             </button>
           </li>
           <li>
-            <a href="mortyGame/index.html" target="_blank">
-              Works
-            </a>
+            <Link href="/works">Works</Link>
           </li>
           <li>
             <Link href="/about">About</Link>

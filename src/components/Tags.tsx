@@ -18,9 +18,14 @@ export default function Tags({ tags = [] }) {
         </button>
       </li>
 
-      {tags.map(({ name, color, count }) => (
+      {tags.map(({ name, color }) => (
         <li key={name}>
-          <button type="button" onClick={handleClick} data-tag={name}>
+          <button
+            type="button"
+            onClick={handleClick}
+            data-tag={name}
+            style={{ backgroundColor: color }}
+          >
             {name}
           </button>
         </li>
