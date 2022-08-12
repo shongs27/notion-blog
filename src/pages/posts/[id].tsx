@@ -4,7 +4,7 @@ import { NotionRenderer } from "react-notion-x";
 import Link from "next/link";
 import Image from "next/image";
 
-import styles from "./[id].module.scss";
+import styles from "./post.module.scss";
 import PostNav from "@/components/PostNav";
 
 import dynamic from "next/dynamic";
@@ -47,7 +47,7 @@ export default function Post({ recordMap, post }: Ipost) {
 }
 
 export async function getStaticPaths() {
-  const notionDatabaseID = process.env.NOTION_DATABASE;
+  const notionDatabaseID = process.env.NOTION_POSTS_DATABASE;
   const posts = await getPostsPath(notionDatabaseID!);
 
   const paths = posts.map((post) => ({

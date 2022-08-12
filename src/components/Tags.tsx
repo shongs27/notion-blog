@@ -4,7 +4,6 @@ import { setTag } from "@/stores/slice";
 import styles from "./tags.module.scss";
 
 export default function Tags({ tags = [] }) {
-  console.log("태그스", tags);
   const dispatch = useAppDispatch();
 
   const handleClick = (e) => {
