@@ -16,7 +16,7 @@
     height: 35px;
     margin-right: 15px;
     word-break: keep-all;
-    background-color: rgb(226, 232, 240);
+    background-color: colors.$WHITE;
     transition: 0.2s ease-out;
 
     button {
@@ -27,7 +27,6 @@
       padding: 2px 15px;
       user-select: none;
       background-color: transparent;
-
       font-size: 1em;
 
       &:disabled {
@@ -35,7 +34,7 @@
       }
 
       &:hover {
-        color: colors.$WHITE;
+        color: colors.$WHITE !important;
         background-color: colors.$PUPLE;
       }
     }

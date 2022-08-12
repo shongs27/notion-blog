@@ -31,8 +31,8 @@ const Home = ({ tags, posts }: InitialPage) => {
 };
 
 export async function getStaticProps() {
-  const notionDatabaseID = process.env.NOTION_DATABASE || "";
-  const { tags, posts } = await getPostsAndTags(notionDatabaseID);
+  const notionDatabaseID = process.env.NOTION_DATABASE;
+  const { tags, posts } = await getPostsAndTags(notionDatabaseID!);
 
   // await generateSiteMap(posts);
 

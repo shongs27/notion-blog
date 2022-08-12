@@ -4,6 +4,7 @@ import { setTag } from "@/stores/slice";
 import styles from "./tags.module.scss";
 
 export default function Tags({ tags = [] }) {
+  console.log("태그스", tags);
   const dispatch = useAppDispatch();
 
   const handleClick = (e) => {
@@ -18,9 +19,14 @@ export default function Tags({ tags = [] }) {
         </button>
       </li>
 
-      {tags.map(({ name, color, count }) => (
+      {tags.map(({ name, color }) => (
         <li key={name}>
-          <button type="button" onClick={handleClick} data-tag={name}>
+          <button
+            type="button"
+            onClick={handleClick}
+            data-tag={name}
+            style={{ backgroundColor: color }}
+          >
             {name}
           </button>
         </li>

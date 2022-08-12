@@ -19,6 +19,7 @@ export default function Post({ resume }) {
         <NotionRenderer
           recordMap={resume}
           fullPage={false}
+          darkMode={true}
           components={{
             Code,
             nextImage: Image,
@@ -31,7 +32,7 @@ export default function Post({ resume }) {
 }
 
 export async function getStaticProps() {
-  const aboutId = "d32aca2407a045409e4e1df417678ecc";
+  const aboutId = process.env.NOTION_RESUME;
   const resume = await getResume(aboutId);
 
   return {

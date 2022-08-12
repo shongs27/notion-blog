@@ -21,9 +21,14 @@ export default function PostNav({ post }) {
       {post.tags && (
         <ul className={styles.tags}>
           <span>태그 :</span>
-          {post.tags.map(({ id, name }) => (
+          {post.tags.map(({ id, name, color }) => (
             <li key={id}>
-              <button type="button" data-tag={name} onClick={handleClick}>
+              <button
+                type="button"
+                data-tag={name}
+                onClick={handleClick}
+                style={{ color }}
+              >
                 {name}
               </button>
             </li>

@@ -12,7 +12,7 @@ const Code = dynamic(() =>
   import("react-notion-x/build/third-party/code").then((m: any) => m.Code)
 );
 
-export default function Post({ resume }) {
+export default function Works({ tags, posts }) {
   return (
     <div className={styles.container}>
       <div className={styles.responsivePost}>
@@ -31,12 +31,15 @@ export default function Post({ resume }) {
 }
 
 export async function getStaticProps() {
-  const aboutId = process.env.NOTION_RESUME;
-  const resume = await getResume(aboutId!);
+  const notionDatabaseID = process.env.NOTION_DATABASE;
+  const { tags, posts } = await getPostsAndTags(notionDatabaseID);
+
+  // await generateSiteMap(posts);
 
   return {
     props: {
-      resume,
+      tags,
+      posts,
     },
   };
 }

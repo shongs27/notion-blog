@@ -33,6 +33,7 @@ export default function Post({ recordMap, post }: Ipost) {
         <NotionRenderer
           recordMap={recordMap}
           fullPage={false}
+          darkMode={true}
           components={{
             Code,
             nextImage: Image,

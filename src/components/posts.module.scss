@@ -9,11 +9,12 @@
   min-height: 600px;
 
   li {
-    height: 320px;
+    height: 340px;
     background-color: colors.$WHITE;
     border: none;
     border-radius: 15px;
     transition: all 0.2s !important;
+    padding: 0 15px 15px;
 
     &:hover {
       box-shadow: 0 5px 10px 3px rgba(colors.$WHITE, 0.8);
@@ -35,13 +36,24 @@
 
     .postMeta {
       margin-bottom: 20px;
-      color: colors.$BLACK;
-      text-align: right;
+      padding: 5px 15px;
+      display: flex;
+      justify-content: space-between;
 
       span {
-        margin-right: 5px;
-        font-size: 0.7em;
+        font-size: 0.7rem;
         color: colors.$BLACK;
+      }
+
+      .metaTags > span {
+        font-weight: 700;
+        margin-right: 5px;
+      }
+
+      .metaETC {
+        display: flex;
+        flex-direction: column;
+        text-align: right;
       }
     }
 
@@ -52,6 +64,7 @@
       font-size: 0.8em;
       color: colors.$BLACK;
       word-break: break-all;
+      overflow-y: scroll;
     }
   }
 }

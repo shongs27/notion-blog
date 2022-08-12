@@ -48,24 +48,28 @@ export default function Posts({ posts = [] }) {
                       <Image
                         src="http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg"
                         alt="공사중"
-                        width={150}
+                        width={180}
                         height={120}
                       />
                     </div>
 
                     <h2>{title}</h2>
-                    <p className={styles.postMeta}>
-                      <span> 홍원배 </span>
-                      <span> | </span> <span>{createdTime}</span>
-                      <span>
-                        {tags.map(({ name }) => (
-                          <span key={name}>{name}</span>
+                    <div className={styles.postMeta}>
+                      <div className={styles.metaTags}>
+                        {tags.map(({ name, color }) => (
+                          <span key={name} style={{ color: color }}>
+                            #{name}
+                          </span>
                         ))}
-                      </span>
-                    </p>
+                      </div>
+                      <div className={styles.metaETC}>
+                        <span> 홍원배 </span>
+                        <span>{createdTime}</span>
+                      </div>
+                    </div>
                     <p className={styles.postContents}>
-                      {description.length > 85
-                        ? `${description.slice(0, 85)}...`
+                      {description.length > 80
+                        ? `${description.slice(0, 80)}...`
                         : description}
                     </p>
                   </a>
