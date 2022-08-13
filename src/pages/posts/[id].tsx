@@ -23,7 +23,7 @@ const Code = dynamic(() =>
 export default function Post({ recordMap, post }: Ipost) {
   return (
     <div className={styles.container}>
-      <div className={styles.responsivePost}>
+      <div className={styles.postPosition}>
         <div>
           <h1>{post.title}</h1>
           <p>{post.createdTime}</p>

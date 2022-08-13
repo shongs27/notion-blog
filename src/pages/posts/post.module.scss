@@ -2,24 +2,25 @@
 
 .container {
   background-color: colors.$BLACK;
+  width: 100%;
   min-height: 90vh;
+  padding: 50px;
 
-  .responsivePost {
-    margin: 0 auto;
-    padding: 50px 0;
+  display: flex;
+  justify-content: center;
 
+  .postPosition {
+    width: 100%;
+    margin: 0;
+    padding: 0;
     main[class~="notion"] {
-      margin: 0;
+      margin: 0 auto;
       padding: 0;
 
       ul,
       li {
         list-style: initial;
       }
-    }
-
-    @media only screen and (min-width: 360px) {
-      width: 706px;
     }
   }
 }

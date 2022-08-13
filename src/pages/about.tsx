@@ -15,7 +15,7 @@ const Code = dynamic(() =>
 export default function Post({ resume }) {
   return (
     <div className={styles.container}>
-      <div className={styles.responsivePost}>
+      <div className={styles.postPosition}>
         <NotionRenderer
           recordMap={resume}
           fullPage={false}
