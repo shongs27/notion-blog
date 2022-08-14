@@ -58,7 +58,13 @@ export default function Nav() {
     <div className={cx(styles.container, { [styles.transNav]: isScroll })}>
       <div className={styles.title}>
         <button type="button" onClick={() => handleClick(true)}>
-          <Image src="/favicon.ico" alt="hongs blog" width={40} height={40} />
+          <Image
+            src="/favicon.ico"
+            alt="hongs blog"
+            width={40}
+            height={40}
+            layout="fixed"
+          />
           <span>ongs Blog</span>
         </button>
       </div>
