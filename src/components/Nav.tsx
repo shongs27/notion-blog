@@ -11,7 +11,6 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 
 import classNames from "classnames";
-
 export default function Nav() {
   const [isScroll, setIsScroll] = useState(false);
   const [clickedMenu, setClickedMenu] = useState(false);
@@ -34,9 +33,8 @@ export default function Nav() {
   function handleClick(isMainDoor: boolean) {
     dispatch(setIsMainDoor(isMainDoor));
     router.push("/");
-  }
 
-  function handleMenu() {
+function handleMenu() {
     setClickedMenu((prev) => !prev);
   }
 

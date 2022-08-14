@@ -17,6 +17,7 @@ export default function Tags({ tags = [] }) {
           전체
         </button>
       </li>
+
       {tags.map(({ name, color }) => (
         <li key={name}>
           <button
