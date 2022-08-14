@@ -48,6 +48,7 @@ export default memo(function PageNation({
 
       {Array.from({ length: totalPage }).map((_, i) => (
         <button
+          className={styles.pageNumber}
           key={i}
           type="button"
           data-page={i + 1}

@@ -26,9 +26,8 @@ export default function Nav() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-
-    alert("아직 검색을 위한 백엔드 서버가 미구현 입니다 (┬┬﹏┬┬)");
-    dispatch(changeSearchInput(""));
+    alert("SSR로 검색기능 구현중입니다");
+    // dispatch(changeSearchInput());
   }
 
   function handleClick(isMainDoor: boolean) {
