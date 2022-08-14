@@ -4,7 +4,7 @@
   background-color: colors.$BLACK;
   width: 100%;
   min-height: 90vh;
-  padding: 50px;
+  padding: 1.5em;
 
   display: flex;
   justify-content: center;
@@ -12,6 +12,10 @@
   .postPosition {
     width: 100%;
     max-width: 780px;
+
+    .postHeader {
+      margin-bottom: 1.4em;
+    }
 
     main[class~="notion"] {
       width: 100%;

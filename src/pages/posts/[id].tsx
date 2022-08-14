@@ -4,7 +4,7 @@ import { NotionRenderer } from "react-notion-x";
 import Link from "next/link";
 import Image from "next/image";
 
-import styles from "./post.module.scss";
+import styles from "./postDetail.module.scss";
 import PostNav from "@/components/PostNav";
 
 import dynamic from "next/dynamic";
@@ -24,7 +24,7 @@ export default function Post({ recordMap, post }: Ipost) {
   return (
     <div className={styles.container}>
       <div className={styles.postPosition}>
-        <div>
+        <div className={styles.postHeader}>
           <h1>{post.title}</h1>
           <p>{post.createdTime}</p>
           <p>작성자 : 홍원배</p>

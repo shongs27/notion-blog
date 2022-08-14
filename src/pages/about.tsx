@@ -4,7 +4,7 @@ import { NotionRenderer } from "react-notion-x";
 import Link from "next/link";
 import Image from "next/image";
 
-import styles from "./posts/post.module.scss";
+import styles from "./posts/postDetail.module.scss";
 
 import dynamic from "next/dynamic";
 
