@@ -192,3 +192,46 @@ export async function getResume(postId: string) {
 
   return resume;
 }
+
+export async function searchPage(title: string) {
+  const searchedPages = await NotionClient.searchPage({
+    query: title,
+    sort: {
+      direction: "ascending",
+      timestamp: "last_edited_time",
+    },
+  });
+
+  // parse posts
+  const postsIDs = searchedPages.results.map((post) => ({
+    postId: post.id,
+    tagId: post.properties.Tags.id,
+    nameId: post.properties.Name.id,
+    descriptionId: post.properties.Description.id,
+    thumbnailId: post.properties.Thumbnail.id,
+    linkId: post.properties.Link?.id,
+    createdTime: new Date(post.created_time).toLocaleDateString(),
+  }));
+
+  const posts = await Promise.all(
+    postsIDs.map((post) =>
+      Promise.all([
+        NotionClient.getDetail(post.postId, post.tagId),
+        NotionClient.getDetail(post.postId, post.nameId),
+        NotionClient.getDetail(post.postId, post.descriptionId),
+        NotionClient.getDetail(post.postId, post.thumbnailId),
+        NotionClient.getDetail(post.postId, post.linkId),
+      ]).then(([tags, name, description, thumbnail, link]) => ({
+        postId: post.postId,
+        tags: tags.multi_select,
+        title: name.results[0].title.plain_text,
+        description: description.results[0]?.rich_text.plain_text || "",
+        thumbnail,
+        link: link.results[0]?.rich_text.plain_text || "",
+        createdTime: post.createdTime,
+      }))
+    )
+  );
+
+  return posts;
+}

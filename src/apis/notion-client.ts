@@ -1,5 +1,8 @@
 import { Client } from "@notionhq/client";
-import { QueryDatabaseParameters } from "@notionhq/client/build/src/api-endpoints";
+import {
+  QueryDatabaseParameters,
+  SearchParameters,
+} from "@notionhq/client/build/src/api-endpoints";
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -38,4 +41,9 @@ export const getDetail = async (pageId: string, propertyId: string) => {
     property_id: propertyId,
   });
   return response;
+};
+
+export const searchPage = async (queryData: SearchParameters) => {
+  const results = await notion.search(queryData);
+  return results;
 };

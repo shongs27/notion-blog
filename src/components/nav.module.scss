@@ -8,64 +8,112 @@
   background-color: colors.$TEMPBLACK;
   transition: transform 0.2s ease;
 
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+
   button {
     all: unset;
     cursor: pointer;
   }
 
-  .nav {
+  .title {
+    span {
+      font-size: 1.4em;
+      vertical-align: bottom;
+      margin-left: 5px;
+    }
+  }
+
+  .search {
+    form {
+      position: relative;
+      svg {
+        position: absolute;
+        top: 10px;
+        left: 15px;
+        fill: colors.$GRAY;
+      }
+
+      input {
+        width: 350px;
+        height: 40px;
+        padding-left: 60px;
+        font-size: 0.8em;
+        color: colors.$BLACK;
+        background-color: colors.$SGRAY;
+        border: none;
+        border-radius: 5px;
+        outline: 5px solid colors.$BLACK;
+        outline-color: rgb(113, 128, 150);
+      }
+    }
+  }
+
+  .category {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100%;
 
-    .title {
-      width: 300px;
-      cursor: pointer;
-      span {
-        font-size: 1.4em;
-        vertical-align: bottom;
-        margin-left: 5px;
-      }
+    li {
+      padding: 8px 12px;
     }
+  }
 
-    .search {
-      form {
-        position: relative;
-        width: 400px;
+  .menuIcon {
+    display: none;
 
-        svg {
-          position: absolute;
-          top: 10px;
-          left: 20px;
-          fill: colors.$GRAY;
-        }
-
-        input {
-          width: 85%;
-          height: 40px;
-          padding-left: 60px;
-          font-size: 0.8em;
-          color: colors.$BLACK;
-          background-color: #e2e8f0;
-          border: none;
-          border-radius: 5px;
-          outline: 5px solid colors.$BLACK;
-          outline-color: rgb(113, 128, 150);
-        }
-      }
-    }
-
-    .category {
-      display: flex;
-
-      li {
-        margin-right: 1em;
-      }
-    }
+    width: 40px;
+    height: 40px;
+    fill: colors.$WHITE;
   }
 }
 
 .transNav {
   transform: translate3d(0, calc(-100% - 2px), 0);
+}
+
+@media screen and (max-width: 820px) {
+  .title {
+    margin-left: 15px;
+
+    span {
+      display: none;
+    }
+  }
+}
+
+@media screen and (max-width: 420px) {
+  .container {
+    .search {
+      form {
+        input {
+          width: 200px;
+        }
+      }
+    }
+
+    position: relative;
+    .category {
+      display: none;
+
+      position: absolute;
+      top: 80px;
+      right: 5px;
+      flex-direction: column;
+      background-color: colors.$SBLACK;
+      border-radius: 10px;
+
+      li:hover {
+        background-color: colors.$SPINK;
+      }
+    }
+
+    .responsiveCategory {
+      display: flex;
+      z-index: 99999;
+    }
+
+    .menuIcon {
+      display: block;
+    }
+  }
 }
