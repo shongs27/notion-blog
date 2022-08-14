@@ -8,6 +8,7 @@ export default function Contact() {
   const { name, email, message } = useAppSelector((state) => state.contactForm);
 
   function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
+
     const {
       target: { name, value },
     } = e;
@@ -16,6 +17,7 @@ export default function Contact() {
   }
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+
     e.preventDefault();
 
     // todo: 백엔드 통신 구현

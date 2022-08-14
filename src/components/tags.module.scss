@@ -17,6 +17,7 @@
     height: 35px;
     margin-right: 15px;
     margin-bottom: 10px;
+
     background-color: colors.$WHITE;
     transition: 0.2s ease-out;
 
@@ -28,6 +29,7 @@
       padding: 2px 15px;
       user-select: none;
       font-size: 1rem;
+
 
       &:disabled {
         cursor: not-allowed;
