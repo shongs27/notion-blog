@@ -1,15 +1,13 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { useRouter } from "next/router";
 import { changeContactForm } from "@/stores/slice";
 
 import styles from "./contact.module.scss";
 
 export default function Contact() {
-  const router = useRouter();
   const dispatch = useAppDispatch();
   const { name, email, message } = useAppSelector((state) => state.contactForm);
 
-  function handleChange(e) {
+  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
     const {
       target: { name, value },
     } = e;
@@ -17,13 +15,13 @@ export default function Contact() {
     dispatch(changeContactForm({ name, value }));
   }
 
-  function handleSubmit(e) {
+  function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     // todo: 백엔드 통신 구현
     // router.push("/");
 
-    alert("백엔드 통신 구현중입니다 전송 됐다고 쳐주세요");
+    alert("메일 전송 구축전입니다. 마음만 받겠습니다 ^^");
   }
 
   return (

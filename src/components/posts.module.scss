@@ -79,3 +79,14 @@
 .pageNationContainer {
   margin-top: 50px;
 }
+
+@media screen and (max-width: 400px) {
+  .postList {
+    display: grid;
+    // grid-template-rows: repeat(2, 1fr);
+    grid-template-columns: repeat(1, minmax(100px, 1fr));
+    row-gap: 1.2rem;
+    column-gap: 1.2rem;
+    min-height: 600px;
+  }
+}
