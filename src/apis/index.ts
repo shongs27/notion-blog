@@ -75,15 +75,26 @@ export async function getPostsAndTags(postsDataId: string) {
         NotionClient.getDetail(post.postId, post.descriptionId),
         NotionClient.getDetail(post.postId, post.thumbnailId),
         NotionClient.getDetail(post.postId, post.linkId),
-      ]).then(([tags, name, description, thumbnail, link]) => ({
-        postId: post.postId,
-        tags: tags.multi_select,
-        title: name.results[0].title.plain_text,
-        description: description.results[0]?.rich_text.plain_text || "",
-        thumbnail,
-        link: link.results[0]?.rich_text.plain_text || "",
-        createdTime: post.createdTime,
-      }))
+      ])
+        .then(([tags, name, description, thumbnailURL, link]) => ({
+          postId: post.postId,
+          tags: tags.multi_select,
+          title: name.results[0].title.plain_text,
+          description: description.results[0]?.rich_text.plain_text || "",
+          thumbnail:
+            thumbnailURL.results[0]?.rich_text.plain_text.split(/#/g)[1] || "",
+          link: link.results[0]?.rich_text.plain_text || "",
+          createdTime: post.createdTime,
+        }))
+        .then(async (result) => {
+          if (!result.thumbnail) return result;
+
+          const thumbnail = await NotionClient.getImage(result.thumbnail);
+          return {
+            ...result,
+            thumbnail: thumbnail.image.file.url,
+          };
+        })
     )
   );
 

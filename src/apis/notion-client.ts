@@ -47,3 +47,10 @@ export const searchPage = async (queryData: SearchParameters) => {
   const results = await notion.search(queryData);
   return results;
 };
+
+export const getImage = async (blockId: string) => {
+  const imageBlock = await notion.blocks.retrieve({
+    block_id: blockId,
+  });
+  return imageBlock;
+};

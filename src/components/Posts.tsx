@@ -42,46 +42,65 @@ export default function Posts({ posts = [] }) {
     [currentPage]
   );
 
+  const handleError = (e) => {
+    e.currentTarget.src =
+      "http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg";
+  };
+
   return (
     <>
       <ul className={styles.postList}>
         {posts.length ? (
           posts
             .slice(offset, offset + PER_PAGE_COUNT)
-            .map(({ postId, title, tags, description, createdTime, link }) => (
-              <li key={postId}>
-                <button type="button" onClick={() => handleClick(postId, link)}>
-                  <div className={styles.imageWrapper}>
-                    <Image
-                      src="http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg"
-                      alt="공사중"
-                      width={180}
-                      height={120}
-                    />
-                  </div>
+            .map(
+              ({
+                postId,
+                title,
+                tags,
+                description,
+                thumbnail,
+                createdTime,
+                link,
+              }) => (
+                <li key={postId}>
+                  <button
+                    type="button"
+                    onClick={() => handleClick(postId, link)}
+                  >
+                    <div className={styles.imageWrapper}>
+                      <Image
+                        src={thumbnail}
+                        alt="공사중"
+                        onError={handleError}
+                        width={250}
+                        height={120}
+                      />
+                    </div>
 
-                  <h2>{title}</h2>
-                  <div className={styles.postMeta}>
-                    <div className={styles.metaTags}>
-                      {tags.map(({ name, color }) => (
-                        <span key={name} style={{ color: color }}>
-                          #{name}
-                        </span>
-                      ))}
+                    <h2>{title}</h2>
+                    <div className={styles.postMeta}>
+                      <div className={styles.metaTags}>
+                        {tags.map(({ name, color }) => (
+                          <span key={name} style={{ color: color }}>
+                            #{name}
+                          </span>
+                        ))}
+                      </div>
+                      <div className={styles.metaETC}>
+                        <span> 홍원배 </span>
+                        <span>{createdTime}</span>
+                      </div>
                     </div>
-                    <div className={styles.metaETC}>
-                      <span> 홍원배 </span>
-                      <span>{createdTime}</span>
-                    </div>
-                  </div>
-                  <p className={styles.postContents}>
-                    {description?.length > 80
-                      ? `${description.slice(0, 80)}...`
-                      : description}
-                  </p>
-                </button>
-              </li>
-            ))
+                    <p className={styles.postContents}>
+                      {description?.length > 80
+                        ? `${description.slice(0, 80)}...`
+                        : description}
+                    </p>
+                  </button>
+                </li>
+              )
+            )
         ) : (
           <p>해당 포스팅이 없습니다</p>
         )}
