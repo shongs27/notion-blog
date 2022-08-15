@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 
-import Image from "next/image";
+// import Image from "next/image";
+import Image from "@/hooks/Image";
 
 import styles from "./posts.module.scss";
 import PageNation from "./PageNation";
@@ -42,11 +43,6 @@ export default function Posts({ posts = [] }) {
     [currentPage]
   );
 
-  const handleError = (e) => {
-    e.currentTarget.src =
-      "http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg";
-  };
-
   return (
     <>
       <ul className={styles.postList}>
@@ -71,8 +67,7 @@ export default function Posts({ posts = [] }) {
                     <div className={styles.imageWrapper}>
                       <Image
                         src={thumbnail}
-                        alt="공사중"
-                        onError={handleError}
+                        alt="썸네일"
                         width={250}
                         height={120}
                       />
