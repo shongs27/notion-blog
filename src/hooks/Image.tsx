@@ -1,9 +1,11 @@
 import Img from "next/image";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
-export default function Image({ src = "", alt = "포스트 썸네일", ...rests }) {
-  const [imgSrc, setImgSrc] = useState("");
+export default function Image({ src, alt = "포스트 썸네일", ...rests }) {
+  const initialMount = useRef(true);
+
+  const [imgSrc, setImgSrc] = useState(src);
 
   function handleError() {
     const fallbackSrc =
@@ -13,7 +15,11 @@ export default function Image({ src = "", alt = "포스트 썸네일", ...rests 
   }
 
   useEffect(() => {
-    setImgSrc(src);
+    if (initialMount.current) {
+      initialMount.current = false;
+    } else {
+      setImgSrc(src);
+    }
   }, [src]);
 
   return <Img src={imgSrc} onError={handleError} {...rests} />;
