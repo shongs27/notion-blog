@@ -1,5 +1,5 @@
 import { useAppDispatch } from "@/hooks/redux";
-import { setTag } from "@/stores/slice";
+import { setCurrentPage, setTag } from "@/stores/slice";
 
 import styles from "./tags.module.scss";
 
@@ -7,6 +7,7 @@ export default function Tags({ tags = [] }) {
   const dispatch = useAppDispatch();
 
   const handleClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    dispatch(setCurrentPage(1));
     dispatch(setTag(e.currentTarget.textContent!));
   };
 

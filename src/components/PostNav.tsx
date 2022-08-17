@@ -12,7 +12,7 @@ export default function PostNav({ post }) {
   function handleClick(e) {
     const { tag } = e.currentTarget.dataset;
     dispatch(setTag(tag));
-    dispatch(setIsMainDoor(true));
+    dispatch(setIsMainDoor(false));
     router.push("/");
   }
 

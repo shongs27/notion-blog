@@ -1,13 +1,16 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
 import Image from "@/hooks/Image";
 
 import styles from "./posts.module.scss";
 import PageNation from "./PageNation";
 import { useRouter } from "next/router";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { setCurrentPage } from "@/stores/slice";
 
 export default function Posts({ posts = [] }) {
-  const [currentPage, setCurrentPage] = useState(1);
+  const currentPage = useAppSelector((state) => state.currentPage);
+  const dispatch = useAppDispatch();
 
   const router = useRouter();
 
@@ -30,16 +33,16 @@ export default function Posts({ posts = [] }) {
   const handlePage = useCallback(
     (move: string | undefined) => {
       if (move === "prev") {
-        return setCurrentPage(currentPage - 1);
+        return dispatch(setCurrentPage(currentPage - 1));
       }
 
       if (move === "next") {
-        return setCurrentPage(currentPage + 1);
+        return dispatch(setCurrentPage(currentPage + 1));
       }
 
-      return setCurrentPage(Number(move));
+      return dispatch(setCurrentPage(Number(move)));
     },
-    [currentPage]
+    [dispatch, currentPage]
   );
 
   return (
@@ -73,6 +76,7 @@ export default function Posts({ posts = [] }) {
                     </div>
 
                     <h2>{title}</h2>
+
                     <div className={styles.postMeta}>
                       <div className={styles.metaTags}>
                         {tags.map(({ name, color }) => (
@@ -86,6 +90,7 @@ export default function Posts({ posts = [] }) {
                         <span>{createdTime}</span>
                       </div>
                     </div>
+
                     <p className={styles.postContents}>
                       {description?.length > 80
                         ? `${description.slice(0, 80)}...`
