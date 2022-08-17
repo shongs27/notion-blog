@@ -1,6 +1,5 @@
 import { useCallback, useState } from "react";
 
-// import Image from "next/image";
 import Image from "@/hooks/Image";
 
 import styles from "./posts.module.scss";

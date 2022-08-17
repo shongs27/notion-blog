@@ -81,6 +81,12 @@
   margin-top: 50px;
 }
 
+@media screen and (max-width: 830px) {
+  .metaETC {
+    display: none !important;
+  }
+}
+
 @media screen and (max-width: 400px) {
   .postList {
     display: grid;
@@ -88,9 +94,5 @@
     row-gap: 1.2rem;
     column-gap: 1.2rem;
     min-height: 600px;
-
-    .metaETC {
-      display: none !important;
-    }
   }
 }
