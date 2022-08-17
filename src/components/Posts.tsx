@@ -1,13 +1,16 @@
-import { useCallback, useState } from "react";
+import { useCallback } from "react";
 
-import Image from "next/image";
+import Image from "@/hooks/Image";
 
 import styles from "./posts.module.scss";
 import PageNation from "./PageNation";
 import { useRouter } from "next/router";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { setCurrentPage } from "@/stores/slice";
 
 export default function Posts({ posts = [] }) {
-  const [currentPage, setCurrentPage] = useState(1);
+  const currentPage = useAppSelector((state) => state.currentPage);
+  const dispatch = useAppDispatch();
 
   const router = useRouter();
 
@@ -30,16 +33,16 @@ export default function Posts({ posts = [] }) {
   const handlePage = useCallback(
     (move: string | undefined) => {
       if (move === "prev") {
-        return setCurrentPage(currentPage - 1);
+        return dispatch(setCurrentPage(currentPage - 1));
       }
 
       if (move === "next") {
-        return setCurrentPage(currentPage + 1);
+        return dispatch(setCurrentPage(currentPage + 1));
       }
 
-      return setCurrentPage(Number(move));
+      return dispatch(setCurrentPage(Number(move)));
     },
-    [currentPage]
+    [dispatch, currentPage]
   );
 
   return (
@@ -48,40 +51,55 @@ export default function Posts({ posts = [] }) {
         {posts.length ? (
           posts
             .slice(offset, offset + PER_PAGE_COUNT)
-            .map(({ postId, title, tags, description, createdTime, link }) => (
-              <li key={postId}>
-                <button type="button" onClick={() => handleClick(postId, link)}>
-                  <div className={styles.imageWrapper}>
-                    <Image
-                      src="http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg"
-                      alt="공사중"
-                      width={180}
-                      height={120}
-                    />
-                  </div>
+            .map(
+              ({
+                postId,
+                title,
+                tags,
+                description,
+                thumbnail,
+                createdTime,
+                link,
+              }) => (
+                <li key={postId}>
+                  <button
+                    type="button"
+                    onClick={() => handleClick(postId, link)}
+                  >
+                    <div className={styles.imageWrapper}>
+                      <Image
+                        src={thumbnail}
+                        alt="썸네일"
+                        width={260}
+                        height={120}
+                      />
+                    </div>
 
-                  <h2>{title}</h2>
-                  <div className={styles.postMeta}>
-                    <div className={styles.metaTags}>
-                      {tags.map(({ name, color }) => (
-                        <span key={name} style={{ color: color }}>
-                          #{name}
-                        </span>
-                      ))}
+                    <h2>{title}</h2>
+
+                    <div className={styles.postMeta}>
+                      <div className={styles.metaTags}>
+                        {tags.map(({ name, color }) => (
+                          <span key={name} style={{ color: color }}>
+                            #{name}
+                          </span>
+                        ))}
+                      </div>
+                      <div className={styles.metaETC}>
+                        <span> 홍원배 </span>
+                        <span>{createdTime}</span>
+                      </div>
                     </div>
-                    <div className={styles.metaETC}>
-                      <span> 홍원배 </span>
-                      <span>{createdTime}</span>
-                    </div>
-                  </div>
-                  <p className={styles.postContents}>
-                    {description?.length > 80
-                      ? `${description.slice(0, 80)}...`
-                      : description}
-                  </p>
-                </button>
-              </li>
-            ))
+
+                    <p className={styles.postContents}>
+                      {description?.length > 80
+                        ? `${description.slice(0, 80)}...`
+                        : description}
+                    </p>
+                  </button>
+                </li>
+              )
+            )
         ) : (
           <p>해당 포스팅이 없습니다</p>
         )}

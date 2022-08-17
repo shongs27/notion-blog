@@ -47,6 +47,7 @@
     border: 1px solid colors.$SWHITE;
     border-radius: 0.4em;
     transition: border-color 0.2s cubic-bezier(0.08, 0.52, 0.52, 1);
+    word-break: keep-all;
 
     &:hover {
       border-color: colors.$PUPLE;

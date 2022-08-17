@@ -1,4 +1,3 @@
-import { searchPage } from "@/apis";
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface IpageTags {
@@ -46,6 +45,7 @@ const initialState = {
   },
   search: "",
   postsIDs: [""],
+  currentPage: 1,
 } as IinitialState;
 
 const reducers = {
@@ -90,6 +90,14 @@ const reducers = {
     ...state,
     postsIDs,
   }),
+
+  setCurrentPage: (
+    state: IinitialState,
+    { payload: currentPage }: PayloadAction<number>
+  ) => ({
+    ...state,
+    currentPage,
+  }),
 };
 
 const { actions, reducer } = createSlice({
@@ -104,6 +112,7 @@ export const {
   setTag,
   setIsMainDoor,
   setPostsIDs,
+  setCurrentPage,
 } = actions;
 
 export default reducer;

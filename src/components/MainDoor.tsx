@@ -9,8 +9,8 @@ export default function MainDoor() {
       <div className={styles.intro}>
         <span>작업과 기록의 블로그</span>
         <h1>
-          안녕하세요! <br />
-          프론트엔드 개발자 <br />
+          <p>안녕하세요!</p>
+          <p>프론트엔드 개발자</p>
           <strong>홍원배</strong>입니다
         </h1>
         <p>제가 공부한 내용을 정리하여 공유하는 블로그입니다</p>

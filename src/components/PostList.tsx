@@ -1,4 +1,6 @@
-import { useAppSelector } from "@/hooks/redux";
+import { useAppDispatch, useAppSelector } from "@/hooks/redux";
+import { setCurrentPage, setTag } from "@/stores/slice";
+import { useEffect } from "react";
 
 import styles from "./postList.module.scss";
 
@@ -7,12 +9,18 @@ import Tags from "./Tags";
 
 export default function PostList({ posts, tags }) {
   const selectedTag = useAppSelector((state) => state.selectedTag);
+  const dispatch = useAppDispatch();
 
   if (selectedTag !== "전체") {
     posts = posts.filter((post) =>
       post.tags.some((tag) => tag.name === selectedTag)
     );
   }
+
+  useEffect(() => {
+    dispatch(setTag("전체"));
+    dispatch(setCurrentPage(1));
+  }, [dispatch]);
 
   return (
     <div className={styles.container}>

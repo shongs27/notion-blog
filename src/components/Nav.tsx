@@ -29,7 +29,7 @@ export default function Nav() {
     // dispatch(changeSearchInput());
   }
 
-  function handleClick(isMainDoor: boolean) {
+  function handleMainDoor(isMainDoor: boolean) {
     dispatch(setIsMainDoor(isMainDoor));
     router.push("/");
   }
@@ -55,7 +55,7 @@ export default function Nav() {
   return (
     <div className={cx(styles.container, { [styles.transNav]: isScroll })}>
       <div className={styles.title}>
-        <button type="button" onClick={() => handleClick(true)}>
+        <button type="button" onClick={() => handleMainDoor(true)}>
           <Image
             src="/favicon.ico"
             alt="hongs blog"
@@ -80,7 +80,7 @@ export default function Nav() {
         })}
       >
         <li>
-          <button type="button" onClick={() => handleClick(false)}>
+          <button type="button" onClick={() => handleMainDoor(false)}>
             Blog
           </button>
         </li>
