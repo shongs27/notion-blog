@@ -3,7 +3,7 @@ import SearchIcon from "@/assets/search.svg";
 import MenuIcon from "@/assets/menu.svg";
 
 import { useAppSelector, useAppDispatch } from "@/hooks/redux";
-import { changeSearchInput, setIsMainDoor } from "@/stores/slice";
+import { changeSearchInput, setIsMainDoor, setTag } from "@/stores/slice";
 import { useEffect, useState } from "react";
 import cx from "classnames";
 import Link from "next/link";
@@ -13,7 +13,7 @@ import classNames from "classnames";
 
 export default function Nav() {
   const [isScroll, setIsScroll] = useState(false);
-  const [clickedMenu, setClickedMenu] = useState(false);
+  const [clickedMobileMenu, setClickedMobileMenu] = useState(false);
   const dispatch = useAppDispatch();
   const search = useAppSelector((state) => state.search);
 
@@ -34,8 +34,18 @@ export default function Nav() {
     router.push("/");
   }
 
-  function handleMenu() {
-    setClickedMenu((prev) => !prev);
+  function handleMobileMenu() {
+    setClickedMobileMenu((prev) => !prev);
+  }
+
+  function handleRouting(params: string) {
+    dispatch(setTag("전체"));
+
+    if (params === "blog") {
+      handleMainDoor(false);
+      return router.push("/");
+    }
+    router.push(`/${params}`);
   }
 
   //observeAPI로 바꿔보기
@@ -76,26 +86,23 @@ export default function Nav() {
 
       <ul
         className={classNames(styles.category, {
-          [styles.responsiveCategory]: clickedMenu === true,
+          [styles.responsiveCategory]: clickedMobileMenu === true,
         })}
       >
-        <li>
-          <button type="button" onClick={() => handleMainDoor(false)}>
-            Blog
-          </button>
-        </li>
-        <li>
-          <Link href="/works">Works</Link>
-        </li>
-        <li>
-          <Link href="/about">About</Link>
-        </li>
-        <li>
-          <Link href="/contact">Contact</Link>
-        </li>
+        {["blog", "works", "about", "contact"].map((menu) => (
+          <li key={menu}>
+            <button type="button" onClick={() => handleRouting(menu)}>
+              {menu.charAt(0).toUpperCase() + menu.slice(1)}
+            </button>
+          </li>
+        ))}
       </ul>
 
-      <button className={styles.menuIcon} type="button" onClick={handleMenu}>
+      <button
+        className={styles.menuIcon}
+        type="button"
+        onClick={handleMobileMenu}
+      >
         <MenuIcon />
       </button>
     </div>
