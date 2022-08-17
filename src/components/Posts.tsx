@@ -70,7 +70,7 @@ export default function Posts({ posts = [] }) {
                       <Image
                         src={thumbnail}
                         alt="썸네일"
-                        width={250}
+                        width={260}
                         height={120}
                       />
                     </div>
