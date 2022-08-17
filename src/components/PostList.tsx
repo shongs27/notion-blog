@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { setTag } from "@/stores/slice";
+import { setCurrentPage, setTag } from "@/stores/slice";
 import { useEffect } from "react";
 
 import styles from "./postList.module.scss";
@@ -19,6 +19,7 @@ export default function PostList({ posts, tags }) {
 
   useEffect(() => {
     dispatch(setTag("전체"));
+    dispatch(setCurrentPage(1));
   }, [dispatch]);
 
   return (
