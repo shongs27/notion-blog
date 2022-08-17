@@ -8,12 +8,8 @@
 
 ### 버그
 
-- Warning: using empty component "Collection" (you should override this in NotionRenderer.components)
-
 - svg 오류 픽스
 
-- 메뉴 타이틀이 이동시에도 중복되는 문제 (blog, work), 페이지네이션 중복오류
+### 검색기능
 
-### 검색
-
-SSR
+- SSR

@@ -18,7 +18,6 @@ export default function PostList({ posts, tags }) {
   }
 
   useEffect(() => {
-    dispatch(setTag("전체"));
     dispatch(setCurrentPage(1));
   }, [dispatch]);
 
