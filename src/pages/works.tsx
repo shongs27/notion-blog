@@ -3,11 +3,7 @@ import { getPostsAndTags } from "@/apis";
 import PostList from "@/components/PostList";
 
 export default function Works({ tags, posts }) {
-  return (
-    <div>
-      <PostList tags={tags} posts={posts} />
-    </div>
-  );
+  return <PostList tags={tags} posts={posts} />;
 }
 
 export async function getStaticProps() {
