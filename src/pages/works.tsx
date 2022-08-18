@@ -10,8 +10,6 @@ export async function getStaticProps() {
   const notionDatabaseID = process.env.NOTION_PROJECTS_DATABASE;
   const { tags, posts } = await getPostsAndTags(notionDatabaseID!);
 
-  // await generateSiteMap(posts);
-
   return {
     props: {
       tags,

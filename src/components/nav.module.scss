@@ -50,10 +50,6 @@
         &:focus::placeholder {
           color: transparent;
         }
-
-        &::placeholder {
-          font-size: 0.4rem;
-        }
       }
     }
   }
