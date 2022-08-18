@@ -1,4 +1,4 @@
-import { getDetailPost, getPostsPath } from "@/apis";
+import { getDetailPost, getPostsPath } from "@/lib";
 import { NotionRenderer } from "react-notion-x";
 
 import Link from "next/link";

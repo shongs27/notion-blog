@@ -1,4 +1,4 @@
-import { getResume } from "@/apis";
+import { getResume } from "@/lib";
 import { NotionRenderer } from "react-notion-x";
 
 import Link from "next/link";
