@@ -6,7 +6,6 @@ import { useAppSelector, useAppDispatch } from "@/hooks/redux";
 import { changeSearchInput, setIsMainDoor, setTag } from "@/stores/slice";
 import { useEffect, useState } from "react";
 import cx from "classnames";
-import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import classNames from "classnames";
@@ -25,8 +24,8 @@ export default function Nav() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    alert("SSR로 검색기능 구현중입니다");
-    // dispatch(changeSearchInput());
+
+    router.push(`/search?title=${search}`);
   }
 
   function handleMainDoor(isMainDoor: boolean) {
@@ -80,7 +79,12 @@ export default function Nav() {
       <div className={styles.search}>
         <form onSubmit={handleSubmit}>
           <SearchIcon />
-          <input type="text" value={search} onChange={handleChange} />
+          <input
+            type="text"
+            value={search}
+            onChange={handleChange}
+            placeholder="타이틀 검색"
+          />
         </form>
       </div>
 

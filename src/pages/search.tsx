@@ -1,21 +1,32 @@
-import { getPostsAndTags } from "@/lib";
+import { searchPage } from "@/lib";
 
 import PostList from "@/components/PostList";
 
-export default function Works({ tags, posts }) {
-  return <PostList tags={tags} posts={posts} />;
+export default function Search({ posts }) {
+  if (typeof posts === "string") {
+    window.alert(posts);
+    posts = [];
+  }
+
+  return <PostList posts={posts} />;
 }
 
-export async function getStaticProps() {
-  const notionDatabaseID = process.env.NOTION_PROJECTS_DATABASE;
-  const { tags, posts } = await getPostsAndTags(notionDatabaseID!);
+export async function getServerSideProps(context) {
+  const { title } = context.query;
 
-  // await generateSiteMap(posts);
+  try {
+    const posts = await searchPage(title);
 
-  return {
-    props: {
-      tags,
-      posts,
-    },
-  };
+    return {
+      props: {
+        posts,
+      },
+    };
+  } catch (error) {
+    return {
+      props: {
+        posts: error.message,
+      },
+    };
+  }
 }

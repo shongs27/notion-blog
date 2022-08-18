@@ -38,14 +38,22 @@
       input {
         width: 350px;
         height: 40px;
-        padding-left: 60px;
-        font-size: 0.8em;
+        padding-left: 50px;
+        font-size: 0.8rem;
         color: colors.$BLACK;
         background-color: colors.$SGRAY;
         border: none;
         border-radius: 5px;
         outline: 5px solid colors.$BLACK;
         outline-color: rgb(113, 128, 150);
+
+        &:focus::placeholder {
+          color: transparent;
+        }
+
+        &::placeholder {
+          font-size: 0.4rem;
+        }
       }
     }
   }
