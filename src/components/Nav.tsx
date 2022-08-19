@@ -24,6 +24,7 @@ export default function Nav() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    dispatch(setTag("전체"));
 
     router.push(`/search?title=${search}`);
   }
