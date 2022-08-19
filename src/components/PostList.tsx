@@ -1,5 +1,5 @@
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { setCurrentPage, setTag } from "@/stores/slice";
+import { setCurrentPage } from "@/stores/slice";
 import { useEffect } from "react";
 
 import styles from "./postList.module.scss";
@@ -26,7 +26,7 @@ export default function PostList({ posts, tags }) {
       <div className={styles.postList}>
         <h1>
           <span className={styles.title}>{selectedTag}</span>
-          <span className={styles.titleCount}>{posts.length}</span>
+          <span className={styles.titleCount}>{posts?.length}</span>
         </h1>
         <Tags tags={tags} />
         <Posts posts={posts} />

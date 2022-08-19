@@ -1,12 +1,12 @@
 import { useCallback } from "react";
-
-import Image from "@/hooks/Image";
-
-import styles from "./posts.module.scss";
-import PageNation from "./PageNation";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { setCurrentPage } from "@/stores/slice";
+
+import Image from "next/image";
+import styles from "./posts.module.scss";
+
+import PageNation from "./PageNation";
 
 export default function Posts({ posts = [] }) {
   const currentPage = useAppSelector((state) => state.currentPage);
@@ -68,7 +68,10 @@ export default function Posts({ posts = [] }) {
                   >
                     <div className={styles.imageWrapper}>
                       <Image
-                        src={thumbnail}
+                        src={
+                          thumbnail ||
+                          "http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg"
+                        }
                         alt="썸네일"
                         width={260}
                         height={120}

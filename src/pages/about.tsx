@@ -1,4 +1,4 @@
-import { getResume } from "@/apis";
+import { getResume } from "@/lib";
 import { NotionRenderer } from "react-notion-x";
 
 import Link from "next/link";
@@ -12,7 +12,7 @@ const Code = dynamic(() =>
   import("react-notion-x/build/third-party/code").then((m: any) => m.Code)
 );
 
-export default function Post({ resume }) {
+export default function About({ resume }) {
   return (
     <div className={styles.container}>
       <div className={styles.postPosition}>

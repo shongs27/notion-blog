@@ -205,42 +205,65 @@ export async function getResume(postId: string) {
 }
 
 export async function searchPage(title: string) {
+  if (/^.{0,1}$/.test(title)) {
+    throw new Error("두 글자 이상의 타이틀로 검색해주세요");
+  }
+
   const searchedPages = await NotionClient.searchPage({
     query: title,
     sort: {
       direction: "ascending",
       timestamp: "last_edited_time",
     },
+    filter: {
+      property: "object",
+      value: "page",
+    },
   });
 
-  // parse posts
-  const postsIDs = searchedPages.results.map((post) => ({
-    postId: post.id,
-    tagId: post.properties.Tags.id,
-    nameId: post.properties.Name.id,
-    descriptionId: post.properties.Description.id,
-    thumbnailId: post.properties.Thumbnail.id,
-    linkId: post.properties.Link?.id,
-    createdTime: new Date(post.created_time).toLocaleDateString(),
-  }));
+  const postsExceptResume = [];
+  searchedPages.results.forEach((post) => {
+    if (post.id === "d32aca24-07a0-4540-9e4e-1df417678ecc") return;
+
+    postsExceptResume.push({
+      postId: post.id,
+      tagId: post.properties.Tags.id,
+      nameId: post.properties.Name.id,
+      descriptionId: post.properties.Description.id,
+      thumbnailId: post.properties.Thumbnail.id,
+      linkId: post.properties.Link?.id,
+      createdTime: new Date(post.created_time).toLocaleDateString(),
+    });
+  });
 
   const posts = await Promise.all(
-    postsIDs.map((post) =>
+    postsExceptResume.map((post) =>
       Promise.all([
         NotionClient.getDetail(post.postId, post.tagId),
         NotionClient.getDetail(post.postId, post.nameId),
         NotionClient.getDetail(post.postId, post.descriptionId),
         NotionClient.getDetail(post.postId, post.thumbnailId),
         NotionClient.getDetail(post.postId, post.linkId),
-      ]).then(([tags, name, description, thumbnail, link]) => ({
-        postId: post.postId,
-        tags: tags.multi_select,
-        title: name.results[0].title.plain_text,
-        description: description.results[0]?.rich_text.plain_text || "",
-        thumbnail,
-        link: link.results[0]?.rich_text.plain_text || "",
-        createdTime: post.createdTime,
-      }))
+      ])
+        .then(([tags, name, description, thumbnailURL, link]) => ({
+          postId: post.postId,
+          tags: tags.multi_select,
+          title: name.results[0]?.title.plain_text,
+          description: description.results[0]?.rich_text.plain_text || "",
+          thumbnail:
+            thumbnailURL.results[0]?.rich_text.plain_text.split(/#/g)[1] || "",
+          link: link.results[0]?.rich_text.plain_text || "",
+          createdTime: post.createdTime,
+        }))
+        .then(async (result) => {
+          if (!result.thumbnail) return result;
+
+          const thumbnail = await NotionClient.getImage(result.thumbnail);
+          return {
+            ...result,
+            thumbnail: thumbnail.image.file.url,
+          };
+        })
     )
   );
 
