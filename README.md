@@ -59,13 +59,15 @@ Notion을 CMS로 이용함으로서 블로그 포스트를 관리
 
 동적인 변화가 필요없는 정적인 포스트 페이지들은 SSG를 통해 pre-rendering한 페이지를 제공받아 UX 향상을 꾀합니다
 
-useQueryDebounce 훅을 만들어 디바운스를 구현했습니다. useEffect에서 setTimeout과 clearTimeout으로 딜레이와 불필요한 API 호출을 막았습니다. 딜레이 시간의 경우 300ms로 설정하였습니다.
+> ### CSR
+
+redux/toolkit을 이용하여 flux 구조의 상태관리를 통해 CSR을 사용했습니다
 
 ## 3. UX 고려
 
-> ### 다양한 렌더링 방식
+> ### 다양한 렌더링 방식으로 최적화
 
-혼합 렌더링 방식을 사용하여 필요한 기능에 최적화된 렌더링 방식을 적용하여 UX 향상
+혼합 렌더링 방식을 사용하여 특정 기능에 최적화된 렌더링 방식을 적용하여 UX 향상
 
 > ### 관심사별 태그
 
@@ -83,16 +85,8 @@ useQueryDebounce 훅을 만들어 디바운스를 구현했습니다. useEffect�
 
 2. lib 라이브러리를 통해 서버사이드에서만 사용되는 코드를 분리함으로서 클라이언트에서의 불필요한 코드를 로드하지 않도록 고민했습니다
 
-<!-- # 📸 구현 결과
+# 📸 구현 결과
 
 |                                                             포스트                                                             |                                                            프로젝트                                                            |                                                           검색 기능                                                            |
 | :----------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------: | :----------------------------------------------------------------------------------------------------------------------------: |
-| <img src="https://user-images.githubusercontent.com/62868465/169066625-8f7654f6-7672-4e61-9d8f-1ada1a31cfab.gif" width="180"/> | <img src="https://user-images.githubusercontent.com/62868465/169066590-cf38273d-a361-41fe-8f8f-491138f3c4bd.gif" width="180"/> | <img src="https://user-images.githubusercontent.com/62868465/169066399-6c348e41-b15c-4587-a451-74975fa8ca76.gif" width="180"/> | -->
-
-## 추가 할 것
-
-- svg 오류 픽스
-- share안눌러도 react-notion-x가 렌더링 할 수 있게? (브라우저에서 access user, token2)
-- 각 태그 숫자 구하는 API
-- seo
-- 폴더구조 변경
+| <img src="https://user-images.githubusercontent.com/55541745/185759747-8d2f38e3-7e1f-4ee6-96bd-b9e12d1249a5.gif" width="180"/> | <img src="https://user-images.githubusercontent.com/55541745/185759762-082f6ced-ac31-44f2-83d1-76228bc000b3.gif" width="180"/> | <img src="https://user-images.githubusercontent.com/55541745/185759767-176466f9-6067-42ef-a5c7-ba6aece824e8.gif" width="180"/> |
