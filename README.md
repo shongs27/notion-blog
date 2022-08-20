@@ -59,13 +59,15 @@ Notion을 CMS로 이용함으로서 블로그 포스트를 관리
 
 동적인 변화가 필요없는 정적인 포스트 페이지들은 SSG를 통해 pre-rendering한 페이지를 제공받아 UX 향상을 꾀합니다
 
-useQueryDebounce 훅을 만들어 디바운스를 구현했습니다. useEffect에서 setTimeout과 clearTimeout으로 딜레이와 불필요한 API 호출을 막았습니다. 딜레이 시간의 경우 300ms로 설정하였습니다.
+> ### CSR
+
+redux/toolkit을 이용하여 flux 구조의 상태관리를 통해 CSR을 사용했습니다
 
 ## 3. UX 고려
 
-> ### 다양한 렌더링 방식
+> ### 다양한 렌더링 방식으로 최적화
 
-혼합 렌더링 방식을 사용하여 필요한 기능에 최적화된 렌더링 방식을 적용하여 UX 향상
+혼합 렌더링 방식을 사용하여 특정 기능에 최적화된 렌더링 방식을 적용하여 UX 향상
 
 > ### 관심사별 태그
 
@@ -96,3 +98,7 @@ useQueryDebounce 훅을 만들어 디바운스를 구현했습니다. useEffect�
 - 각 태그 숫자 구하는 API
 - seo
 - 폴더구조 변경
+- table-content
+- 로딩화면 로딩 첫번째부터도
+- eslint, type 정리
+- 테스트 코드

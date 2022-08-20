@@ -33,7 +33,7 @@ export default function About({ resume }) {
 
 export async function getStaticProps() {
   const aboutId = process.env.NOTION_RESUME;
-  const resume = await getResume(aboutId);
+  const resume = await getResume(aboutId!);
 
   return {
     props: {
