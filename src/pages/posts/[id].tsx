@@ -1,5 +1,9 @@
 import { getDetailPost, getPostsPath } from "@/lib";
-import { NotionRenderer } from "react-notion-x";
+import {
+  defaultMapImageUrl,
+  MapImageUrlFn,
+  NotionRenderer,
+} from "react-notion-x";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -21,6 +25,25 @@ const Code = dynamic(() =>
 );
 
 export default function Post({ recordMap, post }: Ipost) {
+  const mapImageUrl: MapImageUrlFn = (url, block) => {
+    const u = new URL(url);
+
+    if (
+      u.pathname.startsWith("/secure.notion-static.com") &&
+      u.hostname.endsWith(".amazonaws.com")
+    ) {
+      if (
+        u.searchParams.has("X-Amz-Credential") &&
+        u.searchParams.has("X-Amz-Signature") &&
+        u.searchParams.has("X-Amz-Algorithm")
+      ) {
+        url = "/image/" + encodeURIComponent(url);
+      }
+    }
+
+    return defaultMapImageUrl(url, block)!;
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.postPosition}>
@@ -39,6 +62,7 @@ export default function Post({ recordMap, post }: Ipost) {
             nextImage: Image,
             nextLink: Link,
           }}
+          mapImageUrl={mapImageUrl}
         />
         <PostNav post={post} />
       </div>
@@ -64,5 +88,6 @@ export async function getStaticProps({ params }) {
       recordMap,
       post,
     },
+    revalidate: 10,
   };
 }
