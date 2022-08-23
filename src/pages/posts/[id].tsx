@@ -1,9 +1,5 @@
 import { getDetailPost, getPostsPath } from "@/lib";
-import {
-  defaultMapImageUrl,
-  MapImageUrlFn,
-  NotionRenderer,
-} from "react-notion-x";
+import { NotionRenderer } from "react-notion-x";
 
 import Link from "next/link";
 import Image from "next/image";
@@ -25,10 +21,6 @@ const Code = dynamic(() =>
 );
 
 export default function Post({ recordMap, post }: Ipost) {
-  const mapImageUrl: MapImageUrlFn = (url, block) => {
-    return defaultMapImageUrl(url, block)!;
-  };
-
   return (
     <div className={styles.container}>
       <div className={styles.postPosition}>
@@ -47,7 +39,6 @@ export default function Post({ recordMap, post }: Ipost) {
             nextImage: Image,
             nextLink: Link,
           }}
-          mapImageUrl={mapImageUrl}
         />
         <PostNav post={post} />
       </div>
