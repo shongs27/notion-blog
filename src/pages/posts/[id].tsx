@@ -26,6 +26,21 @@ const Code = dynamic(() =>
 
 export default function Post({ recordMap, post }: Ipost) {
   const mapImageUrl: MapImageUrlFn = (url, block) => {
+    const u = new URL(url);
+
+    if (
+      u.pathname.startsWith("/secure.notion-static.com") &&
+      u.hostname.endsWith(".amazonaws.com")
+    ) {
+      if (
+        u.searchParams.has("X-Amz-Credential") &&
+        u.searchParams.has("X-Amz-Signature") &&
+        u.searchParams.has("X-Amz-Algorithm")
+      ) {
+        url = "/image/" + encodeURIComponent(url);
+      }
+    }
+
     return defaultMapImageUrl(url, block)!;
   };
 
@@ -73,5 +88,6 @@ export async function getStaticProps({ params }) {
       recordMap,
       post,
     },
+    revalidate: 10,
   };
 }
