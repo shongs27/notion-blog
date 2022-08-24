@@ -1,5 +1,5 @@
-import React, { memo } from "react";
-import styles from "./pageNation.module.scss";
+import React, { memo } from 'react';
+import styles from './pageNation.module.scss';
 
 interface IpageNation {
   currentPage: number;
@@ -7,11 +7,7 @@ interface IpageNation {
   handlePage: (move: string | undefined) => void;
 }
 
-export default memo(function PageNation({
-  currentPage,
-  totalPage,
-  handlePage,
-}: IpageNation) {
+export default memo(function PageNation({ currentPage, totalPage, handlePage }: IpageNation) {
   function handleClick(e: React.MouseEvent<HTMLButtonElement>) {
     const {
       currentTarget: {
@@ -28,21 +24,11 @@ export default memo(function PageNation({
         Page {currentPage}/{totalPage}
       </span>
 
-      <button
-        type="button"
-        data-page="1"
-        onClick={handleClick}
-        disabled={currentPage === 1}
-      >
+      <button type="button" data-page="1" onClick={handleClick} disabled={currentPage === 1}>
         &lt;&lt; First
       </button>
 
-      <button
-        type="button"
-        data-page="prev"
-        onClick={handleClick}
-        disabled={currentPage === 1}
-      >
+      <button type="button" data-page="prev" onClick={handleClick} disabled={currentPage === 1}>
         Prev
       </button>
 
@@ -53,27 +39,17 @@ export default memo(function PageNation({
           type="button"
           data-page={i + 1}
           onClick={handleClick}
-          aria-current={currentPage === i + 1 ? "page" : false}
+          aria-current={currentPage === i + 1 ? 'page' : false}
         >
           {i + 1}
         </button>
       ))}
 
-      <button
-        type="button"
-        data-page="next"
-        onClick={handleClick}
-        disabled={currentPage === totalPage}
-      >
+      <button type="button" data-page="next" onClick={handleClick} disabled={currentPage === totalPage}>
         Next
       </button>
 
-      <button
-        type="button"
-        data-page={totalPage}
-        onClick={handleClick}
-        disabled={currentPage === totalPage}
-      >
+      <button type="button" data-page={totalPage} onClick={handleClick} disabled={currentPage === totalPage}>
         Last &gt;&gt;
       </button>
     </div>

@@ -1,4 +1,6 @@
 /** @type {import('next').NextConfig} */
+const StylelintPlugin = require('stylelint-webpack-plugin');
+
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
@@ -11,16 +13,10 @@ const nextConfig = {
       issuer: /\.[jt]sx?$/,
       use: ['@svgr/webpack'],
     });
+    config.plugins.push(new StylelintPlugin());
 
     return config;
   },
-  // typescript: {
-  //   // !! WARN !!
-  //   // Dangerously allow production builds to successfully complete even if
-  //   // your project has type errors.
-  //   // !! WARN !!
-  //   ignoreBuildErrors: true,
-  // },
 };
 
 module.exports = nextConfig;

@@ -2,6 +2,7 @@ import * as NotionClient from './notion-client';
 import NotionAPI from './notion-api';
 import { promises as fs } from 'fs';
 import path from 'path';
+import { Ipost } from '../types';
 
 export type MultiSelectType = {
   type: 'multi_select';
@@ -67,7 +68,7 @@ export async function getPostsAndTags(postsDataId: string) {
   }));
 
   const posts = await Promise.all(
-    postsIDs.map((post) =>
+    postsIDs.map((post: any) =>
       Promise.all([
         NotionClient.getDetail(post.postId, post.tagId),
         NotionClient.getDetail(post.postId, post.nameId),
@@ -75,7 +76,7 @@ export async function getPostsAndTags(postsDataId: string) {
         NotionClient.getDetail(post.postId, post.thumbnailId),
         NotionClient.getDetail(post.postId, post.linkId),
       ])
-        .then(([tags, name, description, thumbnailURL, link]) => ({
+        .then(([tags, name, description, thumbnailURL, link]: any) => ({
           postId: post.postId,
           tags: tags.multi_select,
           title: name.results[0].title.plain_text,
@@ -84,10 +85,10 @@ export async function getPostsAndTags(postsDataId: string) {
           link: link.results[0]?.rich_text.plain_text || '',
           createdTime: post.createdTime,
         }))
-        .then(async (result) => {
+        .then(async (result: any) => {
           if (!result.thumbnail) return result;
 
-          const thumbnail = await NotionClient.getImage(result.thumbnail);
+          const thumbnail: any = await NotionClient.getImage(result.thumbnail);
           return {
             ...result,
             thumbnail: thumbnail.image.file.url,
@@ -120,7 +121,7 @@ export async function getPostsPath(rootPostId: string) {
   });
 
   // parse posts
-  const postsIDs = postsDatabase.results.map((post) => ({
+  const postsIDs = postsDatabase.results.map((post: any) => ({
     postId: post.id,
     tagId: post.properties.Tags.id,
     nameId: post.properties.Name.id,
@@ -136,7 +137,7 @@ export async function getPostsPath(rootPostId: string) {
         NotionClient.getDetail(post.postId, post.nameId),
         NotionClient.getDetail(post.postId, post.descriptionId),
         NotionClient.getDetail(post.postId, post.thumbnailId),
-      ]).then(([tags, name, description, thumbnail]) => ({
+      ]).then(([tags, name, description, thumbnail]: any) => ({
         postId: post.postId,
         tags: tags.multi_select,
         title: name.results[0].title.plain_text,
@@ -169,7 +170,7 @@ export async function getDetailPost(postId: string) {
     NotionClient.getDetail(postId, parsedPost.nameId),
     NotionClient.getDetail(postId, parsedPost.descriptionId),
     NotionClient.getDetail(postId, parsedPost.thumbnailId),
-  ]);
+  ] as any);
 
   const resultPost = {
     postId: parsedPost.postId,
@@ -206,8 +207,8 @@ export async function searchPage(title: string) {
     },
   });
 
-  const postsExceptResume = [];
-  searchedPages.results.forEach((post) => {
+  const postsExceptResume: any[] = [];
+  searchedPages.results.forEach((post: any) => {
     if (post.id === 'd32aca24-07a0-4540-9e4e-1df417678ecc') return;
 
     postsExceptResume.push({
@@ -230,7 +231,7 @@ export async function searchPage(title: string) {
         NotionClient.getDetail(post.postId, post.thumbnailId),
         NotionClient.getDetail(post.postId, post.linkId),
       ])
-        .then(([tags, name, description, thumbnailURL, link]) => ({
+        .then(([tags, name, description, thumbnailURL, link]: any) => ({
           postId: post.postId,
           tags: tags.multi_select,
           title: name.results[0]?.title.plain_text,
@@ -242,7 +243,7 @@ export async function searchPage(title: string) {
         .then(async (result) => {
           if (!result.thumbnail) return result;
 
-          const thumbnail = await NotionClient.getImage(result.thumbnail);
+          const thumbnail: any = await NotionClient.getImage(result.thumbnail);
           return {
             ...result,
             thumbnail: thumbnail.image.file.url,
@@ -255,7 +256,7 @@ export async function searchPage(title: string) {
 }
 
 export const postNav = {
-  register: async (posts) => {
+  register: async (posts: Ipost[]) => {
     return await fs.writeFile(
       path.join(__dirname, 'postIDs.db'),
       JSON.stringify(posts.map(({ postId }) => postId).reverse()),
@@ -263,7 +264,7 @@ export const postNav = {
   },
   get: async () => {
     const postIDs = await fs.readFile(path.join(__dirname, 'postIDs.db'));
-    const list = JSON.parse(postIDs);
+    const list = JSON.parse(postIDs as unknown as string);
     return list;
   },
 };

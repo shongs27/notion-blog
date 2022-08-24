@@ -1,4 +1,4 @@
-import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { useAppDispatch } from '@/hooks/redux';
 import { setIsMainDoor, setTag } from '@/stores/slice';
 import Link from 'next/link';
 import { useRouter } from 'next/router';

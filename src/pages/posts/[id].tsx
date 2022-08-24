@@ -1,16 +1,15 @@
 import { getDetailPost, getPostsPath, postNav } from '@/lib';
-import { defaultMapImageUrl, MapImageUrlFn, NotionRenderer } from 'react-notion-x';
 
 import Link from 'next/link';
+import PostNav from '@/components/PostNav';
+import { defaultMapImageUrl, MapImageUrlFn, NotionRenderer } from 'react-notion-x';
 import Image from 'next/image';
+import dynamic from 'next/dynamic';
+import { GetStaticProps } from 'next';
 
 import styles from './postDetail.module.scss';
-import PostNav from '@/components/PostNav';
-
-import dynamic from 'next/dynamic';
 
 import { ExtendedRecordMap } from 'notion-types';
-import { GetStaticProps } from 'next';
 import { Ipost } from '@/types/index';
 
 interface DetailPage {
@@ -66,10 +65,10 @@ export default function Post({ recordMap, post, nav }: DetailPage) {
 
 export const getStaticPaths = async () => {
   const notionDatabaseID = process.env.NOTION_POSTS_DATABASE;
-  const posts = await getPostsPath(notionDatabaseID!);
+  const posts: any = await getPostsPath(notionDatabaseID!);
   await postNav.register(posts);
 
-  const paths = posts.map((post) => ({
+  const paths = posts.map((post: any) => ({
     params: { id: post.postId },
   }));
 
