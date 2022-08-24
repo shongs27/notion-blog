@@ -1,4 +1,4 @@
-import { getDetailPost, getPostsPath } from '@/lib';
+import { getDetailPost, getPostsPath, postNav } from '@/lib';
 import { defaultMapImageUrl, MapImageUrlFn, NotionRenderer } from 'react-notion-x';
 
 import Link from 'next/link';
@@ -16,11 +16,12 @@ import { Ipost } from '@/types/index';
 interface DetailPage {
   recordMap: ExtendedRecordMap;
   post: Ipost;
+  nav: string[];
 }
 
 const Code = dynamic(() => import('react-notion-x/build/third-party/code').then((m: any) => m.Code));
 
-export default function Post({ recordMap, post }: DetailPage) {
+export default function Post({ recordMap, post, nav }: DetailPage) {
   const mapImageUrl: MapImageUrlFn = (url, block) => {
     const u = new URL(url);
 
@@ -57,7 +58,7 @@ export default function Post({ recordMap, post }: DetailPage) {
           }}
           mapImageUrl={mapImageUrl}
         />
-        <PostNav post={post} />
+        <PostNav post={post} nav={nav} />
       </div>
     </div>
   );
@@ -66,10 +67,10 @@ export default function Post({ recordMap, post }: DetailPage) {
 export const getStaticPaths = async () => {
   const notionDatabaseID = process.env.NOTION_POSTS_DATABASE;
   const posts = await getPostsPath(notionDatabaseID!);
-  const postsIDs = posts.map(({ postId }) => postId).reverse();
+  await postNav.register(posts);
 
   const paths = posts.map((post) => ({
-    params: { id: post.postId, postsIDs },
+    params: { id: post.postId },
   }));
 
   return { paths, fallback: false };
@@ -86,11 +87,13 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   const { recordMap, resultPost: post } = await getDetailPost(params.id);
+  const nav = await postNav.get();
 
   return {
     props: {
       recordMap,
       post,
+      nav,
     },
     revalidate: 10,
   };

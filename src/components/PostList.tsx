@@ -8,7 +8,7 @@ import styles from './postList.module.scss';
 import Posts from './Posts';
 import Tags from './Tags';
 
-export default function PostList({ posts, tags }: InitialPage) {
+export default function PostList({ posts = [], tags = [] }: InitialPage) {
   const selectedTag = useAppSelector((state) => state.selectedTag);
   const dispatch = useAppDispatch();
 

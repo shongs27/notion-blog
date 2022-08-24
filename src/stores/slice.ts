@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 interface IpageTags {
   tag: string;
@@ -21,7 +21,6 @@ interface IpagePosts {
 }
 
 interface IinitialState {
-  postsIDs: string[];
   isMainDoor: boolean;
   selectedTag: string;
   currentPage: number;
@@ -37,28 +36,24 @@ interface IinitialState {
 
 const initialState = {
   isMainDoor: true,
-  selectedTag: "전체",
+  selectedTag: '전체',
   contactForm: {
-    name: "",
-    email: "",
-    message: "",
+    name: '',
+    email: '',
+    message: '',
   },
-  search: "",
-  postsIDs: [""],
+  search: '',
   currentPage: 1,
 } as IinitialState;
 
 const reducers = {
-  changeSearchInput: (
-    state: IinitialState,
-    { payload: text = "" }: PayloadAction<string>
-  ) => ({
+  changeSearchInput: (state: IinitialState, { payload: text = '' }: PayloadAction<string>) => ({
     ...state,
     search: text,
   }),
   changeContactForm: (
     state: IinitialState,
-    { payload: { name, value } }: PayloadAction<{ name: string; value: string }>
+    { payload: { name, value } }: PayloadAction<{ name: string; value: string }>,
   ) => ({
     ...state,
     contactForm: {
@@ -67,52 +62,28 @@ const reducers = {
     },
   }),
 
-  setTag: (
-    state: IinitialState,
-    { payload: selectedTag }: PayloadAction<string>
-  ) => ({
+  setTag: (state: IinitialState, { payload: selectedTag }: PayloadAction<string>) => ({
     ...state,
     selectedTag,
   }),
 
-  setIsMainDoor: (
-    state: IinitialState,
-    { payload: isMainDoor }: PayloadAction<boolean>
-  ) => ({
+  setIsMainDoor: (state: IinitialState, { payload: isMainDoor }: PayloadAction<boolean>) => ({
     ...state,
     isMainDoor,
   }),
 
-  setPostsIDs: (
-    state: IinitialState,
-    { payload: postsIDs }: PayloadAction<string[]>
-  ) => ({
-    ...state,
-    postsIDs,
-  }),
-
-  setCurrentPage: (
-    state: IinitialState,
-    { payload: currentPage }: PayloadAction<number>
-  ) => ({
+  setCurrentPage: (state: IinitialState, { payload: currentPage }: PayloadAction<number>) => ({
     ...state,
     currentPage,
   }),
 };
 
 const { actions, reducer } = createSlice({
-  name: "app",
+  name: 'app',
   initialState,
   reducers,
 });
 
-export const {
-  changeSearchInput,
-  changeContactForm,
-  setTag,
-  setIsMainDoor,
-  setPostsIDs,
-  setCurrentPage,
-} = actions;
+export const { changeSearchInput, changeContactForm, setTag, setIsMainDoor, setCurrentPage } = actions;
 
 export default reducer;

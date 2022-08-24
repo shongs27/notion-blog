@@ -8,7 +8,6 @@ import { useEffect, useState } from 'react';
 import cx from 'classnames';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
-import classNames from 'classnames';
 
 export default function Nav() {
   const [isScroll, setIsScroll] = useState(false);
@@ -83,7 +82,7 @@ export default function Nav() {
       </div>
 
       <ul
-        className={classNames(styles.category, {
+        className={cx(styles.category, {
           [styles.responsiveCategory]: clickedMobileMenu === true,
         })}
       >

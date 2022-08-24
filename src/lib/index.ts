@@ -1,6 +1,7 @@
 import * as NotionClient from './notion-client';
 import NotionAPI from './notion-api';
-import { Ititle } from '../types';
+import { promises as fs } from 'fs';
+import path from 'path';
 
 export type MultiSelectType = {
   type: 'multi_select';
@@ -51,14 +52,11 @@ export async function getPostsAndTags(postsDataId: string) {
     }),
   ]);
 
-  // THINK-GYU
-  // 복잡한 데이터 형태인 경우 api response 형태를 어떻게 mock 해야하는지??
-
   // parse tags
   const tags = tagsDatabase.properties.Tags.multi_select.options;
 
   // parse posts
-  const postsIDs = postsDatabase.results.map((post) => ({
+  const postsIDs = postsDatabase.results.map((post: any) => ({
     postId: post.id,
     tagId: post.properties.Tags.id,
     nameId: post.properties.Name.id,
@@ -255,3 +253,17 @@ export async function searchPage(title: string) {
 
   return posts;
 }
+
+export const postNav = {
+  register: async (posts) => {
+    return await fs.writeFile(
+      path.join(__dirname, 'postIDs.db'),
+      JSON.stringify(posts.map(({ postId }) => postId).reverse()),
+    );
+  },
+  get: async () => {
+    const postIDs = await fs.readFile(path.join(__dirname, 'postIDs.db'));
+    const list = JSON.parse(postIDs);
+    return list;
+  },
+};

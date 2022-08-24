@@ -8,11 +8,11 @@ import styles from './postNav.module.scss';
 
 interface IPostNav {
   post: Ipost;
+  nav: string[];
 }
 
-export default function PostNav({ post }: IPostNav) {
+export default function PostNav({ post, nav }: IPostNav) {
   const dispatch = useAppDispatch();
-  const postsIDs = useAppSelector((state) => state.postsIDs);
   const router = useRouter();
 
   function handleClick(e: React.MouseEvent<HTMLElement>) {
@@ -38,9 +38,9 @@ export default function PostNav({ post }: IPostNav) {
       )}
 
       <div className={styles.navigation}>
-        {postsIDs[post.order - 2] && <Link href={`/posts/${postsIDs[post.order - 2]}`}>이전 게시물</Link>}
+        {nav[post.order! - 2] && <Link href={`/posts/${nav[post.order! - 2]}`}>이전 게시물</Link>}
 
-        {postsIDs[post.order] && <Link href={`/posts/${postsIDs[post.order]}`}>다음 게시물</Link>}
+        {nav[post.order!] && <Link href={`/posts/${nav[post.order!]}`}>다음 게시물</Link>}
       </div>
     </div>
   );
