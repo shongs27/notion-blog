@@ -1,43 +1,36 @@
-import { getDetailPost, getPostsPath } from "@/lib";
-import {
-  defaultMapImageUrl,
-  MapImageUrlFn,
-  NotionRenderer,
-} from "react-notion-x";
+import { getDetailPost, getPostsPath } from '@/lib';
+import { defaultMapImageUrl, MapImageUrlFn, NotionRenderer } from 'react-notion-x';
 
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 
-import styles from "./postDetail.module.scss";
-import PostNav from "@/components/PostNav";
+import styles from './postDetail.module.scss';
+import PostNav from '@/components/PostNav';
 
-import dynamic from "next/dynamic";
+import dynamic from 'next/dynamic';
 
-import { ExtendedRecordMap } from "notion-types";
+import { ExtendedRecordMap } from 'notion-types';
+import { GetStaticProps } from 'next';
+import { Ipost } from '@/types/index';
 
-interface Ipost {
+interface DetailPage {
   recordMap: ExtendedRecordMap;
-  post: any;
+  post: Ipost;
 }
 
-const Code = dynamic(() =>
-  import("react-notion-x/build/third-party/code").then((m: any) => m.Code)
-);
+const Code = dynamic(() => import('react-notion-x/build/third-party/code').then((m: any) => m.Code));
 
-export default function Post({ recordMap, post }: Ipost) {
+export default function Post({ recordMap, post }: DetailPage) {
   const mapImageUrl: MapImageUrlFn = (url, block) => {
     const u = new URL(url);
 
-    if (
-      u.pathname.startsWith("/secure.notion-static.com") &&
-      u.hostname.endsWith(".amazonaws.com")
-    ) {
+    if (u.pathname.startsWith('/secure.notion-static.com') && u.hostname.endsWith('.amazonaws.com')) {
       if (
-        u.searchParams.has("X-Amz-Credential") &&
-        u.searchParams.has("X-Amz-Signature") &&
-        u.searchParams.has("X-Amz-Algorithm")
+        u.searchParams.has('X-Amz-Credential') &&
+        u.searchParams.has('X-Amz-Signature') &&
+        u.searchParams.has('X-Amz-Algorithm')
       ) {
-        url = "/image/" + encodeURIComponent(url);
+        url = '/image/' + encodeURIComponent(url);
       }
     }
 
@@ -70,17 +63,28 @@ export default function Post({ recordMap, post }: Ipost) {
   );
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
   const notionDatabaseID = process.env.NOTION_POSTS_DATABASE;
   const posts = await getPostsPath(notionDatabaseID!);
+  const postsIDs = posts.map(({ postId }) => postId).reverse();
+
   const paths = posts.map((post) => ({
-    params: { id: post.postId },
+    params: { id: post.postId, postsIDs },
   }));
 
   return { paths, fallback: false };
-}
+};
 
-export async function getStaticProps({ params }) {
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  if (!params || typeof params.id !== 'string') {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
   const { recordMap, resultPost: post } = await getDetailPost(params.id);
 
   return {
@@ -90,4 +94,4 @@ export async function getStaticProps({ params }) {
     },
     revalidate: 10,
   };
-}
+};

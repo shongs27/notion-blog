@@ -1,8 +1,8 @@
-import { Nav, FooterBar } from "@/components";
+import styles from './layout.module.scss';
 
-import styles from "./layout.module.scss";
-
-import { LayoutProps } from "@/types/index";
+import { LayoutProps } from '@/types/index';
+import Nav from './Nav';
+import FooterBar from './FooterBar';
 
 export default function Layout({ children }: LayoutProps) {
   return (

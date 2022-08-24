@@ -1,21 +1,21 @@
-import Head from "next/head";
+import Head from 'next/head';
 
-import { MainDoor } from "@/components";
-import PostList from "@/components/PostList";
-import { getPostsAndTags } from "@/lib";
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { InitialPage } from "../types";
-import { useEffect } from "react";
-import { setPostsIDs } from "@/stores/slice";
+import MainDoor from '@/components/MainDoor';
+import PostList from '@/components/PostList';
+import { getPostsAndTags } from '@/lib';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { InitialPage } from '../types';
+import { useEffect } from 'react';
+import { setPostsIDs } from '@/stores/slice';
 
 const Home = ({ tags, posts }: InitialPage) => {
   const isMainDoor = useAppSelector((state) => state.isMainDoor);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    const postsIDs = posts.map(({ postId }) => postId).reverse();
-    dispatch(setPostsIDs(postsIDs));
-  }, [dispatch, posts]);
+  // useEffect(() => {
+  //   const postsIDs = posts.map(({ postId }) => postId).reverse();
+  //   dispatch(setPostsIDs(postsIDs));
+  // }, [dispatch, posts]);
 
   return (
     <div>

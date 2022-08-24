@@ -1,8 +1,9 @@
-import * as NotionClient from "./notion-client";
-import NotionAPI from "./notion-api";
+import * as NotionClient from './notion-client';
+import NotionAPI from './notion-api';
+import { Ititle } from '../types';
 
 export type MultiSelectType = {
-  type: "multi_select";
+  type: 'multi_select';
   multi_select: {
     options: Array<{
       name: string;
@@ -36,15 +37,15 @@ export async function getPostsAndTags(postsDataId: string) {
     NotionClient.queryDatabase({
       database_id: postsDataId,
       filter: {
-        property: "Name",
+        property: 'Name',
         title: {
           is_not_empty: true,
         },
       },
       sorts: [
         {
-          property: "Order",
-          direction: "descending",
+          property: 'Order',
+          direction: 'descending',
         },
       ],
     }),
@@ -80,10 +81,9 @@ export async function getPostsAndTags(postsDataId: string) {
           postId: post.postId,
           tags: tags.multi_select,
           title: name.results[0].title.plain_text,
-          description: description.results[0]?.rich_text.plain_text || "",
-          thumbnail:
-            thumbnailURL.results[0]?.rich_text.plain_text.split(/#/g)[1] || "",
-          link: link.results[0]?.rich_text.plain_text || "",
+          description: description.results[0]?.rich_text.plain_text || '',
+          thumbnail: thumbnailURL.results[0]?.rich_text.plain_text.split(/#/g)[1] || '',
+          link: link.results[0]?.rich_text.plain_text || '',
           createdTime: post.createdTime,
         }))
         .then(async (result) => {
@@ -94,8 +94,8 @@ export async function getPostsAndTags(postsDataId: string) {
             ...result,
             thumbnail: thumbnail.image.file.url,
           };
-        })
-    )
+        }),
+    ),
   );
 
   return {
@@ -108,15 +108,15 @@ export async function getPostsPath(rootPostId: string) {
   const postsDatabase = await NotionClient.queryDatabase({
     database_id: rootPostId,
     filter: {
-      property: "Name",
+      property: 'Name',
       title: {
         is_not_empty: true,
       },
     },
     sorts: [
       {
-        property: "Order",
-        direction: "descending",
+        property: 'Order',
+        direction: 'descending',
       },
     ],
   });
@@ -142,21 +142,18 @@ export async function getPostsPath(rootPostId: string) {
         postId: post.postId,
         tags: tags.multi_select,
         title: name.results[0].title.plain_text,
-        description: description.results[0]?.rich_text.plain_text || "",
+        description: description.results[0]?.rich_text.plain_text || '',
         thumbnail,
         createdTime: post.createdTime,
-      }))
-    )
+      })),
+    ),
   );
 
   return posts;
 }
 
 export async function getDetailPost(postId: string) {
-  const [recordMap, post]: any = await Promise.all([
-    NotionAPI.getPage(postId),
-    NotionClient.getPage(postId),
-  ]);
+  const [recordMap, post]: any = await Promise.all([NotionAPI.getPage(postId), NotionClient.getPage(postId)]);
 
   const parsedPost = {
     postId: post.id,
@@ -168,13 +165,7 @@ export async function getDetailPost(postId: string) {
     createdTime: new Date(post.created_time).toLocaleDateString(),
   };
 
-  const [
-    orderDetail,
-    tagDetail,
-    nameDetail,
-    descriptionDetail,
-    thumbnailDetail,
-  ] = await Promise.all([
+  const [orderDetail, tagDetail, nameDetail, descriptionDetail, thumbnailDetail] = await Promise.all([
     NotionClient.getDetail(postId, parsedPost.orderId),
     NotionClient.getDetail(postId, parsedPost.tagId),
     NotionClient.getDetail(postId, parsedPost.nameId),
@@ -187,7 +178,7 @@ export async function getDetailPost(postId: string) {
     order: orderDetail.number,
     tags: tagDetail.multi_select,
     title: nameDetail.results[0].title.plain_text,
-    description: descriptionDetail.results[0]?.rich_text.plain_text || "",
+    description: descriptionDetail.results[0]?.rich_text.plain_text || '',
     thumbnail: thumbnailDetail,
     createdTime: parsedPost.createdTime,
   };
@@ -205,25 +196,21 @@ export async function getResume(postId: string) {
 }
 
 export async function searchPage(title: string) {
-  if (/^.{0,1}$/.test(title)) {
-    throw new Error("두 글자 이상의 타이틀로 검색해주세요");
-  }
-
   const searchedPages = await NotionClient.searchPage({
     query: title,
     sort: {
-      direction: "ascending",
-      timestamp: "last_edited_time",
+      direction: 'ascending',
+      timestamp: 'last_edited_time',
     },
     filter: {
-      property: "object",
-      value: "page",
+      property: 'object',
+      value: 'page',
     },
   });
 
   const postsExceptResume = [];
   searchedPages.results.forEach((post) => {
-    if (post.id === "d32aca24-07a0-4540-9e4e-1df417678ecc") return;
+    if (post.id === 'd32aca24-07a0-4540-9e4e-1df417678ecc') return;
 
     postsExceptResume.push({
       postId: post.id,
@@ -249,10 +236,9 @@ export async function searchPage(title: string) {
           postId: post.postId,
           tags: tags.multi_select,
           title: name.results[0]?.title.plain_text,
-          description: description.results[0]?.rich_text.plain_text || "",
-          thumbnail:
-            thumbnailURL.results[0]?.rich_text.plain_text.split(/#/g)[1] || "",
-          link: link.results[0]?.rich_text.plain_text || "",
+          description: description.results[0]?.rich_text.plain_text || '',
+          thumbnail: thumbnailURL.results[0]?.rich_text.plain_text.split(/#/g)[1] || '',
+          link: link.results[0]?.rich_text.plain_text || '',
           createdTime: post.createdTime,
         }))
         .then(async (result) => {
@@ -263,8 +249,8 @@ export async function searchPage(title: string) {
             ...result,
             thumbnail: thumbnail.image.file.url,
           };
-        })
-    )
+        }),
+    ),
   );
 
   return posts;

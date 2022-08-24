@@ -1,32 +1,34 @@
-import { searchPage } from "@/lib";
+import { searchPage } from '@/lib';
+import { Ipost } from '../types';
 
-import PostList from "@/components/PostList";
+import PostList from '@/components/PostList';
+import { GetServerSideProps } from 'next';
 
-export default function Search({ posts }) {
-  if (typeof posts === "string") {
-    window.alert(posts);
-    posts = [];
-  }
+interface Iposts {
+  posts: Ipost[];
+}
 
+export default function Search({ posts }: Iposts) {
   return <PostList posts={posts} />;
 }
 
-export async function getServerSideProps(context) {
+export const getServerSideProps: GetServerSideProps = async (context) => {
   const { title } = context.query;
 
-  try {
-    const posts = await searchPage(title);
-
+  if (typeof title !== 'string') {
     return {
-      props: {
-        posts,
-      },
-    };
-  } catch (error) {
-    return {
-      props: {
-        posts: error.message,
+      redirect: {
+        destination: '/',
+        permanent: false,
       },
     };
   }
-}
+
+  const posts = await searchPage(title);
+
+  return {
+    props: {
+      posts,
+    },
+  };
+};
