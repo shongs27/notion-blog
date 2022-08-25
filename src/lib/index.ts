@@ -258,12 +258,12 @@ export async function searchPage(title: string) {
 export const postNav = {
   register: async (posts: Ipost[]) => {
     return await fs.writeFile(
-      path.join(__dirname, 'postIDs.db'),
+      path.join(process.cwd(), 'postIDs.db'),
       JSON.stringify(posts.map(({ postId }) => postId).reverse()),
     );
   },
   get: async () => {
-    const postIDs = await fs.readFile(path.join(__dirname, 'postIDs.db'));
+    const postIDs = await fs.readFile(path.join(process.cwd(), 'postIDs.db'));
     const list = JSON.parse(postIDs as unknown as string);
     return list;
   },
