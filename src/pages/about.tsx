@@ -1,18 +1,20 @@
-import { getResume } from "@/lib";
-import { NotionRenderer } from "react-notion-x";
+import Link from 'next/link';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
-import Link from "next/link";
-import Image from "next/image";
+import styles from './posts/postDetail.module.scss';
+import { ExtendedRecordMap } from 'notion-types';
 
-import styles from "./posts/postDetail.module.scss";
+import { NotionRenderer } from 'react-notion-x';
 
-import dynamic from "next/dynamic";
+import { getResume } from '@/lib';
+const Code = dynamic(() => import('react-notion-x/build/third-party/code').then((m: any) => m.Code));
 
-const Code = dynamic(() =>
-  import("react-notion-x/build/third-party/code").then((m: any) => m.Code)
-);
+interface IAbout {
+  resume: ExtendedRecordMap;
+}
 
-export default function About({ resume }) {
+export default function About({ resume }: IAbout) {
   return (
     <div className={styles.container}>
       <div className={styles.postPosition}>

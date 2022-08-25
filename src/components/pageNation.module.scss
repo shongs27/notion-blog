@@ -1,4 +1,4 @@
-@use "src/styles/colors";
+@use 'src/styles/colors';
 
 .pageNation {
   display: flex;
@@ -38,7 +38,7 @@
       cursor: not-allowed;
     }
 
-    &[aria-current~="page"] {
+    &[aria-current~='page'] {
       font-weight: bold;
       color: colors.$WHITE;
       cursor: revert;

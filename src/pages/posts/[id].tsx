@@ -1,43 +1,36 @@
-import { getDetailPost, getPostsPath } from "@/lib";
-import {
-  defaultMapImageUrl,
-  MapImageUrlFn,
-  NotionRenderer,
-} from "react-notion-x";
+import Link from 'next/link';
+import Image from 'next/image';
+import dynamic from 'next/dynamic';
 
-import Link from "next/link";
-import Image from "next/image";
+import styles from './postDetail.module.scss';
+import { Ipost } from '@/types/index';
+import { ExtendedRecordMap } from 'notion-types';
+import { GetStaticProps } from 'next';
 
-import styles from "./postDetail.module.scss";
-import PostNav from "@/components/PostNav";
+import { defaultMapImageUrl, MapImageUrlFn, NotionRenderer } from 'react-notion-x';
 
-import dynamic from "next/dynamic";
+import PostNav from '@/components/PostNav';
+import { getDetailPost, getPostIDs, getPostsPath } from '@/lib';
 
-import { ExtendedRecordMap } from "notion-types";
-
-interface Ipost {
+interface DetailPage {
   recordMap: ExtendedRecordMap;
-  post: any;
+  post: Ipost;
+  nav: string[];
 }
 
-const Code = dynamic(() =>
-  import("react-notion-x/build/third-party/code").then((m: any) => m.Code)
-);
+const Code = dynamic(() => import('react-notion-x/build/third-party/code').then((m: any) => m.Code));
 
-export default function Post({ recordMap, post }: Ipost) {
+export default function Post({ recordMap, post, nav }: DetailPage) {
   const mapImageUrl: MapImageUrlFn = (url, block) => {
     const u = new URL(url);
 
-    if (
-      u.pathname.startsWith("/secure.notion-static.com") &&
-      u.hostname.endsWith(".amazonaws.com")
-    ) {
+    if (u.pathname.startsWith('/secure.notion-static.com') && u.hostname.endsWith('.amazonaws.com')) {
       if (
-        u.searchParams.has("X-Amz-Credential") &&
-        u.searchParams.has("X-Amz-Signature") &&
-        u.searchParams.has("X-Amz-Algorithm")
+        u.searchParams.has('X-Amz-Credential') &&
+        u.searchParams.has('X-Amz-Signature') &&
+        u.searchParams.has('X-Amz-Algorithm')
       ) {
-        url = "/image/" + encodeURIComponent(url);
+        url = '/image/' + encodeURIComponent(url);
       }
     }
 
@@ -64,30 +57,44 @@ export default function Post({ recordMap, post }: Ipost) {
           }}
           mapImageUrl={mapImageUrl}
         />
-        <PostNav post={post} />
+        <PostNav post={post} nav={nav} />
       </div>
     </div>
   );
 }
 
-export async function getStaticPaths() {
+export const getStaticPaths = async () => {
   const notionDatabaseID = process.env.NOTION_POSTS_DATABASE;
-  const posts = await getPostsPath(notionDatabaseID!);
-  const paths = posts.map((post) => ({
+  const posts: any = await getPostsPath(notionDatabaseID!);
+
+  const paths = posts.map((post: any) => ({
     params: { id: post.postId },
   }));
 
-  return { paths, fallback: false };
-}
+  return { paths, fallback: 'blocking' };
+};
 
-export async function getStaticProps({ params }) {
-  const { recordMap, resultPost: post } = await getDetailPost(params.id);
+export const getStaticProps: GetStaticProps = async ({ params }) => {
+  if (!params || typeof params.id !== 'string') {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      },
+    };
+  }
+
+  const [{ recordMap, resultPost: post }, nav] = await Promise.all([
+    getDetailPost(params.id),
+    getPostIDs(process.env.NOTION_POSTS_DATABASE!),
+  ]);
 
   return {
     props: {
       recordMap,
       post,
+      nav,
     },
     revalidate: 10,
   };
-}
+};

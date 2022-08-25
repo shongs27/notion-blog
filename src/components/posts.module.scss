@@ -1,4 +1,4 @@
-@use "src/styles/colors";
+@use 'src/styles/colors';
 
 .postList {
   display: grid;
@@ -10,16 +10,16 @@
 
   li {
     height: 340px;
+    padding: 15px;
     background-color: colors.$WHITE;
     border: none;
     border-radius: 15px;
     transition: all 0.2s !important;
-    padding: 15px;
 
     &:hover {
-      box-shadow: 0 5px 10px 3px rgba(colors.$WHITE, 0.8);
-      transform: translateY(-15px);
       cursor: pointer;
+      box-shadow: 0 5px 10px 3px rgba(111 197 236/ 80%);
+      transform: translateY(-15px);
     }
 
     button {
@@ -43,10 +43,10 @@
     }
 
     .postMeta {
-      margin-bottom: 10px;
-      padding: 5px 15px;
       display: flex;
       justify-content: space-between;
+      padding: 5px 15px;
+      margin-bottom: 10px;
 
       span {
         font-size: 0.7rem;
@@ -54,8 +54,8 @@
       }
 
       .metaTags > span {
-        font-weight: 700;
         margin-right: 5px;
+        font-weight: 700;
       }
 
       .metaETC {
@@ -69,10 +69,10 @@
       height: 150px;
       padding: 0 15px;
       overflow: hidden;
+      overflow-y: scroll;
       font-size: 0.8em;
       color: colors.$BLACK;
       word-break: break-all;
-      overflow-y: scroll;
     }
   }
 }

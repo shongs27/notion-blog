@@ -1,12 +1,12 @@
-@use "src/styles/colors";
+@use 'src/styles/colors';
 
 .container {
   display: flex;
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   width: 100%;
-  background-color: colors.$SBLACK;
   padding: 2em 0;
+  background-color: colors.$SBLACK;
 }
 
 .intro {
@@ -52,7 +52,7 @@
   .imageWrapper > span {
     padding-top: 10px;
     border-radius: 50%;
-    box-shadow: 10px 10px rgba(0, 0, 0, 20%);
+    box-shadow: 10px 10px rgb(0 0 0 / 20%);
   }
 
   &:hover {
@@ -68,8 +68,8 @@
       text-align: center;
 
       > span {
-        background-color: colors.$SPINK;
         padding: 0.2em 0.4em;
+        background-color: colors.$SPINK;
       }
     }
 

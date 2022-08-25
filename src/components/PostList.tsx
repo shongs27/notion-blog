@@ -1,20 +1,19 @@
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { setCurrentPage } from "@/stores/slice";
-import { useEffect } from "react";
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { setCurrentPage } from '@/stores/slice';
 
-import styles from "./postList.module.scss";
+import styles from './postList.module.scss';
+import { InitialPage } from '../types';
 
-import Posts from "./Posts";
-import Tags from "./Tags";
+import Posts from './Posts';
+import Tags from './Tags';
 
-export default function PostList({ posts, tags }) {
+export default function PostList({ posts = [], tags = [] }: InitialPage) {
   const selectedTag = useAppSelector((state) => state.selectedTag);
   const dispatch = useAppDispatch();
 
-  if (selectedTag !== "전체") {
-    posts = posts.filter((post) =>
-      post.tags.some((tag) => tag.name === selectedTag)
-    );
+  if (selectedTag !== '전체') {
+    posts = posts.filter((post) => post.tags.some((tag) => tag.name === selectedTag));
   }
 
   useEffect(() => {

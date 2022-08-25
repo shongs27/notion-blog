@@ -1,14 +1,14 @@
-import styles from "./nav.module.scss";
-import SearchIcon from "@/assets/search.svg";
-import MenuIcon from "@/assets/menu.svg";
+import { useEffect, useState } from 'react';
+import { useAppSelector, useAppDispatch } from '@/hooks/redux';
+import { changeSearchInput, setIsMainDoor, setTag } from '@/stores/slice';
+import Image from 'next/image';
+import { useRouter } from 'next/router';
 
-import { useAppSelector, useAppDispatch } from "@/hooks/redux";
-import { changeSearchInput, setIsMainDoor, setTag } from "@/stores/slice";
-import { useEffect, useState } from "react";
-import cx from "classnames";
-import Image from "next/image";
-import { useRouter } from "next/router";
-import classNames from "classnames";
+import styles from './nav.module.scss';
+
+import cx from 'classnames';
+import SearchIcon from '@/assets/search.svg';
+import MenuIcon from '@/assets/menu.svg';
 
 export default function Nav() {
   const [isScroll, setIsScroll] = useState(false);
@@ -24,14 +24,17 @@ export default function Nav() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    dispatch(setTag("전체"));
+    if (/^.{0,1}$/.test(search)) {
+      return window.alert('두 글자 이상의 타이틀로 검색해주세요');
+    }
 
+    dispatch(setTag('전체'));
     router.push(`/search?title=${search}`);
   }
 
   function handleMainDoor(isMainDoor: boolean) {
     dispatch(setIsMainDoor(isMainDoor));
-    router.push("/");
+    router.push('/');
   }
 
   function handleMobileMenu() {
@@ -39,11 +42,11 @@ export default function Nav() {
   }
 
   function handleRouting(params: string) {
-    dispatch(setTag("전체"));
+    dispatch(setTag('전체'));
 
-    if (params === "blog") {
+    if (params === 'blog') {
       handleMainDoor(false);
-      return router.push("/");
+      return router.push('/');
     }
     router.push(`/${params}`);
   }
@@ -55,10 +58,10 @@ export default function Nav() {
         window.scrollY !== 0 ? setIsScroll(true) : setIsScroll(false);
       }, 200);
 
-    window.addEventListener("scroll", debounce);
+    window.addEventListener('scroll', debounce);
 
     return () => {
-      window.removeEventListener("scroll", debounce);
+      window.removeEventListener('scroll', debounce);
     };
   }, []);
 
@@ -66,13 +69,7 @@ export default function Nav() {
     <div className={cx(styles.container, { [styles.transNav]: isScroll })}>
       <div className={styles.title}>
         <button type="button" onClick={() => handleMainDoor(true)}>
-          <Image
-            src="/favicon.ico"
-            alt="hongs blog"
-            width={40}
-            height={40}
-            layout="fixed"
-          />
+          <Image src="/favicon.ico" alt="hongs blog" width={40} height={40} layout="fixed" />
           <span>ongs Blog</span>
         </button>
       </div>
@@ -80,21 +77,16 @@ export default function Nav() {
       <div className={styles.search}>
         <form onSubmit={handleSubmit}>
           <SearchIcon />
-          <input
-            type="text"
-            value={search}
-            onChange={handleChange}
-            placeholder="타이틀 검색"
-          />
+          <input type="text" value={search} onChange={handleChange} placeholder="타이틀 검색" />
         </form>
       </div>
 
       <ul
-        className={classNames(styles.category, {
+        className={cx(styles.category, {
           [styles.responsiveCategory]: clickedMobileMenu === true,
         })}
       >
-        {["blog", "works", "about", "contact"].map((menu) => (
+        {['blog', 'works', 'about', 'contact'].map((menu) => (
           <li key={menu}>
             <button type="button" onClick={() => handleRouting(menu)}>
               {menu.charAt(0).toUpperCase() + menu.slice(1)}
@@ -103,11 +95,7 @@ export default function Nav() {
         ))}
       </ul>
 
-      <button
-        className={styles.menuIcon}
-        type="button"
-        onClick={handleMobileMenu}
-      >
+      <button className={styles.menuIcon} type="button" onClick={handleMobileMenu}>
         <MenuIcon />
       </button>
     </div>

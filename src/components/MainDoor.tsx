@@ -1,7 +1,7 @@
-import Link from "next/link";
-import Image from "next/image";
+import Link from 'next/link';
+import Image from 'next/image';
 
-import styles from "./mainDoor.module.scss";
+import styles from './mainDoor.module.scss';
 
 export default function MainDoor() {
   return (
@@ -21,12 +21,7 @@ export default function MainDoor() {
       </div>
 
       <div className={styles.githubImage}>
-        <a
-          href="https://github.com/shongs27"
-          target="_blank"
-          rel="noreferrer"
-          title="깃허브"
-        >
+        <a href="https://github.com/shongs27" target="_blank" rel="noreferrer" title="깃허브">
           <div className={styles.imageWrapper}>
             <Image
               src="https://avatars.githubusercontent.com/u/55541745?v=4"

@@ -1,8 +1,11 @@
-import { Nav, FooterBar } from "@/components";
+import styles from './layout.module.scss';
 
-import styles from "./layout.module.scss";
+import Nav from './Nav';
+import FooterBar from './FooterBar';
 
-import { LayoutProps } from "@/types/index";
+interface LayoutProps {
+  children: React.ReactNode;
+}
 
 export default function Layout({ children }: LayoutProps) {
   return (

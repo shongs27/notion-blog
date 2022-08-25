@@ -1,29 +1,26 @@
-import { useAppDispatch, useAppSelector } from "@/hooks/redux";
-import { changeContactForm } from "@/stores/slice";
+import { useAppDispatch, useAppSelector } from '@/hooks/redux';
+import { changeContactForm } from '@/stores/slice';
 
-import styles from "./contact.module.scss";
+import styles from './contact.module.scss';
 
 export default function Contact() {
   const dispatch = useAppDispatch();
   const { name, email, message } = useAppSelector((state) => state.contactForm);
 
-  function handleChange(e: React.ChangeEvent<HTMLInputElement>) {
-
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const {
       target: { name, value },
     } = e;
-
     dispatch(changeContactForm({ name, value }));
-  }
+  };
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
-
     e.preventDefault();
 
     // todo: 백엔드 통신 구현
     // router.push("/");
 
-    alert("메일 전송 구축전입니다. 마음만 받겠습니다 ^^");
+    alert('메일 전송 구축전입니다. 마음만 받겠습니다 ^^');
   }
 
   return (
@@ -34,14 +31,7 @@ export default function Contact() {
         <div className={styles.forminputs}>
           <div className={styles.forminput}>
             <label htmlFor="name">이름</label>
-            <input
-              type="text"
-              id="name"
-              name="name"
-              placeholder="이름"
-              onChange={handleChange}
-              value={name}
-            />
+            <input type="text" id="name" name="name" placeholder="이름" onChange={handleChange} value={name} />
           </div>
 
           <div className={styles.forminput}>

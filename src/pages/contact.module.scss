@@ -1,17 +1,16 @@
-@use "src/styles/colors";
+@use 'src/styles/colors';
 
 .container {
-  background: colors.$BLACK;
   width: 95%;
   max-width: 800px;
   min-height: 87vh;
-
   padding-top: 50px;
   margin: 0 auto;
+  background: colors.$BLACK;
 
   h1 {
-    margin-left: 10%;
     margin-bottom: 1.5em;
+    margin-left: 10%;
   }
 
   label {
@@ -21,7 +20,6 @@
   .form {
     padding-left: 10%;
   }
-
 
   .forminputs {
     display: flex;
