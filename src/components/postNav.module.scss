@@ -1,4 +1,4 @@
-@use "src/styles/colors";
+@use 'src/styles/colors';
 
 .notionFooter {
   padding-top: 50px;
@@ -42,6 +42,7 @@
 
   a {
     flex: 1 50%;
+    max-width: 50%;
     padding: 1em;
     word-break: keep-all;
     border: 1px solid colors.$SWHITE;

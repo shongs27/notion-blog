@@ -1,4 +1,4 @@
-import { getDetailPost, getPostsPath, postNav } from '@/lib';
+import { getDetailPost, getPostIDs, getPostsPath, postNav } from '@/lib';
 
 import Link from 'next/link';
 import PostNav from '@/components/PostNav';
@@ -66,7 +66,6 @@ export default function Post({ recordMap, post, nav }: DetailPage) {
 export const getStaticPaths = async () => {
   const notionDatabaseID = process.env.NOTION_POSTS_DATABASE;
   const posts: any = await getPostsPath(notionDatabaseID!);
-  // await postNav.register(posts);
 
   const paths = posts.map((post: any) => ({
     params: { id: post.postId },
@@ -85,9 +84,11 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
 
-  const { recordMap, resultPost: post } = await getDetailPost(params.id);
-  // const nav = await postNav.get();
-  const nav = [''];
+  const [{ recordMap, resultPost: post }, nav] = await Promise.all([
+    getDetailPost(params.id),
+    getPostIDs(process.env.NOTION_POSTS_DATABASE!),
+  ]);
+
   return {
     props: {
       recordMap,

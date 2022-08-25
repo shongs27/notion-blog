@@ -103,9 +103,15 @@ export async function getPostsAndTags(postsDataId: string) {
   };
 }
 
-export async function getPostsPath(rootPostId: string) {
+export async function getPostIDs(databaseId: string) {
+  const posts = await getPostsPath(databaseId);
+
+  return posts.map(({ postId }) => postId).reverse();
+}
+
+export async function getPostsPath(databaseId: string) {
   const postsDatabase = await NotionClient.queryDatabase({
-    database_id: rootPostId,
+    database_id: databaseId,
     filter: {
       property: 'Name',
       title: {
