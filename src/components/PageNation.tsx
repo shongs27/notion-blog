@@ -1,4 +1,5 @@
 import React, { memo } from 'react';
+
 import styles from './pageNation.module.scss';
 
 interface IpageNation {
@@ -25,7 +26,7 @@ export default memo(function PageNation({ currentPage, totalPage, handlePage }: 
       </span>
 
       <button type="button" data-page="1" onClick={handleClick} disabled={currentPage === 1}>
-        &lt;&lt; First
+        &lt;&lt;
       </button>
 
       <button type="button" data-page="prev" onClick={handleClick} disabled={currentPage === 1}>
@@ -50,7 +51,7 @@ export default memo(function PageNation({ currentPage, totalPage, handlePage }: 
       </button>
 
       <button type="button" data-page={totalPage} onClick={handleClick} disabled={currentPage === totalPage}>
-        Last &gt;&gt;
+        &gt;&gt;
       </button>
     </div>
   );

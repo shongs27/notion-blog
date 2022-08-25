@@ -1,8 +1,8 @@
-import { searchPage } from '@/lib';
 import { Ipost } from '../types';
+import { GetServerSideProps } from 'next';
 
 import PostList from '@/components/PostList';
-import { GetServerSideProps } from 'next';
+import { searchPage } from '@/lib';
 
 interface Iposts {
   posts: Ipost[];

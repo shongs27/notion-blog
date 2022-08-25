@@ -1,13 +1,13 @@
 import { useCallback } from 'react';
-import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { setCurrentPage } from '@/stores/slice';
-
+import { useRouter } from 'next/router';
 import Image from 'next/image';
+
 import styles from './posts.module.scss';
+import { Ipost } from '@/types/index';
 
 import PageNation from './PageNation';
-import { Ipost } from '@/types/index';
 
 interface IPosts {
   posts: Ipost[];

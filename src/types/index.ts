@@ -1,7 +1,3 @@
-export interface LayoutProps {
-  children: React.ReactNode;
-}
-
 export interface Itag {
   id: string;
   name: string;

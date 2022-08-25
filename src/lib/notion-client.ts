@@ -1,17 +1,9 @@
-import { Client } from "@notionhq/client";
-import {
-  QueryDatabaseParameters,
-  SearchParameters,
-} from "@notionhq/client/build/src/api-endpoints";
+import { Client } from '@notionhq/client';
+import { QueryDatabaseParameters, SearchParameters } from '@notionhq/client/build/src/api-endpoints';
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
 });
-
-//auth를 추가로 보내는 경우가 있으면 쓴다
-type WithAuth<P> = P & {
-  auth?: string;
-};
 
 export const retrieveDatabase = async (databaseId: string) => {
   const database = await notion.databases.retrieve({
@@ -48,9 +40,10 @@ export const searchPage = async (queryData: SearchParameters) => {
   return results;
 };
 
-export const getImage = async (blockId: string) => {
+export const getBlock = async (blockId: string) => {
   const imageBlock = await notion.blocks.retrieve({
     block_id: blockId,
   });
+
   return imageBlock;
 };

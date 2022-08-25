@@ -1,13 +1,14 @@
-import styles from './nav.module.scss';
-import SearchIcon from '@/assets/search.svg';
-import MenuIcon from '@/assets/menu.svg';
-
+import { useEffect, useState } from 'react';
 import { useAppSelector, useAppDispatch } from '@/hooks/redux';
 import { changeSearchInput, setIsMainDoor, setTag } from '@/stores/slice';
-import { useEffect, useState } from 'react';
-import cx from 'classnames';
 import Image from 'next/image';
 import { useRouter } from 'next/router';
+
+import styles from './nav.module.scss';
+
+import cx from 'classnames';
+import SearchIcon from '@/assets/search.svg';
+import MenuIcon from '@/assets/menu.svg';
 
 export default function Nav() {
   const [isScroll, setIsScroll] = useState(false);
@@ -24,8 +25,7 @@ export default function Nav() {
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (/^.{0,1}$/.test(search)) {
-      window.alert('두 글자 이상의 타이틀로 검색해주세요');
-      return;
+      return window.alert('두 글자 이상의 타이틀로 검색해주세요');
     }
 
     dispatch(setTag('전체'));

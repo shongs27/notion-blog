@@ -1,10 +1,11 @@
+import { useAppSelector } from '@/hooks/redux';
 import Head from 'next/head';
+
+import { InitialPage } from '../types';
 
 import MainDoor from '@/components/MainDoor';
 import PostList from '@/components/PostList';
 import { getPostsAndTags } from '@/lib';
-import { useAppSelector } from '@/hooks/redux';
-import { InitialPage } from '../types';
 
 const Home = ({ tags, posts }: InitialPage) => {
   const isMainDoor = useAppSelector((state) => state.isMainDoor);

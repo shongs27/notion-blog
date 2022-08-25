@@ -1,10 +1,11 @@
+import React from 'react';
 import { useAppDispatch } from '@/hooks/redux';
 import { setIsMainDoor, setTag } from '@/stores/slice';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
-import React from 'react';
-import { Ipost } from '@/types/index';
+
 import styles from './postNav.module.scss';
+import { Ipost } from '@/types/index';
 
 interface IPostNav {
   post: Ipost;

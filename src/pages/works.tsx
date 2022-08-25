@@ -1,7 +1,7 @@
-import { getPostsAndTags } from '@/lib';
-
-import PostList from '@/components/PostList';
 import { InitialPage } from '../types';
+
+import { getPostsAndTags } from '@/lib';
+import PostList from '@/components/PostList';
 
 export default function Works({ tags, posts }: InitialPage) {
   return <PostList tags={tags} posts={posts} />;

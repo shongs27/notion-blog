@@ -17,20 +17,6 @@ export type MultiSelectType = {
   name: string;
 };
 
-export type Tag = {
-  id: string;
-  name: string;
-  color?: string;
-};
-
-export type Post = {
-  id: string;
-  title: string;
-  description: string;
-  tags: Tag[];
-  createdTime: string;
-};
-
 export async function getPostsAndTags(postsDataId: string) {
   // https://developers.notion.com/reference/post-database-query
 
@@ -86,9 +72,9 @@ export async function getPostsAndTags(postsDataId: string) {
           createdTime: post.createdTime,
         }))
         .then(async (result: any) => {
-          if (!result.thumbnail) return result;
+          if (!result.thumbnail) return { ...result, thumbnail: '' };
 
-          const thumbnail: any = await NotionClient.getImage(result.thumbnail);
+          const thumbnail: any = await NotionClient.getBlock(result.thumbnail);
           return {
             ...result,
             thumbnail: thumbnail.image.file.url,
@@ -249,7 +235,7 @@ export async function searchPage(title: string) {
         .then(async (result) => {
           if (!result.thumbnail) return result;
 
-          const thumbnail: any = await NotionClient.getImage(result.thumbnail);
+          const thumbnail: any = await NotionClient.getBlock(result.thumbnail);
           return {
             ...result,
             thumbnail: thumbnail.image.file.url,

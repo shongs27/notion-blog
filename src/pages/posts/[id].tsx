@@ -1,16 +1,16 @@
-import { getDetailPost, getPostIDs, getPostsPath, postNav } from '@/lib';
-
 import Link from 'next/link';
-import PostNav from '@/components/PostNav';
-import { defaultMapImageUrl, MapImageUrlFn, NotionRenderer } from 'react-notion-x';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
-import { GetStaticProps } from 'next';
 
 import styles from './postDetail.module.scss';
-
-import { ExtendedRecordMap } from 'notion-types';
 import { Ipost } from '@/types/index';
+import { ExtendedRecordMap } from 'notion-types';
+import { GetStaticProps } from 'next';
+
+import { defaultMapImageUrl, MapImageUrlFn, NotionRenderer } from 'react-notion-x';
+
+import PostNav from '@/components/PostNav';
+import { getDetailPost, getPostIDs, getPostsPath } from '@/lib';
 
 interface DetailPage {
   recordMap: ExtendedRecordMap;

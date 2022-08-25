@@ -1,6 +1,5 @@
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { changeContactForm } from '@/stores/slice';
-import React from 'react';
 
 import styles from './contact.module.scss';
 

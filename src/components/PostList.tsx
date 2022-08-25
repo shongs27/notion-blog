@@ -1,9 +1,9 @@
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { setCurrentPage } from '@/stores/slice';
-import { useEffect } from 'react';
-import { InitialPage } from '../types';
 
 import styles from './postList.module.scss';
+import { InitialPage } from '../types';
 
 import Posts from './Posts';
 import Tags from './Tags';
