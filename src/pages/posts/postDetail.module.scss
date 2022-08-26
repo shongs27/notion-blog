@@ -1,4 +1,4 @@
-@use "src/styles/colors";
+@use 'src/styles/colors';
 
 .container {
   display: flex;
@@ -16,14 +16,18 @@
       margin-bottom: 1.4em;
     }
 
-    main[class~="notion"] {
+    main[class~='notion'] {
       width: 100%;
       padding: 0;
       margin: 0 auto;
 
       ul,
       li {
-        list-style: inherit;
+        list-style: initial;
+      }
+
+      ol:not(& > ol) {
+        padding: 0;
       }
     }
   }

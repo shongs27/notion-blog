@@ -44,24 +44,43 @@
 
     .postMeta {
       display: flex;
+      align-items: center;
       justify-content: space-between;
       padding: 5px 15px;
+      margin-top: 10px;
       margin-bottom: 10px;
+
+      & > div {
+        flex-basis: 1;
+      }
 
       span {
         font-size: 0.7rem;
+        font-weight: 700;
         color: colors.$BLACK;
       }
 
-      .metaTags > span {
-        margin-right: 5px;
-        font-weight: 700;
+      .metaTags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 3px;
+
+        & > span {
+          height: 1.6em;
+          padding: 2px 5px;
+          word-break: keep-all;
+          border-radius: 5px;
+        }
       }
 
       .metaETC {
         display: flex;
         flex-direction: column;
         text-align: right;
+
+        & > span {
+          color: colors.$GRAY;
+        }
       }
     }
 
