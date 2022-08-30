@@ -1,11 +1,12 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { AnyAction, createSlice, PayloadAction, ThunkAction } from '@reduxjs/toolkit';
+import { RootState } from './store';
 
 interface IpageTags {
   tag: string;
   count: number;
 }
 
-interface IcontactForm {
+export interface IcontactForm {
   name: string;
   email: string;
   message: string;
@@ -76,6 +77,11 @@ const reducers = {
     ...state,
     currentPage,
   }),
+
+  initialContactForm: (state: IinitialState) => ({
+    ...state,
+    contactForm: { name: '', email: '', message: '' },
+  }),
 };
 
 const { actions, reducer } = createSlice({
@@ -84,6 +90,27 @@ const { actions, reducer } = createSlice({
   reducers,
 });
 
-export const { changeSearchInput, changeContactForm, setTag, setIsMainDoor, setCurrentPage } = actions;
+export const { changeSearchInput, changeContactForm, setTag, setIsMainDoor, setCurrentPage, initialContactForm } =
+  actions;
 
 export default reducer;
+
+export function sendContact(): ThunkAction<void, RootState, unknown, AnyAction> {
+  return async (dispatch, getState) => {
+    const contactForm = getState();
+
+    const result = await fetch('/api/contactForm', {
+      method: 'POST',
+      body: JSON.stringify(contactForm),
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    });
+
+    if (result.status !== 200) {
+      return alert(`오류가 발생했습니다 상태코드 : ${result.status}`);
+    }
+
+    dispatch(initialContactForm());
+  };
+}
