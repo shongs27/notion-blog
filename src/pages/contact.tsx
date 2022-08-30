@@ -1,9 +1,11 @@
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 import { changeContactForm, sendContact } from '@/stores/slice';
+import { useRouter } from 'next/router';
 
 import styles from './contact.module.scss';
 
 export default function Contact() {
+  const router = useRouter();
   const dispatch = useAppDispatch();
   const { name, email, message } = useAppSelector((state) => state.contactForm);
 
@@ -18,6 +20,7 @@ export default function Contact() {
     e.preventDefault();
 
     dispatch(sendContact());
+    router.push('/');
   }
 
   return (

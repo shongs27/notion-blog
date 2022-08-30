@@ -112,5 +112,6 @@ export function sendContact(): ThunkAction<void, RootState, unknown, AnyAction> 
     }
 
     dispatch(initialContactForm());
+    alert('성공적으로 전송되었습니다');
   };
 }
