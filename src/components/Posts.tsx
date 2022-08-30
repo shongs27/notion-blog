@@ -76,14 +76,14 @@ export default function Posts({ posts }: IPosts) {
                   <div className={styles.postMeta}>
                     <div className={styles.metaTags}>
                       {tags.map(({ name, color }) => (
-                        <span key={name} style={{ color: color }}>
-                          #{name}
+                        <span key={name} style={{ backgroundColor: color }}>
+                          {name}
                         </span>
                       ))}
                     </div>
                     <div className={styles.metaETC}>
-                      <span> 홍원배 </span>
                       <span>{createdTime}</span>
+                      <span> 홍원배 </span>
                     </div>
                   </div>
 

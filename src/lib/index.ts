@@ -1,8 +1,6 @@
 import * as NotionClient from './notion-client';
 import NotionAPI from './notion-api';
-import { promises as fs } from 'fs';
-import path from 'path';
-import { Ipost } from '../types';
+import { IcontactForm } from '@/stores/slice';
 
 export type MultiSelectType = {
   type: 'multi_select';
@@ -247,16 +245,36 @@ export async function searchPage(title: string) {
   return posts;
 }
 
-export const postNav = {
-  register: async (posts: Ipost[]) => {
-    return await fs.writeFile(
-      path.join(process.cwd(), 'postIDs.db'),
-      JSON.stringify(posts.map(({ postId }) => postId).reverse()),
-    );
-  },
-  get: async () => {
-    const postIDs = await fs.readFile(path.join(process.cwd(), 'postIDs.db'));
-    const list = JSON.parse(postIDs as unknown as string);
-    return list;
-  },
-};
+export async function postContactForm(form: IcontactForm) {
+  const result = await NotionClient.createPage({
+    parent: {
+      type: 'database_id',
+      database_id: process.env.NOTION_CONTACT_DATABASE!,
+    },
+    properties: {
+      Message: {
+        title: [
+          {
+            text: {
+              content: form.message,
+            },
+          },
+        ],
+      },
+      Name: {
+        rich_text: [
+          {
+            text: {
+              content: form.name,
+            },
+          },
+        ],
+      },
+      Email: {
+        email: form.email,
+      },
+    },
+  });
+
+  return result;
+}

@@ -1,5 +1,9 @@
 import { Client } from '@notionhq/client';
-import { QueryDatabaseParameters, SearchParameters } from '@notionhq/client/build/src/api-endpoints';
+import {
+  CreatePageParameters,
+  QueryDatabaseParameters,
+  SearchParameters,
+} from '@notionhq/client/build/src/api-endpoints';
 
 const notion = new Client({
   auth: process.env.NOTION_TOKEN,
@@ -19,6 +23,12 @@ export const queryDatabase = async (queryData: QueryDatabaseParameters) => {
   return database;
 };
 
+export const createPage = async (page: any) => {
+  const result = await notion.pages.create(page);
+
+  return result;
+};
+
 export const getPage = async (pageId: string) => {
   const page = await notion.pages.retrieve({
     page_id: pageId,
@@ -36,8 +46,9 @@ export const getDetail = async (pageId: string, propertyId: string) => {
 };
 
 export const searchPage = async (queryData: SearchParameters) => {
-  const results = await notion.search(queryData);
-  return results;
+  const resultsPage = await notion.search(queryData);
+
+  return resultsPage;
 };
 
 export const getBlock = async (blockId: string) => {
