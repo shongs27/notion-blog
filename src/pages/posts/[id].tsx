@@ -10,6 +10,7 @@ import { GetStaticProps } from 'next';
 import { defaultMapImageUrl, MapImageUrlFn, NotionRenderer } from 'react-notion-x';
 
 import PostNav from '@/components/PostNav';
+import TableOfContents from '@/components/TableofContents';
 import { getDetailPost, getPostIDs, getPostsPath } from '@/lib';
 
 interface DetailPage {
@@ -45,6 +46,7 @@ export default function Post({ recordMap, post, nav }: DetailPage) {
           <p>{post.createdTime}</p>
           <p>작성자 : 홍원배</p>
         </div>
+        <TableOfContents />
 
         <NotionRenderer
           recordMap={recordMap}
