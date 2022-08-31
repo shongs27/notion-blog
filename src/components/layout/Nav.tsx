@@ -77,7 +77,7 @@ export default function Nav() {
       <div className={styles.search}>
         <form onSubmit={handleSubmit}>
           <SearchIcon />
-          <input type="text" value={search} onChange={handleChange} placeholder="타이틀 검색" />
+          <input type="text" value={search} onChange={handleChange} placeholder="타이틀로 검색하세요" />
         </form>
       </div>
 

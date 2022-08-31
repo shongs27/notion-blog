@@ -40,6 +40,7 @@
       font-weight: bold;
       color: colors.$BLACK;
       text-align: center;
+      word-wrap: break-word;
     }
 
     .postMeta {
@@ -87,7 +88,6 @@
     .postContents {
       height: 150px;
       padding: 0 15px;
-      overflow: hidden;
       overflow-y: scroll;
       font-size: 0.8em;
       color: colors.$BLACK;
@@ -106,7 +106,7 @@
   }
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 500px) {
   .postList {
     display: grid;
     grid-template-columns: repeat(1, minmax(100px, 1fr));
