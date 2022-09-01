@@ -43,6 +43,11 @@
         top: 10px;
         left: 15px;
         fill: colors.$GRAY;
+
+        &:hover {
+          cursor: pointer;
+          fill: colors.$PUPLE;
+        }
       }
 
       input {
@@ -55,6 +60,10 @@
         border-radius: 5px;
         outline: 5px solid colors.$BLACK;
         outline-color: rgb(113 128 150);
+
+        &:focus {
+          outline-color: colors.$PUPLE;
+        }
 
         &::placeholder {
           color: transparent;

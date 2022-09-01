@@ -21,6 +21,11 @@
 
   li:first-child {
     list-style: none;
+
+    a {
+      font-size: 1.2em;
+      font-weight: bold;
+    }
   }
 
   li:hover {
