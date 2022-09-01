@@ -21,7 +21,7 @@ export interface InitialPage {
 }
 
 export interface ISelectors {
-  id: number;
+  id: string | undefined;
   title: string;
   level: number;
 }

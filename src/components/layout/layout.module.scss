@@ -1,6 +1,8 @@
-@use "src/styles/colors";
+@use 'src/styles/colors';
 
 .container {
+  min-width: 240px;
+
   .main {
     background-color: black;
   }

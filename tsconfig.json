@@ -17,7 +17,7 @@
     "baseUrl": ".",
     "paths": {
       "@/types/*": ["src/types/*"],
-      "@/assets/*": ["src/assets/*"],
+      "@/assets": ["src/assets/index.ts"],
       "@/pages/*": ["src/pages/*"],
       "@/components/*": ["src/components/*"],
       "@/containers/*": ["src/containers/*"],

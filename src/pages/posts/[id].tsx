@@ -1,17 +1,11 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import dynamic from 'next/dynamic';
-
-import styles from './postDetail.module.scss';
+import styles from './id.module.scss';
 import { Ipost } from '@/types/index';
 import { ExtendedRecordMap } from 'notion-types';
 import { GetStaticProps } from 'next';
 
-import { defaultMapImageUrl, MapImageUrlFn, NotionRenderer } from 'react-notion-x';
-
-import PostNav from '@/components/PostNav';
-import TableOfContents from '@/components/TableofContents';
 import { getDetailPost, getPostIDs, getPostsPath } from '@/lib';
+import PostDetail from '@/components/PostDetail';
+import TableOfContents from '@/components/TableofContents';
 
 interface DetailPage {
   recordMap: ExtendedRecordMap;
@@ -19,48 +13,12 @@ interface DetailPage {
   nav: string[];
 }
 
-const Code = dynamic(() => import('react-notion-x/build/third-party/code').then((m: any) => m.Code));
-
 export default function Post({ recordMap, post, nav }: DetailPage) {
-  const mapImageUrl: MapImageUrlFn = (url, block) => {
-    const u = new URL(url);
-
-    if (u.pathname.startsWith('/secure.notion-static.com') && u.hostname.endsWith('.amazonaws.com')) {
-      if (
-        u.searchParams.has('X-Amz-Credential') &&
-        u.searchParams.has('X-Amz-Signature') &&
-        u.searchParams.has('X-Amz-Algorithm')
-      ) {
-        url = '/image/' + encodeURIComponent(url);
-      }
-    }
-
-    return defaultMapImageUrl(url, block)!;
-  };
-
   return (
     <div className={styles.container}>
-      <div className={styles.postPosition}>
-        <div className={styles.postHeader}>
-          <h1>{post.title}</h1>
-          <p>{post.createdTime}</p>
-          <p>작성자 : 홍원배</p>
-        </div>
-        <TableOfContents />
-
-        <NotionRenderer
-          recordMap={recordMap}
-          fullPage={false}
-          darkMode={true}
-          components={{
-            Code,
-            nextImage: Image,
-            nextLink: Link,
-          }}
-          mapImageUrl={mapImageUrl}
-        />
-        <PostNav post={post} nav={nav} />
-      </div>
+      {/* <div style={{ minHeight: '200px' }}></div> */}
+      <PostDetail recordMap={recordMap} post={post} nav={nav} />
+      <TableOfContents postId={post.postId} />
     </div>
   );
 }

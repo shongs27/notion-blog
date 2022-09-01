@@ -1,5 +1,35 @@
+@use 'src/styles/colors';
+
 .container {
-  position: fixed;
-  top: 7em;
+  position: sticky;
+  top: 10em;
   right: 1em;
+  z-index: 99999;
+  max-width: 250px;
+  height: 100%;
+  padding: 1.2em;
+  overflow-x: scroll;
+  font-size: 0.8em;
+  font-weight: bold;
+  color: colors.$SWHITE;
+
+  ul,
+  li {
+    margin: 0.4em 0;
+    list-style: initial;
+  }
+
+  li:first-child {
+    list-style: none;
+  }
+
+  li:hover {
+    color: colors.$PUPLE !important;
+  }
+}
+
+@media screen and (max-width: 1140px) {
+  .container {
+    display: none;
+  }
 }
