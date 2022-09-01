@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 
-export default function useObserveTOC() {
+export default function useObserveTOC(postId: string) {
   const observer = useRef<IntersectionObserver | null>();
   const [activeId, setActiveId] = useState('');
 
@@ -20,7 +20,7 @@ export default function useObserveTOC() {
     const elements = document.querySelectorAll('h2, h3, h4');
     elements.forEach((elem) => observer.current?.observe(elem));
     return () => observer.current?.disconnect();
-  }, []);
+  }, [postId]);
 
   return { activeId };
 }

@@ -10,7 +10,7 @@ interface IPostId {
 export default function TableOfContents({ postId }: IPostId) {
   const elements = useElements(postId);
 
-  const { activeId } = useObserveTOC();
+  const { activeId } = useObserveTOC(postId);
 
   function handleClick(e: React.MouseEvent<HTMLAnchorElement>, id: string | undefined) {
     e.preventDefault();

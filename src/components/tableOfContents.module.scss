@@ -5,13 +5,13 @@
   top: 10em;
   right: 1em;
   z-index: 99999;
-  max-width: 250px;
+  max-width: 230px;
   height: 100%;
   padding: 1.2em;
-  overflow-x: scroll;
   font-size: 0.8em;
   font-weight: bold;
   color: colors.$SWHITE;
+  border-left: 2px solid colors.$GRAY;
 
   ul,
   li {

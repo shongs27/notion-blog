@@ -4,6 +4,7 @@
   position: absolute;
   width: 100%;
   height: 250px;
+  pointer-events: none;
 }
 
 .container {
@@ -14,6 +15,7 @@
   justify-content: space-evenly;
   width: 100%;
   height: 75px;
+  pointer-events: initial;
   background-color: colors.$TEMPBLACK;
   transition: transform 0.3s ease;
 
