@@ -51,15 +51,21 @@ export default function Nav() {
     router.push(`/${params}`);
   }
 
-  //observeAPI로 바꿔보기
   useEffect(() => {
-    const debounce = () =>
-      setTimeout(() => {
-        window.scrollY > 180 ? setIsScroll(true) : setIsScroll(false);
-      }, 200);
-    window.addEventListener('scroll', debounce);
+    let timer: null | ReturnType<typeof setTimeout>;
+
+    const throttling = () => {
+      if (!timer) {
+        timer = setTimeout(() => {
+          timer = null;
+          window.scrollY > 180 ? setIsScroll(true) : setIsScroll(false);
+        }, 200);
+      }
+    };
+
+    window.addEventListener('scroll', throttling);
     return () => {
-      window.removeEventListener('scroll', debounce);
+      window.removeEventListener('scroll', throttling);
     };
   }, []);
 
