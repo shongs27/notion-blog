@@ -8,6 +8,7 @@ body {
   color: colors.$WHITE;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  word-break: break-all;
 
   &::-webkit-scrollbar {
     display: block !important;
@@ -40,7 +41,6 @@ li {
   box-sizing: border-box;
   padding: 0;
   margin: 0;
-  word-break: break-all;
   -ms-overflow-style: none; // IE and Edge
   scrollbar-width: none; // Firefox
   &::-webkit-scrollbar {

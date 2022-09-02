@@ -1,11 +1,7 @@
-import Router, { useRouter } from 'next/router';
+import Router from 'next/router';
 import { useEffect, useState } from 'react';
 
 export const usePageLoading = () => {
-  const {
-    query: { title },
-  } = useRouter();
-
   const [isPageLoading, setIsPageLoading] = useState(false);
 
   useEffect(() => {
@@ -26,8 +22,6 @@ export const usePageLoading = () => {
       Router.events.off('routeChangeError', routeEventEnd);
     };
   }, []);
-
-  if (!title) return false;
 
   return isPageLoading;
 };

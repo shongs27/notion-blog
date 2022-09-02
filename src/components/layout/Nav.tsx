@@ -13,6 +13,7 @@ import { MenuIcon } from '@/assets';
 export default function Nav() {
   const [isScroll, setIsScroll] = useState(false);
   const [clickedMobileMenu, setClickedMobileMenu] = useState(false);
+
   const dispatch = useAppDispatch();
   const search = useAppSelector((state) => state.search);
 
@@ -24,11 +25,14 @@ export default function Nav() {
 
   function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
+    dispatch(changeSearchInput(''));
+
     if (/^.{0,1}$/.test(search)) {
       return window.alert('두 글자 이상의 타이틀로 검색해주세요');
     }
 
     dispatch(setTag('전체'));
+    (document.activeElement as HTMLElement).blur();
     router.push(`/search?title=${search}`);
   }
 
