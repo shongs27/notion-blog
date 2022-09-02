@@ -44,6 +44,10 @@ export default function Nav() {
   function handleRouting(params: string) {
     dispatch(setTag('전체'));
 
+    if (clickedMobileMenu) {
+      setClickedMobileMenu(false);
+    }
+
     if (params === 'blog') {
       handleMainDoor(false);
       return router.push('/');
@@ -70,9 +74,9 @@ export default function Nav() {
   }, []);
 
   return (
-    <div className={styles.stickyWrpper}>
-      <div className={cx(styles.container, { [styles.transNav]: isScroll })}>
-        <div className={styles.container}>
+    <div className={styles.container}>
+      <div className={styles.stickyWrpper}>
+        <div className={cx(styles.sticky, { [styles.transNav]: isScroll })}>
           <div className={styles.title}>
             <button type="button" onClick={() => handleMainDoor(true)}>
               <Image src="/favicon.ico" alt="hongs blog" width={40} height={40} />

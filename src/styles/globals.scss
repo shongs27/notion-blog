@@ -8,6 +8,22 @@ body {
   color: colors.$WHITE;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  &::-webkit-scrollbar {
+    display: block !important;
+    width: 5px;
+  }
+
+  ::-webkit-scrollbar-track {
+    /* 스크롤이 움직이는 영역  */
+    background-color: colors.$BLACK;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    /*  스크롤  */
+    background-color: colors.$GRAY;
+    border-radius: 30px;
+  }
 }
 
 a {
