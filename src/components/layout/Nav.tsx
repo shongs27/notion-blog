@@ -44,6 +44,10 @@ export default function Nav() {
   function handleRouting(params: string) {
     dispatch(setTag('전체'));
 
+    if (clickedMobileMenu) {
+      setClickedMobileMenu(false);
+    }
+
     if (params === 'blog') {
       handleMainDoor(false);
       return router.push('/');
