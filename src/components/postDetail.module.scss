@@ -1,0 +1,31 @@
+@use 'src/styles/colors';
+
+.container {
+  width: 100%;
+  max-width: 780px;
+  padding: 3em 0.6em 1.5em;
+
+  .postHeader {
+    margin-bottom: 1.4em;
+    overflow-wrap: break-word;
+
+    p {
+      text-align: right;
+    }
+  }
+
+  main[class~='notion'] {
+    width: 100%;
+    padding: 0;
+    margin: 0 auto;
+
+    ul,
+    li {
+      list-style: initial;
+    }
+
+    ol:not(& > ol) {
+      padding: 0;
+    }
+  }
+}

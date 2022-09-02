@@ -1,15 +1,24 @@
 @use 'src/styles/colors';
 
+.stickyWrpper {
+  position: absolute;
+  width: 100%;
+  height: 250px;
+  pointer-events: none;
+}
+
 .container {
   position: sticky;
   top: 0;
+  z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   width: 100%;
   height: 75px;
+  pointer-events: initial;
   background-color: colors.$TEMPBLACK;
-  transition: transform 0.2s ease;
+  transition: transform 0.3s ease;
 
   button {
     all: unset;
@@ -25,30 +34,46 @@
   }
 
   .search {
+    flex: 0.4;
+
     form {
       position: relative;
+      min-width: 200px;
+      max-width: 700px;
 
       svg {
         position: absolute;
         top: 10px;
         left: 15px;
         fill: colors.$GRAY;
+
+        &:hover {
+          cursor: pointer;
+          fill: colors.$PUPLE;
+        }
       }
 
       input {
-        width: 350px;
+        width: 100%;
         height: 40px;
         padding-left: 50px;
         font-size: 0.8rem;
-        color: colors.$BLACK;
         background-color: colors.$SGRAY;
         border: none;
         border-radius: 5px;
         outline: 5px solid colors.$BLACK;
         outline-color: rgb(113 128 150);
 
-        &:focus::placeholder {
+        &:focus {
+          outline-color: colors.$PUPLE;
+        }
+
+        &::placeholder {
           color: transparent;
+        }
+
+        &:focus::placeholder {
+          color: colors.$BLACK;
         }
       }
     }
@@ -84,16 +109,8 @@
   }
 }
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 500px) {
   .container {
-    .search {
-      form {
-        input {
-          width: 200px;
-        }
-      }
-    }
-
     position: relative;
 
     .category {
@@ -118,6 +135,16 @@
 
     .menuIcon {
       display: block;
+    }
+  }
+}
+
+@media screen and (max-width: 300px) {
+  .container {
+    .search {
+      form {
+        min-width: initial;
+      }
     }
   }
 }

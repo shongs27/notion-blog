@@ -1,7 +1,11 @@
-@use "src/styles/colors";
+@use 'src/styles/colors';
 
 .container {
+  min-width: min-content;
+
   .main {
+    min-height: 92vh;
+    padding-top: 75px;
     background-color: black;
   }
 }

@@ -12,6 +12,7 @@
 .intro {
   width: 40%;
   word-break: keep-all;
+  word-wrap: break-word;
 
   & h1 {
     margin-top: 1em;
@@ -28,7 +29,7 @@
     height: 75px;
     padding: 1em 2em;
     margin-top: 2em;
-    overflow: hidden;
+    overflow: scroll;
     font-size: 1.2em;
     color: colors.$BLACK;
     background-color: #dfe5ed;
@@ -44,6 +45,12 @@
       color: colors.$WHITE;
       cursor: pointer;
       background-color: #8d99ff;
+    }
+  }
+
+  @media screen and (max-width: 230px) {
+    & button {
+      display: none;
     }
   }
 }

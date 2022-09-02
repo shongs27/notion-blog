@@ -19,3 +19,9 @@ export interface InitialPage {
   posts: Ipost[];
   tags?: Itag[];
 }
+
+export interface ISelectors {
+  id: string | undefined;
+  title: string;
+  level: number;
+}

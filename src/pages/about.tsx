@@ -2,7 +2,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 
-import styles from './posts/postDetail.module.scss';
+import styles from './about.module.scss';
 import { ExtendedRecordMap } from 'notion-types';
 
 import { NotionRenderer } from 'react-notion-x';
