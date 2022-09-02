@@ -3,11 +3,11 @@
 .container {
   width: 100%;
   max-width: 780px;
-  min-height: 90vh;
   padding: 3em 0.6em 1.5em;
 
   .postHeader {
     margin-bottom: 1.4em;
+    overflow-wrap: break-word;
 
     p {
       text-align: right;

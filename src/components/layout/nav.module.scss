@@ -10,6 +10,7 @@
 .container {
   position: sticky;
   top: 0;
+  z-index: 99999;
   display: flex;
   align-items: center;
   justify-content: space-evenly;
@@ -142,7 +143,7 @@
   .container {
     .search {
       form {
-        min-width: 100px;
+        min-width: initial;
       }
     }
   }

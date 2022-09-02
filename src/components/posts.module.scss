@@ -4,12 +4,11 @@
   display: grid;
   grid-template-rows: repeat(2, 1fr);
   grid-template-columns: repeat(3, minmax(100px, 1fr));
-  row-gap: 1.2rem;
-  column-gap: 1.2rem;
+  gap: 1.2rem;
   min-height: 600px;
 
   li {
-    height: 340px;
+    max-height: 340px;
     padding: 15px;
     background-color: colors.$WHITE;
     border: none;
@@ -40,7 +39,6 @@
       font-weight: bold;
       color: colors.$BLACK;
       text-align: center;
-      word-wrap: break-word;
     }
 
     .postMeta {
@@ -67,9 +65,7 @@
         gap: 3px;
 
         & > span {
-          height: 1.6em;
           padding: 2px 5px;
-          word-break: keep-all;
           border-radius: 5px;
         }
       }
@@ -109,9 +105,14 @@
 @media screen and (max-width: 500px) {
   .postList {
     display: grid;
-    grid-template-columns: repeat(1, minmax(100px, 1fr));
-    row-gap: 1.2rem;
-    column-gap: 1.2rem;
-    min-height: 600px;
+    grid-template-columns: repeat(1, minmax(min-content, 1fr));
+  }
+}
+
+@media screen and (min-height: 1400px) {
+  .postList {
+    li {
+      max-height: initial;
+    }
   }
 }

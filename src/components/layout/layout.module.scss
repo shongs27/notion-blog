@@ -1,9 +1,10 @@
 @use 'src/styles/colors';
 
 .container {
-  min-width: 240px;
+  min-width: min-content;
 
   .main {
+    min-height: 92vh;
     padding-top: 75px;
     background-color: black;
   }
