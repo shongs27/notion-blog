@@ -61,13 +61,12 @@ export default function Posts({ posts }: IPosts) {
                 <button type="button" onClick={() => handleClick(postId, link)}>
                   <div className={styles.imageWrapper}>
                     <Image
-                      src={
-                        thumbnail ||
-                        'http://t1.daumcdn.net/friends/prod/editor/dc8b3d02-a15a-4afa-a88b-989cf2a50476.jpg'
-                      }
+                      src={thumbnail || '/bear.jpg'}
                       alt="썸네일"
                       width={260}
                       height={120}
+                      placeholder="blur"
+                      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcO2tmGgAF5AI47uVMUgAAAABJRU5ErkJggg=="
                     />
                   </div>
 
