@@ -9,6 +9,8 @@
 
   li,
   button {
+    font-family: inherit;
+    font-weight: bold;
     cursor: pointer;
     border: none;
     border-radius: 5px;
@@ -23,11 +25,6 @@
       padding: 0.25em 0.8em;
       font-size: 1rem;
       color: colors.$BLACK;
-      user-select: none;
-
-      &:disabled {
-        cursor: not-allowed;
-      }
 
       &:hover {
         color: colors.$WHITE !important;

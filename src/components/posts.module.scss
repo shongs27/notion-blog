@@ -40,7 +40,7 @@
     }
 
     h2 {
-      font-size: 1.2em;
+      font-size: 1.1rem;
       font-weight: bold;
       color: colors.$BLACK;
       text-align: center;
@@ -59,7 +59,7 @@
       }
 
       span {
-        font-size: 0.7rem;
+        font-size: 0.6rem;
         font-weight: 700;
         color: colors.$BLACK;
       }
@@ -89,7 +89,7 @@
     .postContents {
       padding: 0 15px;
       overflow-y: scroll;
-      font-size: 0.8em;
+      font-size: 0.7rem;
       color: colors.$BLACK;
       word-break: break-all;
     }

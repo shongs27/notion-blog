@@ -64,7 +64,7 @@ export default function Posts({ posts }: IPosts) {
                       src={thumbnail || '/bear.jpg'}
                       alt="썸네일"
                       width={260}
-                      height={120}
+                      height={130}
                       placeholder="blur"
                       blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcO2tmGgAF5AI47uVMUgAAAABJRU5ErkJggg=="
                     />
