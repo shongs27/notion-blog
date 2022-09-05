@@ -80,12 +80,12 @@ export default function Nav() {
     <div className={styles.container}>
       <div className={styles.stickyWrpper}>
         <div className={cx(styles.sticky, { [styles.transNav]: isScroll })}>
-          <div className={styles.title}>
-            <button type="button" onClick={() => handleMainDoor(true)}>
+          <button className={styles.title} type="button" onClick={() => handleMainDoor(true)}>
+            <div className={styles.faviconWrapper}>
               <Image src="/favicon.ico" alt="hongs blog" width={40} height={40} />
-              <span>ongs Blog</span>
-            </button>
-          </div>
+            </div>
+            <span>ongs Blog</span>
+          </button>
 
           <div className={styles.search}>
             <form onSubmit={handleSubmit}>
