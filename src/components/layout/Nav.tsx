@@ -53,8 +53,7 @@ export default function Nav() {
     }
 
     if (params === 'blog') {
-      handleMainDoor(false);
-      return router.push('/');
+      return handleMainDoor(false);
     }
     router.push(`/${params}`);
   }

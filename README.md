@@ -15,6 +15,7 @@ src
 │     ├─ layout  # layout구성을 위한 컴포넌트가 있는 폴더
 │     ├─ MainDoor # Home화면 접속시 환영하며 블로그를 소개하는 컴포넌트
 │     ├─ Loading # 검색 시 로딩바를 위한 컴포넌트
+│     ├─ MappedNotion # mapImageUrl이 override된 notionRenderer
 │     ├─ PageNation # PostList에 페이지네이션을 위한 컴포넌트
 │     ├─ TableofContents # 포스트 내용 페이지의 목록을 보여주는 컴포넌트
 │     ├─ PostDetail # 포스트 내용 페이지를 보여주는 상세 컴포넌트
