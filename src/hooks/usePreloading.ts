@@ -5,10 +5,17 @@ export const usePageLoading = () => {
   const [isPageLoading, setIsPageLoading] = useState(false);
 
   useEffect(() => {
+    let timer: ReturnType<typeof setTimeout> | null;
+
     const routeEventStart = () => {
-      setIsPageLoading(true);
+      timer = setTimeout(() => {
+        setIsPageLoading(true);
+      }, 400);
     };
     const routeEventEnd = () => {
+      clearTimeout(timer!);
+      timer = null;
+
       setIsPageLoading(false);
     };
 
