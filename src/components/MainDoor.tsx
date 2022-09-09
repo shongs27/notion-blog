@@ -2,8 +2,15 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 import styles from './mainDoor.module.scss';
+import { useRouter } from 'next/router';
 
 export default function MainDoor() {
+  const router = useRouter();
+
+  function handleClick() {
+    router.push('/about');
+  }
+
   return (
     <div className={styles.container}>
       <div className={styles.intro}>
@@ -15,8 +22,8 @@ export default function MainDoor() {
         </h1>
         <p>제가 공부한 내용을 정리하여 공유하는 블로그입니다</p>
 
-        <button type="button">
-          <Link href="/about">About Me</Link>
+        <button type="button" onClick={handleClick}>
+          About Me
         </button>
       </div>
 
