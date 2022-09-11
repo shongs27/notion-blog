@@ -7,8 +7,8 @@ import { useRouter } from 'next/router';
 import styles from './nav.module.scss';
 
 import cx from 'classnames';
-import { SearchIcon } from '@/assets';
-import { MenuIcon } from '@/assets';
+import SearchIcon from '@/assets/search.svg';
+import MenuIcon from '@/assets/menu.svg';
 
 export default function Nav() {
   const [isScroll, setIsScroll] = useState(false);
@@ -89,7 +89,7 @@ export default function Nav() {
 
           <div className={styles.search}>
             <form onSubmit={handleSubmit}>
-              <SearchIcon onClick={handleSubmit} />
+              <SearchIcon />
               <input type="text" value={search} onChange={handleChange} placeholder="타이틀로 검색하세요" />
             </form>
           </div>
