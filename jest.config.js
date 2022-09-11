@@ -18,11 +18,23 @@ const customJestConfig = {
     '^@/(.*)$': '<rootDir>/src/$1',
   },
   // Add more setup options before each test is run
-  // setupFilesAfterEnv: ['<rootDir>/jest.setup.js'],
+  setupFilesAfterEnv: ['jest-plugin-context/setup', '@testing-library/jest-dom'],
   // if using TypeScript with a baseUrl set to the root directory then you need the below for alias' to work
   moduleDirectories: ['node_modules', '<rootDir>/'],
   testEnvironment: 'jest-environment-jsdom',
 };
 
-// createJestConfig is exported this way to ensure that next/jest can load the Next.js config which is async
-module.exports = createJestConfig(customJestConfig);
+// next/image의 최우선 load를 제한하고 svg mock를 적용
+// https://github.com/vercel/next.js/blob/acbd54322f447caaee09b1262e4687434ea0268c/packages/next/build/jest/jest.ts#L74
+const jestConfig = async () => {
+  const nextJestConfig = await createJestConfig(customJestConfig)();
+  return {
+    ...nextJestConfig,
+    moduleNameMapper: {
+      '\\.svg$': '<rootDir>/__mocks__/svg.js',
+      ...nextJestConfig.moduleNameMapper,
+    },
+  };
+};
+
+module.exports = jestConfig;

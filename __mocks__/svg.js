@@ -1,4 +1,3 @@
-const SVGR_URL = 'SvgrURL';
-
-export default SVGR_URL;
+const Svg = () => <svg></svg>;
+export default Svg;
 export const ReactComponent = 'div';
