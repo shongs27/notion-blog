@@ -82,7 +82,7 @@ export default function Nav() {
         <div className={cx(styles.sticky, { [styles.transNav]: isScroll })}>
           <button className={styles.title} type="button" onClick={() => handleMainDoor(true)}>
             <div className={styles.faviconWrapper}>
-              <Image src="/favicon.ico" alt="hongs blog" width={40} height={40} />
+              <Image src="/favicon.ico" alt="hongs favicon" width={40} height={40} />
             </div>
             <span>ongs Blog</span>
           </button>
