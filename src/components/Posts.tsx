@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { setCurrentPage } from '@/stores/slice';
+import { changeCurrentPage } from '@/stores/slice';
 
 import styles from './posts.module.scss';
 import { InitialPage } from '../types';
@@ -17,7 +17,7 @@ export default function Posts({ posts = [], tags = [] }: InitialPage) {
   }
 
   useEffect(() => {
-    dispatch(setCurrentPage(1));
+    dispatch(changeCurrentPage(1));
   }, [dispatch]);
 
   return (
