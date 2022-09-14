@@ -1,5 +1,5 @@
 import { render, fireEvent } from '@testing-library/react';
-import Nav from '../src/components/layout/Nav';
+import Nav from '@/components/layout/Nav';
 import { useRouter } from 'next/router';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 
