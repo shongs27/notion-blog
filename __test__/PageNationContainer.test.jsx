@@ -2,6 +2,8 @@ import { render, fireEvent } from '@testing-library/react';
 import PageNationContainer from '@/components/PageNationContainer';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 
+jest.mock('react-redux');
+
 describe('PageNationContainer', () => {
   const dispatch = jest.fn();
 

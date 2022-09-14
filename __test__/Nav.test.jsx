@@ -9,7 +9,7 @@ jest.mock('next/router');
 describe('Nav', () => {
   const dispatch = jest.fn();
   const router = {
-    push: jest.fn(), // 해당 컴포넌트 라우터는 push만을 쓴다
+    push: jest.fn(),
   };
 
   beforeEach(() => {

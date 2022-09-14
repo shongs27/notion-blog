@@ -3,7 +3,6 @@ import Posts from '@/components/Posts';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
 
 jest.mock('react-redux');
-jest.mock('next/router');
 
 describe('Posts', () => {
   const dispatch = jest.fn();
