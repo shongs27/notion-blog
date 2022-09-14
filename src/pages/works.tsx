@@ -1,10 +1,10 @@
 import { InitialPage } from '../types';
 
 import { getPostsAndTags } from '@/lib';
-import PostList from '@/components/PostList';
+import Posts from '@/components/Posts';
 
 export default function Works({ tags, posts }: InitialPage) {
-  return <PostList tags={tags} posts={posts} />;
+  return <Posts tags={tags} posts={posts} />;
 }
 
 export async function getStaticProps() {
