@@ -4,7 +4,7 @@ import Head from 'next/head';
 import { InitialPage } from '../types';
 
 import MainDoor from '@/components/MainDoor';
-import PostList from '@/components/PostList';
+import Posts from '@/components/Posts';
 import { getPostsAndTags } from '@/lib';
 
 const Home = ({ tags, posts }: InitialPage) => {
@@ -18,7 +18,7 @@ const Home = ({ tags, posts }: InitialPage) => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {isMainDoor && <MainDoor />}
-      <PostList tags={tags} posts={posts} />
+      <Posts tags={tags} posts={posts} />
     </div>
   );
 };

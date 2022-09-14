@@ -7,8 +7,8 @@ import { useRouter } from 'next/router';
 import styles from './nav.module.scss';
 
 import cx from 'classnames';
-import { SearchIcon } from '@/assets';
-import { MenuIcon } from '@/assets';
+import SearchIcon from '@/assets/search.svg';
+import MenuIcon from '@/assets/menu.svg';
 
 export default function Nav() {
   const [isScroll, setIsScroll] = useState(false);
@@ -82,14 +82,14 @@ export default function Nav() {
         <div className={cx(styles.sticky, { [styles.transNav]: isScroll })}>
           <button className={styles.title} type="button" onClick={() => handleMainDoor(true)}>
             <div className={styles.faviconWrapper}>
-              <Image src="/favicon.ico" alt="hongs blog" width={40} height={40} />
+              <Image src="/favicon.ico" alt="hongs favicon" width={40} height={40} />
             </div>
             <span>ongs Blog</span>
           </button>
 
           <div className={styles.search}>
             <form onSubmit={handleSubmit}>
-              <SearchIcon onClick={handleSubmit} />
+              <SearchIcon />
               <input type="text" value={search} onChange={handleChange} placeholder="타이틀로 검색하세요" />
             </form>
           </div>

@@ -1,7 +1,7 @@
 import { Ipost } from '../types';
 import { GetServerSideProps } from 'next';
 
-import PostList from '@/components/PostList';
+import Posts from '@/components/Posts';
 import { searchPage } from '@/lib';
 
 interface Iposts {
@@ -9,7 +9,7 @@ interface Iposts {
 }
 
 export default function Search({ posts }: Iposts) {
-  return <PostList posts={posts} />;
+  return <Posts posts={posts} />;
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

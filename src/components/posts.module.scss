@@ -1,120 +1,38 @@
 @use 'src/styles/colors';
 
-.postList {
-  display: grid;
-  grid-template-rows: repeat(2, 340px);
-  grid-template-columns: repeat(3, 1fr);
-  gap: 1.2rem;
-  min-height: 600px;
+.container {
+  width: 100%;
+  padding: 4em 2em;
+  background-color: colors.$BLACK;
 
-  li {
-    padding: 15px;
-    background-color: colors.$WHITE;
-    border: none;
-    border-radius: 15px;
-    transition: all 0.2s !important;
-
-    &:hover {
-      cursor: pointer;
-      box-shadow: 0 5px 10px 3px rgba(111 197 236/ 80%);
-      transform: translateY(-15px);
-    }
-
-    button {
-      all: unset;
-      display: flex;
-      flex-direction: column;
-      width: 100%;
-      height: 100%;
-      overflow-y: clip;
-    }
-
-    .imageWrapper {
-      display: flex;
-      justify-content: center;
-      margin-bottom: 10px;
-
-      & > span {
-        border-radius: 10px;
-      }
-    }
-
-    h2 {
-      font-size: 1.1rem;
-      font-weight: bold;
-      color: colors.$BLACK;
-      text-align: center;
-    }
-
-    .postMeta {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 5px 15px;
-      margin-top: 10px;
-      margin-bottom: 10px;
-
-      & > div {
-        flex-basis: 1;
-      }
-
-      span {
-        font-size: 0.6rem;
-        font-weight: 700;
-        color: colors.$BLACK;
-      }
-
-      .metaTags {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 3px;
-
-        & > span {
-          padding: 2px 5px;
-          border-radius: 5px;
-        }
-      }
-
-      .metaETC {
-        display: flex;
-        flex-direction: column;
-        text-align: right;
-
-        & > span {
-          color: colors.$GRAY;
-        }
-      }
-    }
-
-    .postContents {
-      padding: 0 15px;
-      overflow-y: scroll;
-      font-size: 0.7rem;
-      color: colors.$BLACK;
-      word-break: break-all;
-    }
+  @media only screen and (max-width: 820px) {
+    padding: 2em 1em;
   }
-}
 
-.pageNationContainer {
-  margin-top: 50px;
-}
-
-@media screen and (max-width: 830px) {
-  .metaETC {
-    display: none !important;
+  .list {
+    width: 90%;
+    max-width: 1050px;
+    margin: 0 auto;
   }
-}
 
-@media screen and (max-width: 500px) {
-  .postList {
-    display: grid;
-    grid-template-rows: repeat(6, 340px);
-    grid-template-columns: repeat(1, 1fr);
+  h1 {
+    .title {
+      margin-right: 0.7rem;
+    }
 
-    li {
-      button {
-        overflow-y: scroll;
+    .titleCount {
+      display: inline-block;
+      padding-right: 5px;
+      padding-left: 5px;
+      line-height: 1;
+      color: colors.$PUPLE;
+      background-color: colors.$WHITE;
+      box-shadow: 0 0 5px 0 rgb(0 0 0 / 5%);
+      transition: 0.2s ease-out;
+
+      &:hover {
+        color: colors.$WHITE;
+        background-color: colors.$PUPLE;
       }
     }
   }

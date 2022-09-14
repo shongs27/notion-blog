@@ -15,13 +15,13 @@ src
 │     ├─ layout  # layout구성을 위한 컴포넌트가 있는 폴더
 │     ├─ MainDoor # Home화면 접속시 환영하며 블로그를 소개하는 컴포넌트
 │     ├─ Loading # 검색 시 로딩바를 위한 컴포넌트
-│     ├─ MappedNotion # mapImageUrl이 override된 notionRenderer
-│     ├─ PageNation # PostList에 페이지네이션을 위한 컴포넌트
-│     ├─ TableofContents # 포스트 내용 페이지의 목록을 보여주는 컴포넌트
-│     ├─ PostDetail # 포스트 내용 페이지를 보여주는 상세 컴포넌트
-│     ├─ Posts # PostList에 포스트들
-│     ├─ PostList # 포스트들을 Grid 형태로 보여주는 리스트 화면
+│     ├─ Posts # 포스트들을 Grid 형태로 보여주는 컴포넌트
 │     ├─ Tags # PostList에 태그들
+│     ├─ PageNationContainer # Post에 페이지네이션을 위한 컴포넌트
+│     ├─ PageNation # 페이지네이션 컴포넌트
+│     ├─ PostDetail # 포스트 내용 페이지를 보여주는 상세 컴포넌트
+│     ├─ MappedNotion # mapImageUrl이 override된 notionRenderer
+│     ├─ TableofContents # 포스트 내용 페이지의 목록을 보여주는 컴포넌트
 │     └─ PostNav # 포스트 상세화면에서 다른 포스트로 넘어가는 링크
 │
 ├─ pages # 라우팅 별로 이동가능한 페이지

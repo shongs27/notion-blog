@@ -1,105 +1,35 @@
-import { useCallback } from 'react';
+import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '@/hooks/redux';
-import { setCurrentPage } from '@/stores/slice';
-import { useRouter } from 'next/router';
-import Image from 'next/image';
+import { changeCurrentPage } from '@/stores/slice';
 
 import styles from './posts.module.scss';
-import { Ipost } from '@/types/index';
+import { InitialPage } from '../types';
 
-import PageNation from './PageNation';
+import Tags from './Tags';
+import PageNationContainer from './PageNationContainer';
 
-interface IPosts {
-  posts: Ipost[];
-}
-
-export default function Posts({ posts }: IPosts) {
-  const currentPage = useAppSelector((state) => state.currentPage);
+export default function Posts({ posts = [], tags = [] }: InitialPage) {
+  const selectedTag = useAppSelector((state) => state.selectedTag);
   const dispatch = useAppDispatch();
 
-  const router = useRouter();
+  if (selectedTag !== '전체') {
+    posts = posts.filter((post) => post.tags.some((tag) => tag.name === selectedTag));
+  }
 
-  //pagenation => class로 바꿔보기
-  const PER_PAGE_COUNT = 6;
-  const offset = (currentPage - 1) * PER_PAGE_COUNT;
-  const totalPage = Math.ceil(posts.length / PER_PAGE_COUNT);
-
-  const handleClick = (postId: string, link: string) => {
-    if (router.pathname === '/works') {
-      return window.open(`${link}`, '_blank');
-    }
-
-    return router.push({
-      pathname: `/posts/[id]`,
-      query: { id: postId },
-    });
-  };
-
-  const handlePage = useCallback(
-    (move: string | undefined) => {
-      if (move === 'prev') {
-        return dispatch(setCurrentPage(currentPage - 1));
-      }
-
-      if (move === 'next') {
-        return dispatch(setCurrentPage(currentPage + 1));
-      }
-
-      return dispatch(setCurrentPage(Number(move)));
-    },
-    [dispatch, currentPage],
-  );
+  useEffect(() => {
+    dispatch(changeCurrentPage(1));
+  }, [dispatch]);
 
   return (
-    <>
-      <ul className={styles.postList}>
-        {posts.length ? (
-          posts
-            .slice(offset, offset + PER_PAGE_COUNT)
-            .map(({ postId, title, tags, description, thumbnail, createdTime, link }) => (
-              <li key={postId}>
-                <button type="button" onClick={() => handleClick(postId, link)}>
-                  <div className={styles.imageWrapper}>
-                    <Image
-                      src={thumbnail || '/bear.jpg'}
-                      alt="썸네일"
-                      width={260}
-                      height={130}
-                      placeholder="blur"
-                      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mOcO2tmGgAF5AI47uVMUgAAAABJRU5ErkJggg=="
-                    />
-                  </div>
-
-                  <h2>{title}</h2>
-
-                  <div className={styles.postMeta}>
-                    <div className={styles.metaTags}>
-                      {tags.map(({ name, color }) => (
-                        <span key={name} style={{ backgroundColor: color }}>
-                          {name}
-                        </span>
-                      ))}
-                    </div>
-                    <div className={styles.metaETC}>
-                      <span>{createdTime}</span>
-                      <span> 홍원배 </span>
-                    </div>
-                  </div>
-
-                  <p className={styles.postContents}>
-                    {description?.length > 80 ? `${description.slice(0, 80)}...` : description}
-                  </p>
-                </button>
-              </li>
-            ))
-        ) : (
-          <p>해당 포스팅이 없습니다</p>
-        )}
-      </ul>
-
-      <div className={styles.pageNationContainer}>
-        <PageNation currentPage={currentPage} totalPage={totalPage} handlePage={handlePage} />
+    <div className={styles.container}>
+      <div className={styles.list}>
+        <h1>
+          <span className={styles.title}>{selectedTag}</span>
+          <span className={styles.titleCount}>{posts?.length}</span>
+        </h1>
+        <Tags tags={tags} />
+        <PageNationContainer posts={posts} />
       </div>
-    </>
+    </div>
   );
 }
