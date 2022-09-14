@@ -21,10 +21,15 @@ interface IpagePosts {
   contents: string;
 }
 
+interface IPage {
+  currentPage: number;
+  PER_PAGE_COUNT: number;
+  offSet: number;
+}
+
 interface IinitialState {
   isMainDoor: boolean;
   selectedTag: string;
-  currentPage: number;
   contactForm: IcontactForm;
   search: string;
   post: string;
@@ -33,6 +38,7 @@ interface IinitialState {
   pageTags: IpageTags[];
   pagePosts: IpagePosts[];
   posts: [];
+  page: IPage;
 }
 
 const initialState = {
@@ -44,7 +50,11 @@ const initialState = {
     message: '',
   },
   search: '',
-  currentPage: 1,
+  page: {
+    PER_PAGE_COUNT: 6,
+    currentPage: 1,
+    offSet: 0,
+  },
 } as IinitialState;
 
 const reducers = {
@@ -73,9 +83,16 @@ const reducers = {
     isMainDoor,
   }),
 
-  setCurrentPage: (state: IinitialState, { payload: currentPage }: PayloadAction<number>) => ({
+  setCurrentPage: (
+    state: IinitialState,
+    { payload: { currentPage, offSet } }: PayloadAction<{ currentPage: number; offSet: number }>,
+  ) => ({
     ...state,
-    currentPage,
+    page: {
+      ...state.page,
+      currentPage,
+      offSet,
+    },
   }),
 
   initialContactForm: (state: IinitialState) => ({
@@ -113,5 +130,18 @@ export function sendContact(): ThunkAction<void, RootState, unknown, AnyAction> 
 
     dispatch(initialContactForm());
     alert('성공적으로 전송되었습니다');
+  };
+}
+
+export function changeCurrentPage(pageNumber: number): ThunkAction<void, RootState, unknown, AnyAction> {
+  return async (dispatch, getState) => {
+    const {
+      page: { PER_PAGE_COUNT },
+    } = getState();
+
+    const offSet = (pageNumber - 1) * PER_PAGE_COUNT;
+    const currentPage = pageNumber;
+
+    dispatch(setCurrentPage({ currentPage, offSet }));
   };
 }

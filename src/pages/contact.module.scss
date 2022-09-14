@@ -58,6 +58,10 @@
       border: none;
       border-radius: 5px;
       outline: none;
+
+      &::placeholder {
+        font-size: 1.2rem;
+      }
     }
   }
 

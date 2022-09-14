@@ -48,7 +48,7 @@ export default function Contact() {
         </div>
 
         <div className={styles.formText}>
-          <label htmlFor="message">텍스트</label>
+          <label htmlFor="message">메시지</label>
           <textarea
             id="message"
             name="message"
