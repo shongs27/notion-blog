@@ -48,7 +48,7 @@ export default function PageNationContainer({ posts }: IPosts) {
 
   return (
     <>
-      <ul className={styles.postList}>
+      <ul className={styles.container}>
         {posts.length ? (
           posts
             .slice(offSet, offSet + PER_PAGE_COUNT)

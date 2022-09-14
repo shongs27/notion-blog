@@ -5,8 +5,8 @@ import { changeCurrentPage } from '@/stores/slice';
 import styles from './posts.module.scss';
 import { InitialPage } from '../types';
 
-import PageNationContainer from './PageNationContainer';
 import Tags from './Tags';
+import PageNationContainer from './PageNationContainer';
 
 export default function Posts({ posts = [], tags = [] }: InitialPage) {
   const selectedTag = useAppSelector((state) => state.selectedTag);
@@ -22,7 +22,7 @@ export default function Posts({ posts = [], tags = [] }: InitialPage) {
 
   return (
     <div className={styles.container}>
-      <div className={styles.postList}>
+      <div className={styles.list}>
         <h1>
           <span className={styles.title}>{selectedTag}</span>
           <span className={styles.titleCount}>{posts?.length}</span>
