@@ -21,7 +21,7 @@
 
     ul,
     li {
-      list-style: initial;
+      list-style: unset;
     }
 
     ol:not(& > ol) {
